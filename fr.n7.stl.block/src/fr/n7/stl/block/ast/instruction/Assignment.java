@@ -10,12 +10,14 @@ import fr.n7.stl.block.ast.instruction.declaration.ConstantDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
+import javax.lang.model.type.ErrorType;
 import java.net.http.HttpHeaders;
 
 /**
@@ -90,7 +92,15 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in Assignment.");
+		Type texpr = this.assignable.getType();
+		Type tvalue = this.value.getType();
+
+		if (!(texpr.compatibleWith(tvalue))){
+			Logger.warning("Assignment : types non compatibles");
+			return AtomicType.ErrorType;
+		} else {
+			return texpr;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -98,7 +108,15 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Assignment.");
+		Type texpr = this.assignable.getType();
+		Type tvalue = this.value.getType();
+
+		if (!(texpr.compatibleWith(tvalue))){
+			Logger.warning("Assignment : types non compatibles");
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	/* (non-Javadoc)

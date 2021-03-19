@@ -38,14 +38,15 @@
 
 ## Instructions à faire
 ### resolve
+- [x] Assignment -> pourquoi Logger.error ?
 - [x] Printer
 - [x] Repetition
 - [x] Return
-- [ ] declaration/FunctionDeclaration
+- [ ] declaration/FunctionDeclaration -> a reflechir
 - [x] declaration/TypeDeclaration
 
 ### collect
-- [ ] Assignement
+- [ ] Assignment
 - [x] Printer
 - [x] Repetition
 - [x] Return
@@ -54,15 +55,15 @@
 - [ ] declaration/FunctionDeclaration
 
 ### getType
-- [ ] Assignement
+- [x] Assignment -> pas sûr pour ErrorType
 
 ### checkType
-- [ ] Assignement
-- [ ] Conditional
-- [ ] Iteration
+- [x] Assignment
+- [x] Conditional -> ajouter BooleanType ?
+- [x] Iteration -> ajouter BooleanType ?
 - [x] Printer
-- [ ] Repetition
-- [ ] Return
+- [x] Repetition -> ajouter BooleanType ?
+- [x] Return
 
 - [x] declaration/ConstantDeclaration
 - [ ] declaration/FunctionDeclaration

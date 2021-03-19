@@ -64,6 +64,15 @@ public class Repetition implements Instruction {
 	@Override
 	public boolean checkType() {
 		throw new SemanticsUndefinedException("Semantics checkType undefined in Repetition.");
+		/*
+		Type tcond = this.condition.getType();
+		if (tcond.compatibleWith(BooleanType)){
+			return this.body.checkType();
+		} else {
+			Logger.warning("Repetition : type cond pas booleen");
+			return false;
+		}
+		 */
 	}
 
 
