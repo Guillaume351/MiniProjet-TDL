@@ -16,4 +16,6 @@ test {
 
     int * monPointeur = &i;
 
+    int * monTableau = new int[3];
+
 }
