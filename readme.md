@@ -11,8 +11,8 @@
 - [x] FunctionCall.java
 - [x] AbstractPointer.java
 - [ ] AbstractField.java
-- [ ] allocation/ArrayAllocation.java
-- [ ] allocation/PointerAllocation.java
+- [x] allocation/ArrayAllocation.java
+- [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
 
 ### collect
@@ -21,8 +21,8 @@
 - [x] ConditionalExpression
 - [x] AbstractPointer.java
 - [x] AbstractField.java
-- [ ] allocation/ArrayAllocation.java
-- [ ] allocation/PointerAllocation.java
+- [x] allocation/ArrayAllocation.java
+- [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
 
 ### getType
@@ -32,8 +32,8 @@
 - [x] ConditionalExpression.java
 - [x] AbstractPointer.java
 - [ ] AbstractField.java
-- [ ] allocation/ArrayAllocation.java
-- [ ] allocation/PointerAllocation.java
+- [x] allocation/ArrayAllocation.java
+- [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
 
 ## Instructions à faire

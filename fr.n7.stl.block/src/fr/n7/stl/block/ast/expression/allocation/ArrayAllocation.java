@@ -7,9 +7,12 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.ArrayType;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * @author Marc Pantel
@@ -38,7 +41,7 @@ public class ArrayAllocation implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in ArrayAllocation.");
+		return this.size.collect(_scope);
 	}
 	
 	/* (non-Javadoc)
@@ -46,7 +49,10 @@ public class ArrayAllocation implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in ArrayAllocation.");
+		boolean ok = this.size.resolve(_scope);
+
+		ok = ok && this.element.resolve(_scope);
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +60,15 @@ public class ArrayAllocation implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in ArrayAllocation.");
+		// Verification du type de la taille
+		if(this.size.getType().compatibleWith(AtomicType.IntegerType)){
+			return new ArrayType(this.element);
+		}else{
+			Logger.warning("ArrayAllocation : La taille doit être un entier! " +
+					"Il est fourni une taille de type : " + this.size.getType());
+		}
+
+		return AtomicType.ErrorType;
 	}
 
 	/* (non-Javadoc)
