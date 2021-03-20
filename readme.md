@@ -3,7 +3,8 @@
 - Faire les collect
 - Faire les checkType
 
-
+/!\ Il se peut que des getType que l'on a fait au debut ne soit pas assez complet.
+En effet, certaines erreurs de types incompatibles ont peut être été oubliées
 
 ## Expressions à faire
 ### resolve
