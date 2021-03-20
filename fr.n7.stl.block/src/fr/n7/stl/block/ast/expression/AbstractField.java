@@ -41,7 +41,7 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "collect is undefined in AbstractField.");
+		return this.record.collect(_scope);
 	}
 
 	/* (non-Javadoc)

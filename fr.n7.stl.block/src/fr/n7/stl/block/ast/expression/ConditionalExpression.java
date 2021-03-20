@@ -6,9 +6,11 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a conditional expression.
@@ -50,7 +52,11 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in ConditionalExpression.");
+		boolean b1 = this.condition.collect(_scope);
+		boolean b2 = this.thenExpression.collect(_scope);
+		boolean b3 = this.elseExpression.collect(_scope);
+
+		return b1 && b2 && b3;
 	}
 
 	/* (non-Javadoc)
@@ -78,7 +84,21 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "Semantics getType is undefined in ConditionalExpression.");
+
+		if (this.condition.getType().compatibleWith(AtomicType.BooleanType)){
+			if(this.thenExpression.getType().compatibleWith(this.elseExpression.getType())){
+				// Si les types then et else sont comptatibles, c'est OK, on merge, sinon, erreur
+				return this.thenExpression.getType().merge(this.elseExpression.getType());
+			} else {
+				Logger.warning("ConditionalExpression : Les types de then et else sont incompatibles!");
+			}
+
+		}else{
+			// Erreur, la condition aurait du être boolean. Pas de checktype ?
+			Logger.warning("ConditionalExpression : La condition aurait du être Boolean ! Mais elle est de type :" + this.condition.getType());
+
+		}
+		return AtomicType.ErrorType;
 	}
 
 	/* (non-Javadoc)
