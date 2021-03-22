@@ -1,21 +1,22 @@
-test {
-    int i=1;
-    i = 3;
 
-    if(i < 2) {
 
+pgcd {
+    <int,int> c = {47,53};
+    const int test = 0;
+    int a = fst c;
+    int b = snd c;
+    while (a * b != test) {
+        if ( a > b ) {
+            int na = a-b;
+            a = na;
+        } else {
+            int nb = b-a;
+            b = nb;
+        }
     }
-
-    while(i < 4){
-     i = 4;
+    int res = a;
+    if (res == test) {
+        res = b;
     }
-
-    <int, int> valeur = <5, 3>;
-
-    i = fst valeur;
-
-    int * monPointeur = &i;
-
-    int * monTableau = new int[3];
-
+    print res ;
 }

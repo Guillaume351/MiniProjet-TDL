@@ -3,6 +3,8 @@
 - Faire les collect
 - Faire les checkType
 
+- Traiter les TODOs en commentaire
+
 /!\ Il se peut que des getType que l'on a fait au debut ne soit pas assez complet.
 En effet, certaines erreurs de types incompatibles ont peut être été oubliées
 
@@ -11,7 +13,7 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - [x] Second.java
 - [x] FunctionCall.java
 - [x] AbstractPointer.java
-- [ ] AbstractField.java
+- [x] AbstractField.java
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
@@ -32,7 +34,7 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - [x] FunctionCall.java
 - [x] ConditionalExpression.java
 - [x] AbstractPointer.java
-- [ ] AbstractField.java
+- [x] AbstractField.java
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java

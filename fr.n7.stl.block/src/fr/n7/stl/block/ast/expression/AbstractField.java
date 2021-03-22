@@ -1,10 +1,11 @@
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.RecordType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -49,7 +50,21 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "resolve is undefined in AbstractField.");
+		boolean ok = this.record.resolve(_scope);
+
+		if (this.record.getType() instanceof RecordType) {
+			// TODO: verifier si il faut faire trim sur name
+			if (((RecordType) this.record).contains(this.name)) {
+				this.field = ((RecordType) this.record).get(this.name);
+			} else {
+				Logger.error("AbstractField : Le record ne contient pas le field de nom : " + this.name);
+			}
+		} else {
+			Logger.error("AbstractField : Erreur de type sur le record.");
+			ok = false;
+		}
+
+		return ok;
 	}
 
 	/**
@@ -57,7 +72,7 @@ public abstract class AbstractField implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in FieldAccess.");
+		return this.field.getType(); //TODO : verifier que "record" n'est pas implique dans le getType.
 	}
 
 }
