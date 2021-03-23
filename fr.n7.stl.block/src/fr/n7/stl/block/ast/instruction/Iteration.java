@@ -8,6 +8,8 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -63,16 +65,15 @@ public class Iteration implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Iteration.");
-		/*
 		Type tcond = this.condition.getType();
-		if (tcond.compatibleWith(BooleanType)){
+
+		if (tcond.compatibleWith(AtomicType.BooleanType)){
 			return this.body.checkType();
 		} else {
 			Logger.warning("Repetition : type cond pas booleen");
 			return false;
 		}
-		 */
+
 	}
 
 	/* (non-Javadoc)

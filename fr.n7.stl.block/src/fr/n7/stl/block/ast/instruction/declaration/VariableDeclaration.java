@@ -110,7 +110,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 			return true;
 
 		}else{
-			Logger.warning("Tentative de double ajout d'une var. pas OK");
+			Logger.error("Tentative de double ajout d'une var. pas OK");
 			return false;
 		}
 	}

@@ -87,7 +87,6 @@ public class ConstantDeclaration implements Instruction, Declaration {
 		if(_scope.accepts(this)){
 			_scope.register(this);
 			return true;
-
 		}else{
 			Logger.error("ConstantDeclaration.java : Tentative de double ajout / reaffectation d'une const");
 			return false;

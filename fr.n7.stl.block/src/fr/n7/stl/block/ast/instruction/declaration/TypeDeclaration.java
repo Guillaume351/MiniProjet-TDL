@@ -50,7 +50,13 @@ public class TypeDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in TypeDeclaration.");
+		if(_scope.accepts(this)){
+			_scope.register(this);
+			return true;
+		}else{
+			Logger.error("TypeDeclaration.java : Tentative de double ajout");
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -63,7 +69,7 @@ public class TypeDeclaration implements Declaration, Instruction {
 		boolean b2 = !(_scope.contains(this.getName()));
 
 		if (!b2){
-			Logger.warning("TypeDeclaration : le scope contient déjà ce nom");
+			Logger.error("TypeDeclaration : le scope contient déjà ce nom");
 		} else {
 			_scope.register(this);
 		}

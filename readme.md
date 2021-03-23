@@ -56,11 +56,11 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - [x] declaration/TypeDeclaration
 
 ### collect
-- [ ] Assignment
+- [x] Assignment
 - [x] Printer
 - [x] Repetition
 - [x] Return
-- [ ] declaration/TypeDeclaration
+- [x] declaration/TypeDeclaration
 
 - [ ] declaration/FunctionDeclaration
 
@@ -69,10 +69,10 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 
 ### checkType
 - [x] Assignment
-- [ ] Conditional -> ajouter BooleanType ?
-- [x] Iteration -> ajouter BooleanType ?
+- [x] Conditional
+- [x] Iteration
 - [x] Printer
-- [x] Repetition -> ajouter BooleanType ?
+- [x] Repetition
 - [x] Return
 
 - [x] declaration/ConstantDeclaration
