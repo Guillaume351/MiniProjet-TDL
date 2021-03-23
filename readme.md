@@ -17,6 +17,8 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
+- [x] AbstractArray.java
+- [ ] AbstractConversion
 
 ### collect
 - [x] Second.java 
@@ -27,6 +29,8 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
+- [x] AbstractArray.java
+- [ ] AbstractConversion.java
 
 ### getType
 - [x] First.java
@@ -38,6 +42,9 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
+- [x] AbstractArray.java
+- [ ] AbstractConversion.java
+- [x] assignable/VariableAssignment.java
 
 ## Instructions à faire
 ### resolve

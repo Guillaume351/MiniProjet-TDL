@@ -139,7 +139,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 		Type treal = this.value.getType();
 
 		if (!treal.compatibleWith(this.type)){
-			Logger.warning("ConstantDeclaration : types incompatibles");
+			Logger.error("ConstantDeclaration : types incompatibles");
 			return false;
 		} else {
 			return true;

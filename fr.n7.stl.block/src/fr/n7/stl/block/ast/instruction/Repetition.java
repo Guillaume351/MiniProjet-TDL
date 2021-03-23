@@ -9,9 +9,12 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.Scope;
+import fr.n7.stl.block.ast.type.AtomicType;
+import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a repetition instruction.
@@ -63,16 +66,15 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException("Semantics checkType undefined in Repetition.");
-		/*
 		Type tcond = this.condition.getType();
-		if (tcond.compatibleWith(BooleanType)){
+
+		if (tcond.compatibleWith(AtomicType.BooleanType)){
 			return this.body.checkType();
 		} else {
 			Logger.warning("Repetition : type cond pas booleen");
 			return false;
 		}
-		 */
+
 	}
 
 

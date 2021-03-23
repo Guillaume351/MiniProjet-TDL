@@ -55,9 +55,9 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		//throw new SemanticsUndefinedException( "Semantics collect is undefined in Assignment.");
-
-		return true;//TODO
+		boolean ok = this.value.collect(_scope);
+		ok = ok && this.assignable.collect(_scope);
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -65,26 +65,22 @@ public class Assignment implements Instruction, Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		Declaration info = _scope.get(this.assignable.toString().trim());
+		Declaration info = _scope.get(this.assignable.toString().trim()); //TODO : verifier si y'a pas une fonction pour recup le nom
 		boolean ok1 = (info != null);
 		boolean ok2 = this.value.resolve(_scope);
-
+		boolean ok3 = this.assignable.resolve(_scope);
 		if(!ok1){
+			//TODO : cette verification est maintenant redondante a cause du ok3. Retirer
 			Logger.error("Assignment impossible : l'assignable n'est pas dans le scope");
 		}else{
 			if(info instanceof ConstantDeclaration){
 				ok1 = false;
 				Logger.error("Assignment impossible : l'assignable est constant");
 			}
+
 		}
 
-
-	//	boolean ok2 = this.value.resolve(_scope);
-	//	boolean ok3 = this.assignable.resolve(_scope);
-		//boolean ok4 = this.value.getType() == assignable.getType(); //necessaire ?
-
-
-		return ok1 && ok2;
+		return ok1 && ok2 && ok3;
 	}
 
 	/* (non-Javadoc)

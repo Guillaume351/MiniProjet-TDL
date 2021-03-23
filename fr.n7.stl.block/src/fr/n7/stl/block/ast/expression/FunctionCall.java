@@ -41,8 +41,9 @@ public class FunctionCall implements Expression {
 
 	/**
 	 * Il faut creer une symbol table locale
+	 * TODO: Non en fait ?
 	 */
-	SymbolTable localTable = new SymbolTable();
+	//SymbolTable localTable = new SymbolTable();
 	
 	/**
 	 * @param _name : Name of the called function.
@@ -75,7 +76,7 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		boolean ok = this.function.collect(localTable);
+		boolean ok = this.function.collect(_scope);
 		for(Expression argument : this.arguments) {
 			ok = ok && argument.collect(_scope);
 		}
@@ -89,7 +90,7 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		boolean ok = this.function.resolve(localTable);
+		boolean ok = this.function.resolve(_scope);
 		for(Expression argument : this.arguments) {
 			ok = ok && argument.resolve(_scope);
 		}

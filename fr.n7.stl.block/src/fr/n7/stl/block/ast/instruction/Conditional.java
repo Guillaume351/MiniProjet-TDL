@@ -76,10 +76,10 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in Conditional.");
-		/*
+
 		Type tcond = this.condition.getType();
-		if (tcond.compatibleWith(BooleanType)){
+
+		if (tcond.compatibleWith(AtomicType.BooleanType)){
 			if (this.elseBranch != null) {
 				return this.thenBranch.checkType() && this.elseBranch.checkType();
 			} else {

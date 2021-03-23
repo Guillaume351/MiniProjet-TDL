@@ -1,9 +1,13 @@
 package fr.n7.stl.block.ast.expression;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
+import fr.n7.stl.block.ast.expression.assignable.ArrayAssignment;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.ArrayType;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -62,7 +66,14 @@ public abstract class AbstractArray implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in AbstractArray.");
+		// Check Types
+		if (this.index.getType().compatibleWith(AtomicType.IntegerType)){ // TODO: retirer si ce n'est pas necessaire
+			// Return Type
+			return ((ArrayType) this.array.getType()).getType();
+		}else{
+			Logger.error("AbstractArray : L'index n'est pas un entier !");
+		}
+		return AtomicType.ErrorType;
 	}
 
 }

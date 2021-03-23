@@ -89,7 +89,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 			return true;
 
 		}else{
-			Logger.warning("ConstantDeclaration : Tentative de double ajout d'une const");
+			Logger.error("ConstantDeclaration.java : Tentative de double ajout / reaffectation d'une const");
 			return false;
 		}
 	}
