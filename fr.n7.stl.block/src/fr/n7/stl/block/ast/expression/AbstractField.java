@@ -3,6 +3,7 @@ package fr.n7.stl.block.ast.expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.RecordType;
+import fr.n7.stl.block.ast.type.SequenceType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.util.Logger;
@@ -52,6 +53,7 @@ public abstract class AbstractField implements Expression {
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		boolean ok = this.record.resolve(_scope);
 
+		//TODO : on est pas censé faire ça
 		if (this.record.getType() instanceof RecordType) {
 			// TODO: verifier si il faut faire trim sur name
 			if (((RecordType) this.record).contains(this.name)) {
@@ -60,7 +62,7 @@ public abstract class AbstractField implements Expression {
 				Logger.error("AbstractField : Le record ne contient pas le field de nom : " + this.name);
 			}
 		} else {
-			Logger.error("AbstractField : Erreur de type sur le record.");
+			Logger.error("AbstractField : Erreur de type sur le record. C'est de type " + this.record.getType());
 			ok = false;
 		}
 

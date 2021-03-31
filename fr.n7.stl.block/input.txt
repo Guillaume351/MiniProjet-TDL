@@ -15,6 +15,8 @@ pgcd {
     } coords;
     coords origin = {0, 0, 0};
 
+    int maVariable = origin.x + origin+y;
+
     while (a * b != test) {
         if ( a > b ) {
             int na = a-b;

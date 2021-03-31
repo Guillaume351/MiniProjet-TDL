@@ -12,6 +12,8 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 
 /!\ Pourquoi quand on affecte une variable pas encore déclarée bah ça plante pas
 genre ça : int b = c; int c = 3;
+
+/!\ Quand on essaye d'acceder aux fields d'un recordType, on a une erreur. genre point.x + point+y
 ## Génération de code
 ### getCode
 
