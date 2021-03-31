@@ -1,9 +1,19 @@
 pgcd {
-    <int,int> c = {47,53};
+    <int,int> c = <47,53>;
     <boolean, boolean> glp = <false, true>;
     const int test = 0;
+
+    int kaka = a;
+
     int a = true ? fst c: snd c;
     int b = snd c;
+
+    typedef struct coords {
+        int x;
+        int y;
+        int z;
+    } coords;
+    coords origin = {0, 0, 0};
 
     while (a * b != test) {
         if ( a > b ) {

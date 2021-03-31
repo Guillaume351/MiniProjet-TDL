@@ -66,12 +66,10 @@ public class TypeDeclaration implements Declaration, Instruction {
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		boolean b1 = this.getType().resolve(_scope);
 
-		boolean b2 = !(_scope.contains(this.getName()));
+		boolean b2 = _scope.contains(this.getName());
 
 		if (!b2){
-			Logger.error("TypeDeclaration : le scope contient déjà ce nom");
-		} else {
-			_scope.register(this);
+			Logger.error("TypeDeclaration : le scope ne contient pas ce type : " + this.getName());
 		}
 
 		return b1 && b2;

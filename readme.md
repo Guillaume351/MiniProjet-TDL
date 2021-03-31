@@ -129,3 +129,5 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 - Dans FunctionCall.java, est-ce qu'il faut créer une nouvelle symbol table ?
 - Si oui, est-ce qu'on doit cloner la symbol table globale ?
 - Pour les expressions, est-ce qu'il faut checktype dans le getType ? (cf la ConditionalExpression)
+
+- Dans le TypeDeclaration, c'est du pipeau ?
