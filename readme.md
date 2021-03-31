@@ -10,6 +10,8 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 
 /!\ allocateMemory
 
+/!\ Pourquoi quand on affecte une variable pas encore déclarée bah ça plante pas
+genre ça : int b = c; int c = 3;
 ## Génération de code
 ### getCode
 

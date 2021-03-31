@@ -5,11 +5,12 @@
 
 package fr.n7.stl.block;
 
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.impl.TAMFactoryImpl;
 import java_cup.runtime.*;
 import fr.n7.stl.block.Lexer;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.*;
 import fr.n7.stl.block.ast.*;
 import fr.n7.stl.block.ast.expression.*;
@@ -23,6 +24,7 @@ import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
 import fr.n7.stl.util.*;
+import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.XMLElement;
 
@@ -754,12 +756,24 @@ class CUP$Parser$actions {
 					if (bloc.resolve(tds)) {
 						System.out.println("Resolve succeeded.");
 
-						if(bloc.checkType()){
-                          System.out.println("CheckType succeeded.");
-                        }else{
-                          System.out.println("CheckType failed.");
-                        }
 
+					    if (bloc.checkType()) {
+                            System.out.println("CheckType succeeded.");
+                            bloc.allocateMemory( Register.SB, 0);
+                            Fragment code = bloc.getCode(new TAMFactoryImpl());
+                            System.out.println( "Generated code:" );
+                            System.out.println( code );
+                            File file = new File(parser + "_tam");
+                            PrintStream printer = null;
+                            try {
+                                printer = new PrintStream( new FileOutputStream(file) );
+                                printer.println( code );
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            System.out.println("CheckType failed.");
+                        }
 
 					} else {
 						System.out.println("Resolve failed." + tds);
