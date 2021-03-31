@@ -78,7 +78,7 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		return (_other).compatibleWith(this.getType());
 	}
 
 	/* (non-Javadoc)
