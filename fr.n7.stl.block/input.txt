@@ -1,7 +1,8 @@
 pgcd {
     <int,int> c = {47,53};
+    <boolean, boolean> glp = <false, true>;
     const int test = 0;
-    int a = fst c;
+    int a = true ? fst c: snd c;
     int b = snd c;
 
     while (a * b != test) {
@@ -13,6 +14,7 @@ pgcd {
             b = nb;
         }
     }
+
     int res = a;
     if (res == test) {
         res = b;

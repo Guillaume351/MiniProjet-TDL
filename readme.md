@@ -8,6 +8,49 @@
 /!\ Il se peut que des getType que l'on a fait au debut ne soit pas assez complet.
 En effet, certaines erreurs de types incompatibles ont peut être été oubliées
 
+/!\ allocateMemory
+
+## Génération de code
+### getCode
+
+### autre
+- [ ] Block
+
+### expression
+- [ ] accessible/AddressAccess.java
+- [ ] accessible/ArrayAccess.java
+- [ ] accessible/ConstantAccess.java
+- [ ] accessible/FieldAccess.java
+- [ ] accessible/IdentifierAccess.java
+- [ ] accessible/ParameterAccess.java
+- [ ] accessible/PointerAccess.java
+- [ ] accessible/VariableAccess.java
+  
+- [ ] allocation/ArrayAllocation.java
+- [ ] allocation/PointerAllocation.java
+
+- [ ] ConditionalExpression.java
+- [ ] Couple.java
+- [ ] First.java
+- [ ] FunctionCall.java
+- [ ] Second.java
+- [ ] Sequence.java
+
+
+### instructions
+- [ ] Assignment
+- [ ] Conditional
+- [ ] Iteration
+- [ ] Printer
+- [ ] Repetition
+- [ ] Return
+
+- [ ] declaration/ConstantDeclaration
+- [ ] declaration/FunctionDeclaration
+- [ ] declaration/VariableDeclaration
+
+
+
 ## Expressions à faire
 ### resolve
 - [x] Second.java

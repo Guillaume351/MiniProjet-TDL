@@ -60,7 +60,6 @@ public class AddressAccess implements AccessibleExpression {
 
 		}
 
-
 		return ok;
 	}
 	
