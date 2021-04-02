@@ -143,18 +143,22 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		//TODO : verifier
-		int offset = 0;
+		//TODO : à vérifier
+		int offset_total_parametres = 0;
+
 		for (ParameterDeclaration par : this.getParameters()) {
-			offset += par.getType().length();
+			offset_total_parametres += par.getType().length();
 		}
 
-		body.allocateMemory(Register.LB, offset + 1);
+		int offset_param_courant = 0;
 
 		for (ParameterDeclaration par : parameters) {
-			par.offset = (offset);
-			offset -= par.getType().length();
+			par.offset = offset_param_courant - offset_total_parametres;
+			offset_param_courant += par.getType().length();
 		}
+
+		// 3 est une constante qui separe les param du body.
+		body.allocateMemory(Register.LB, 3);
 
 		return 0;
 
