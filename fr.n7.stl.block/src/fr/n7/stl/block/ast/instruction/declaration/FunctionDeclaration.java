@@ -51,6 +51,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	protected Block body;
 
 	/**
+	 * The symbol table local to the function
+	 */
+	protected SymbolTable localSymbolTable;
+
+	/**
 	 * Builds an AST node for a function declaration
 	 * @param _name : Name of the function
 	 * @param _type : AST node for the returned type of the function
@@ -125,6 +130,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
+		// TODO : vérifier que le return est du même type que le champs type
+		// TODO: problème : comment accéder aux instructions de type return ? Est-ce ce qu'il faut faire ?
+		//for (Instruction i : this.) {
+	//
+	//	}
 		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
 	}
 
