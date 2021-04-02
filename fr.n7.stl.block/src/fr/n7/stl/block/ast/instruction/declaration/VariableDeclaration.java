@@ -137,13 +137,14 @@ public class VariableDeclaration implements Declaration, Instruction {
 	@Override
 	public boolean checkType() {
 		Type treal = this.value.getType();
+
 		// Le type virtuel doit être compatible avec le type réel
 		if (!this.getType().compatibleWith(treal)){
 			Logger.error("VariableDeclaration : types incompatibles ; " + this.type.toString());
 			return false;
-		} else {
-			return true;
 		}
+
+		return true;
 	}
 
 	/* (non-Javadoc)

@@ -11,6 +11,7 @@ import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -100,7 +101,13 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics collect is undefined in FunctionDeclaration.");
+		localSymbolTable = new SymbolTable(_scope);
+		for(ParameterDeclaration d : this.getParameters()){
+
+		}
+		//localSymbolTable.
+		return this.body.collect(localSymbolTable);
+
 	}
 	
 	/* (non-Javadoc)
@@ -108,7 +115,9 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException( "Semantics resolve is undefined in FunctionDeclaration.");
+
+		//TODO: vérifier que le type doit bien être resolve dans le scope global
+		return this.body.resolve(localSymbolTable) && this.type.resolve(localSymbolTable);
 	}
 
 	/* (non-Javadoc)

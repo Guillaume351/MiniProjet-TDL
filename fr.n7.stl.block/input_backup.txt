@@ -1,0 +1,36 @@
+pgcd {
+
+     <int,int> c = <47,53>;
+     <boolean, boolean> glp = <false, true>;
+     const int test = 0;
+
+     int kaka = a;
+
+     int a = true ? fst c: snd c;
+     int b = snd c;
+
+     typedef struct coords {
+         int x;
+         int y;
+         int z;
+     } coords;
+     coords origin = {0, 0, 0};
+
+     int maVariable = origin.x + origin.y;
+
+     while (a * b != test) {
+         if ( a > b ) {
+             int na = a-b;
+             a = na;
+         } else {
+             int nb = b-a;
+             b = nb;
+         }
+     }
+
+     int res = a;
+     if (res == test) {
+         res = b;
+     }
+     print res ;
+ }

@@ -2,6 +2,7 @@ package fr.n7.stl.block.ast.expression;
 
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.RecordType;
 import fr.n7.stl.block.ast.type.SequenceType;
 import fr.n7.stl.block.ast.type.Type;
@@ -51,22 +52,29 @@ public abstract class AbstractField implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		boolean ok = this.record.resolve(_scope);
-
-		//TODO : on est pas censé faire ça
-		if (this.record.getType() instanceof RecordType) {
-			// TODO: verifier si il faut faire trim sur name
-			if (((RecordType) this.record).contains(this.name)) {
-				this.field = ((RecordType) this.record).get(this.name);
-			} else {
-				Logger.error("AbstractField : Le record ne contient pas le field de nom : " + this.name);
-			}
-		} else {
-			Logger.error("AbstractField : Erreur de type sur le record. C'est de type " + this.record.getType());
-			ok = false;
+		if (!this.record.resolve(_scope)){
+			return false;
 		}
 
-		return ok;
+		Type type = this.record.getType();
+
+		// On descend le type
+		if(type instanceof NamedType){
+			type = ((NamedType) type).getType();
+		}
+
+		if (!(type instanceof RecordType)) {
+			Logger.error("AbstractField : Erreur de type sur le record. C'est de type " + this.record.getType());
+			return false;
+		}
+
+		if (((RecordType) type).contains(this.name)) {
+			this.field = ((RecordType) type).get(this.name);
+		} else {
+			Logger.error("AbstractField : Le record ne contient pas le field de nom : " + this.name);
+		}
+
+		return true;
 	}
 
 	/**
