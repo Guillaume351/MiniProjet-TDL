@@ -143,7 +143,20 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in FunctionDeclaration.");
+		int offset = _offset; // Par deduction d'après le théorème de l'utilisation des paramètres, 0 est en fait of
+		for (ParameterDeclaration par : this.getParameters()) {
+			offset += par.getType().length();
+		}
+
+		body.allocateMemory(Register.LB, offset+1);
+
+		for(ParameterDeclaration par : parameters){
+			par.offset = (offset);
+			offset -= par.getType().length();
+		}
+
+		return _offset;
+
 	}
 
 	/* (non-Javadoc)
