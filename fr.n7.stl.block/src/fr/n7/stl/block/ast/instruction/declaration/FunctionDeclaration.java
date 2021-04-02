@@ -3,9 +3,6 @@
  */
 package fr.n7.stl.block.ast.instruction.declaration;
 
-import java.util.Iterator;
-import java.util.List;
-
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.Instruction;
@@ -16,6 +13,9 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Abstract Syntax Tree node for a function declaration.
@@ -144,19 +144,19 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		//TODO : verifier
-		int offset = _offset; // Par deduction d'après le théorème de l'utilisation des paramètres, 0 est en fait of
+		int offset = 0;
 		for (ParameterDeclaration par : this.getParameters()) {
 			offset += par.getType().length();
 		}
 
-		body.allocateMemory(Register.LB, offset+1);
+		body.allocateMemory(Register.LB, offset + 1);
 
-		for(ParameterDeclaration par : parameters){
+		for (ParameterDeclaration par : parameters) {
 			par.offset = (offset);
 			offset -= par.getType().length();
 		}
 
-		return _offset;
+		return 0;
 
 	}
 

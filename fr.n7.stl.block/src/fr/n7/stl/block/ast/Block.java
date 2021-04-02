@@ -3,8 +3,6 @@
  */
 package fr.n7.stl.block.ast;
 
-import java.util.List;
-
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -12,7 +10,8 @@ import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-import java_cup.runtime.Symbol;
+
+import java.util.List;
 
 /**
  * Represents a Block node in the Abstract Syntax Tree node for the Bloc language.
@@ -114,6 +113,7 @@ public class Block {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
+		int offset = 0;
 
 		for(Instruction i : this.instructions){
 			i.allocateMemory(_register, _offset);

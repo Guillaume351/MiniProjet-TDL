@@ -57,7 +57,9 @@ genre ça : int b = c; int c = 3;
 
 
 ## Expressions à faire
+
 ### resolve
+
 - [x] Second.java
 - [x] FunctionCall.java
 - [x] AbstractPointer.java
