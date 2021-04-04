@@ -8,8 +8,6 @@
 /!\ Il se peut que des getType que l'on a fait au debut ne soit pas assez complet.
 En effet, certaines erreurs de types incompatibles ont peut être été oubliées
 
-/!\ allocateMemory
-
 /!\ Pourquoi quand on affecte une variable pas encore déclarée bah ça plante pas
 genre ça : int b = c; int c = 3;
 
@@ -130,11 +128,3 @@ genre ça : int b = c; int c = 3;
 - [x] declaration/ConstantDeclaration
 - [ ] declaration/FunctionDeclaration
 - [x] declaration/VariableDeclaration
-
-
-# Questions
-- Dans FunctionCall.java, est-ce qu'il faut créer une nouvelle symbol table ?
-- Si oui, est-ce qu'on doit cloner la symbol table globale ?
-- Pour les expressions, est-ce qu'il faut checktype dans le getType ? (cf la ConditionalExpression)
-
-- Dans le TypeDeclaration, c'est du pipeau ?
