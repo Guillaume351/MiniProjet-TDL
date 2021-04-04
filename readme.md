@@ -23,7 +23,7 @@ genre ça : int b = c; int c = 3;
 - [x] accessible/AddressAccess.java
 - [ ] accessible/ArrayAccess.java
 - [x] accessible/ConstantAccess.java
-- [ ] accessible/FieldAccess.java
+- [x] accessible/FieldAccess.java
 - [x] accessible/IdentifierAccess.java
 - [x] accessible/ParameterAccess.java
 - [x] accessible/PointerAccess.java
