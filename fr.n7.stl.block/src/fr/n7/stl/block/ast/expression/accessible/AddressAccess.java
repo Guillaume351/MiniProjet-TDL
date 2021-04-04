@@ -5,12 +5,14 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
+import fr.n7.stl.block.ast.expression.assignable.VariableAssignment;
 import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.PointerType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
@@ -76,7 +78,20 @@ public class AddressAccess implements AccessibleExpression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in AddressAccess.");
+		Fragment fragment = _factory.createFragment();
+		// Le Register et le offset sont dans la declaration
+		if(this.var instanceof VariableDeclaration){
+			VariableDeclaration declaration = ((VariableDeclaration) this.var);
+			Register reg = declaration.getRegister();
+			int offset = declaration.getOffset();
+
+			fragment.add(_factory.createLoadA(reg, offset));
+
+		}else{
+			Logger.error("AddressAccess : l'assignable n'est pas une variable declaration. C'est : " + this.assignable);
+		}
+
+		return fragment;
 	}
 
 }

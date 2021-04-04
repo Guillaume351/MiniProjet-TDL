@@ -22,14 +22,14 @@ genre ça : int b = c; int c = 3;
 - [ ] Block
 
 ### expression
-- [ ] accessible/AddressAccess.java
+- [x] accessible/AddressAccess.java
 - [ ] accessible/ArrayAccess.java
-- [ ] accessible/ConstantAccess.java
+- [x] accessible/ConstantAccess.java
 - [ ] accessible/FieldAccess.java
-- [ ] accessible/IdentifierAccess.java
-- [ ] accessible/ParameterAccess.java
-- [ ] accessible/PointerAccess.java
-- [ ] accessible/VariableAccess.java
+- [x] accessible/IdentifierAccess.java
+- [x] accessible/ParameterAccess.java
+- [x] accessible/PointerAccess.java
+- [x] accessible/VariableAccess.java
   
 - [ ] allocation/ArrayAllocation.java
 - [ ] allocation/PointerAllocation.java
