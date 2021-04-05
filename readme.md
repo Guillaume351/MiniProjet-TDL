@@ -52,7 +52,24 @@ genre ça : int b = c; int c = 3;
 - [ ] declaration/FunctionDeclaration
 - [ ] declaration/VariableDeclaration
 
+### allocateMemory
 
+### autre
+
+- [ ] Block
+
+### instructions
+
+- [x] Assignment
+- [x] Conditional
+- [x] Iteration
+- [x] Printer
+- [x] Repetition
+- [x] Return
+
+- [x] declaration/ConstantDeclaration
+- [ ] declaration/FunctionDeclaration
+- [x] declaration/VariableDeclaration
 
 ## Expressions à faire
 
@@ -112,7 +129,7 @@ genre ça : int b = c; int c = 3;
 - [x] Return
 - [x] declaration/TypeDeclaration
 
-- [ ] declaration/FunctionDeclaration
+- [x] declaration/FunctionDeclaration
 
 ### getType
 - [x] Assignment -> pas sûr pour ErrorType

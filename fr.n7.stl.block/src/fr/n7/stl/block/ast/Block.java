@@ -115,8 +115,8 @@ public class Block {
 	public void allocateMemory(Register _register, int _offset) {
 		int offset = 0;
 
-		for(Instruction i : this.instructions){
-			i.allocateMemory(_register, _offset);
+		for (Instruction i : this.instructions) {
+			offset += i.allocateMemory(_register, offset);
 		}
 
 	}
