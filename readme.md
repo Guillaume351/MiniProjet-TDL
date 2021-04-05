@@ -13,11 +13,13 @@ genre ça : int b = c; int c = 3;
 
 /!\ Dans la functiondeclaration, quand on checktype comment qu'on fait pour avoir les instructions return
 
+/!\ Comprendre l'utilité des addPrefix/Suffix dans Fragment.java
+
 ## Génération de code
 ### getCode
 
 ### autre
-- [ ] Block
+- [x] Block
 
 ### expression
 - [x] accessible/AddressAccess.java
@@ -41,16 +43,16 @@ genre ça : int b = c; int c = 3;
 
 
 ### instructions
-- [ ] Assignment
-- [ ] Conditional
-- [ ] Iteration
+- [x] Assignment
+- [x] Conditional
+- [x] Iteration
 - [ ] Printer
-- [ ] Repetition
+- [x] Repetition
 - [ ] Return
 
-- [ ] declaration/ConstantDeclaration
+- [ ] declaration/ConstantDeclaration   /!\ À VOIR
 - [ ] declaration/FunctionDeclaration
-- [ ] declaration/VariableDeclaration
+- [x] declaration/VariableDeclaration
 
 ### allocateMemory
 

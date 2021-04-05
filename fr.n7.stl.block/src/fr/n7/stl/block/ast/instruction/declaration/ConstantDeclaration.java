@@ -139,7 +139,16 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConstantDeclaration.");
+		int taille = this.getType().length();
+
+		Fragment fragment = _factory.createFragment();
+
+		/* TODO : pourquoi pas de register et offset ?
+		code.add(_factory.createPush(taille));
+		code.append(this.value.getCode(_factory));
+		code.add(_factory.createStore(this.register, this.offset, taille));
+		*/
+		return fragment;
 	}
 
 }

@@ -105,7 +105,22 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in Conditional.");
+		String id = String.valueOf(_factory.createLabelNumber());
+
+		Fragment fragment = _factory.createFragment();
+		fragment.append(this.condition.getCode(_factory));
+		fragment.add(_factory.createJumpIf("end_if_" + id, 0));
+		if (this.elseBranch != null) {
+			fragment.add(_factory.createJumpIf("goto_else_" + id, 0));
+			fragment.append(this.thenBranch.getCode(_factory));
+			fragment.add(_factory.createJump("end_if_" + id));
+			fragment.append(this.elseBranch.getCode(_factory));
+		} else {
+			fragment.append(this.thenBranch.getCode(_factory));
+			fragment.add(_factory.createJump("end_if_" + id));
+		}
+
+		return fragment;
 	}
 
 }

@@ -91,7 +91,17 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Repetition.");
+
+		String id = String.valueOf(_factory.createLabelNumber());
+
+		Fragment fragment = _factory.createFragment();
+		fragment.append(this.condition.getCode(_factory));
+		fragment.add(_factory.createJumpIf("end_while_" + id, 0));
+		fragment.append(this.body.getCode(_factory));
+		fragment.add(_factory.createJump("end_while_" + id));
+
+
+		return fragment;
 	}
 
 }

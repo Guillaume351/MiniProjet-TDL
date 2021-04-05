@@ -162,7 +162,14 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode is undefined in VariableDeclaration.");
+		int taille = this.getType().length();
+
+		Fragment fragment = _factory.createFragment();
+		fragment.add(_factory.createPush(taille));
+		fragment.append(this.value.getCode(_factory));
+		fragment.add(_factory.createStore(this.register, this.offset, taille)); // TODO : à comprendre le this.offset
+
+		return fragment;
 	}
 
 }

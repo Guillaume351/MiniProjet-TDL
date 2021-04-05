@@ -129,11 +129,15 @@ public class Block {
 	 */
 	public Fragment getCode(TAMFactory _factory) {
 
+		int offset = 0;	// TODO : à remplacer par l'attribut
+
 		Fragment fragment = _factory.createFragment();
 		for(Instruction i : this.instructions){
 			fragment.append(i.getCode(_factory));
 		}
-		//fragment.add(_factory.createPop(0, this.));
+		fragment.add(_factory.createPop(0, offset));
+		fragment.add(_factory.createHalt());
+
 		return fragment;
 
 
