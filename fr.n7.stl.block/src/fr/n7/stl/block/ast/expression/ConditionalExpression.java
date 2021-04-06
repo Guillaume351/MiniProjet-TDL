@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -37,9 +36,6 @@ public class ConditionalExpression implements Expression {
 	/**
 	 * Builds a binary expression Abstract Syntax Tree node from the left and right sub-expressions
 	 * and the binary operation.
-	 * @param _left : Expression for the left parameter.
-	 * @param _operator : Binary Operator.
-	 * @param _right : Expression for the right parameter.
 	 */
 	public ConditionalExpression(Expression _condition, Expression _then, Expression _else) {
 		this.condition = _condition;
@@ -106,7 +102,35 @@ public class ConditionalExpression implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ConditionalExpression.");
+		// On utilise un identifiant pour avoir des tag uniques
+		//TODO: verifier que l'usage est bon
+		int idCond = _factory.createLabelNumber();
+
+		Fragment fragment = _factory.createFragment();
+
+		fragment.append(this.condition.getCode(_factory));
+
+		// On met le le code pour aller directement au else
+		fragment.add(_factory.createJumpIf("else_tag_" + idCond, 0));
+
+		// On met le code du then
+		fragment.append(this.thenExpression.getCode(_factory));
+
+		// Si on a lu le code du then alors on saute a la fin du if
+		fragment.add(_factory.createJump("endif_tag_" + idCond));
+
+		// On met le tag de debut de else
+		fragment.addSuffix("else_tag_" + idCond);
+
+		// On met le code du else
+		fragment.append(this.elseExpression.getCode(_factory));
+
+
+		// On met l'etiquette pour aller directement a la fin
+		fragment.addSuffix("endif_tag_" + idCond);
+
+
+		return fragment;
 	}
 
 }

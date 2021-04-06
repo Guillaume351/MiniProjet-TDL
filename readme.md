@@ -34,7 +34,7 @@ genre ça : int b = c; int c = 3;
 - [ ] allocation/ArrayAllocation.java
 - [ ] allocation/PointerAllocation.java
 
-- [ ] ConditionalExpression.java
+- [x] ConditionalExpression.java
 - [x] Couple.java
 - [ ] First.java
 - [x] FunctionCall.java
