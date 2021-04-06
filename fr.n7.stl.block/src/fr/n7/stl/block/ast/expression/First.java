@@ -75,7 +75,16 @@ public class First implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in First.");
+		//TODO : verifier
+		Fragment fragment = _factory.createFragment();
+
+		int firstLen = this.getType().length();
+
+		// On pop le first
+		fragment.add(_factory.createPop(0, firstLen));
+
+
+		return fragment;
 	}
 
 }
