@@ -39,7 +39,7 @@ genre ça : int b = c; int c = 3;
 - [ ] First.java
 - [ ] FunctionCall.java
 - [ ] Second.java
-- [ ] Sequence.java
+- [x] Sequence.java
 
 
 ### instructions
