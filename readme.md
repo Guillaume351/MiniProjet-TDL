@@ -37,7 +37,7 @@ genre ça : int b = c; int c = 3;
 - [ ] ConditionalExpression.java
 - [ ] Couple.java
 - [ ] First.java
-- [ ] FunctionCall.java
+- [x] FunctionCall.java
 - [ ] Second.java
 - [x] Sequence.java
 

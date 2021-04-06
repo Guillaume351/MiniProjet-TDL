@@ -3,17 +3,16 @@
  */
 package fr.n7.stl.block.ast.expression;
 
-import java.util.Iterator;
-import java.util.List;
-
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.instruction.declaration.FunctionDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Abstract Syntax Tree node for a function call expression.
@@ -111,7 +110,17 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionCall.");
+		Fragment fragment = _factory.createFragment();
+
+		// Ajouter le code des arguments avant
+		for (Expression argument : this.arguments) {
+			fragment.append(argument.getCode(_factory));
+		}
+
+		// Registre d'appel : LB. TODO: verifier que _label = this.name
+		fragment.add(_factory.createCall(this.name, Register.LB));
+
+		return fragment;
 	}
 
 }
