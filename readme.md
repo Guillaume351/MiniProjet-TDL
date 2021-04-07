@@ -58,7 +58,7 @@ genre ça : int b = c; int c = 3;
 
 ### autre
 
-- [ ] Block
+- [x] Block
 
 ### instructions
 
@@ -69,7 +69,7 @@ genre ça : int b = c; int c = 3;
 - [x] Repetition
 - [x] Return
 
-- [x] declaration/ConstantDeclaration
+- [x] declaration/ConstantDeclaration   /!\ À VOIR
 - [ ] declaration/FunctionDeclaration
 - [x] declaration/VariableDeclaration
 

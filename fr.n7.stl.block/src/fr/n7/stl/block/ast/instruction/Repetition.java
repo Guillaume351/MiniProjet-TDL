@@ -83,7 +83,8 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory undefined in Repetition.");
+		this.body.allocateMemory(_register, _offset);
+		return 0;
 	}
 
 	/* (non-Javadoc)

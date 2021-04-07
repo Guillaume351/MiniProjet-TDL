@@ -97,7 +97,11 @@ public class Conditional implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException( "Semantics allocateMemory is undefined in Conditional.");
+		this.thenBranch.allocateMemory(_register, _offset);
+		if (this.elseBranch != null) {
+			this.elseBranch.allocateMemory(_register, _offset);
+		}
+		return 0;
 	}
 
 	/* (non-Javadoc)

@@ -36,6 +36,11 @@ public class Block {
 	public Block(List<Instruction> _instructions) {
 		this.instructions = _instructions;
 	}
+
+	/**
+	 * Offset from the base address used to store the block
+	 */
+	protected int offset;
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -113,10 +118,10 @@ public class Block {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
-		int offset = 0;
+		this.offset = _offset;	// TODO : penser à mettre l'offset à 0 dans le programme principal
 
 		for (Instruction i : this.instructions) {
-			offset += i.allocateMemory(_register, offset);
+			this.offset += i.allocateMemory(_register, this.offset);
 		}
 
 	}
@@ -129,13 +134,11 @@ public class Block {
 	 */
 	public Fragment getCode(TAMFactory _factory) {
 
-		int offset = 0;	// TODO : à remplacer par l'attribut
-
 		Fragment fragment = _factory.createFragment();
 		for(Instruction i : this.instructions){
 			fragment.append(i.getCode(_factory));
 		}
-		fragment.add(_factory.createPop(0, offset));
+		fragment.add(_factory.createPop(0, this.offset));
 		fragment.add(_factory.createHalt());
 
 		return fragment;

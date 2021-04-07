@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.instruction.declaration;
 
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
+import fr.n7.stl.block.ast.expression.value.StringValue;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -51,9 +52,9 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	protected Block body;
 
 	/**
-	 * The symbol table local to the function
+	 * The symbol table for the parameters and local to the function
 	 */
-	protected SymbolTable localSymbolTable;
+	protected SymbolTable localSymbolTableParameters;
 
 	/**
 	 * Builds an AST node for a function declaration
@@ -106,12 +107,18 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		localSymbolTable = new SymbolTable(_scope);
-		for(ParameterDeclaration d : this.getParameters()){
+		this.localSymbolTableParameters = new SymbolTable(_scope);
+		SymbolTable localSymbolTableVariables = new SymbolTable(this.localSymbolTableParameters);
 
+		// Ajout de la variable "return" dans la table des symboles des paramètres
+		this.localSymbolTableParameters.register(new VariableDeclaration("return", this.getType(), new StringValue("")));
+
+		for(ParameterDeclaration d : this.getParameters()){
+			//this.localSymbolTableParameters.register(d);
 		}
+
 		//localSymbolTable.
-		return this.body.collect(localSymbolTable);
+		return this.body.collect(this.localSymbolTableParameters);
 
 	}
 	
@@ -122,7 +129,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 
 		//TODO: vérifier que le type doit bien être resolve dans le scope global
-		return this.body.resolve(localSymbolTable) && this.type.resolve(localSymbolTable);
+		return this.body.resolve(localSymbolTableParameters) && this.type.resolve(localSymbolTableParameters);
 	}
 
 	/* (non-Javadoc)
