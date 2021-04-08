@@ -77,6 +77,13 @@ public class ArrayAllocation implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ArrayAllocation.");
+
+		/*
+		D'après le TD :
+		LOADL this.size
+		SUBR IMul	// pourquoi ??
+		SUBR Malloc
+		 */
 	}
 
 }

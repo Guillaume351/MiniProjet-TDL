@@ -115,14 +115,15 @@ public class Conditional implements Instruction {
 		fragment.append(this.condition.getCode(_factory));
 		fragment.add(_factory.createJumpIf("end_if_" + id, 0));
 		if (this.elseBranch != null) {
-			fragment.add(_factory.createJumpIf("goto_else_" + id, 0));
+			fragment.add(_factory.createJumpIf("else_tag_" + id, 0));
 			fragment.append(this.thenBranch.getCode(_factory));
 			fragment.add(_factory.createJump("end_if_" + id));
+			fragment.addSuffix("else_tag_" + id);
 			fragment.append(this.elseBranch.getCode(_factory));
 		} else {
 			fragment.append(this.thenBranch.getCode(_factory));
-			fragment.add(_factory.createJump("end_if_" + id));
 		}
+		fragment.addSuffix("end_if_" +id);
 
 		return fragment;
 	}

@@ -13,7 +13,15 @@ genre ça : int b = c; int c = 3;
 
 /!\ Dans la functiondeclaration, quand on checktype comment qu'on fait pour avoir les instructions return
 
-/!\ Comprendre l'utilité des addPrefix/Suffix dans Fragment.java
+/!\ Utilité de addPrefix ??
+
+/!\ La différence entre Repetition et Iteration ???
+
+/!\ Poser la question de getCode() pour Printer et Return
+
+/!\ Revoir le getCode pour First et Second (notamment LOAD de la variable et POP)
+
+/!\ Pourquoi pas de append du left dans le getCode de BinaryExpression ?
 
 ## Génération de code
 ### getCode

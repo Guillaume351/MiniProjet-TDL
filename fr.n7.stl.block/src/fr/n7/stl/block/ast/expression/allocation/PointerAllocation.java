@@ -62,6 +62,11 @@ public class PointerAllocation implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException( "Semantics getCode is undefined in PointerAllocation.");
+
+		/*
+		Juste un `SUBR Malloc` ??
+
+		 */
 	}
 
 }

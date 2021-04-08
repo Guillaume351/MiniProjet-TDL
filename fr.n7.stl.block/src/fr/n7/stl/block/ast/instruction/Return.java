@@ -72,7 +72,15 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Return.");
+		Fragment fragment = _factory.createFragment();
+
+		int returnSize = this.value.getType().length();
+
+		// TODO : il faut avoir accès à la taille des paramètres de la fonction
+
+		//fragment.add(_factory.createReturn());
+
+		return fragment;
 	}
 
 }

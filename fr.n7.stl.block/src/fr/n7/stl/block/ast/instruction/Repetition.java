@@ -100,7 +100,7 @@ public class Repetition implements Instruction {
 		fragment.add(_factory.createJumpIf("end_while_" + id, 0));
 		fragment.append(this.body.getCode(_factory));
 		fragment.add(_factory.createJump("end_while_" + id));
-
+		fragment.addSuffix("end_while_" +id);
 
 		return fragment;
 	}
