@@ -81,8 +81,8 @@ public class First implements Expression {
 		//TODO : verifier
 		int secondLen = new Second(this.target).getType().length();
 
-		// On pop le first
-		fragment.add(_factory.createPop(0, firstLen));
+		// On pop a partir de 0 de la taille du second
+		fragment.add(_factory.createPop(0, secondLen));
 
 
 		return fragment;

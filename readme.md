@@ -39,8 +39,8 @@ genre ça : int b = c; int c = 3;
 - [x] accessible/PointerAccess.java
 - [x] accessible/VariableAccess.java
   
-- [ ] allocation/ArrayAllocation.java
-- [ ] allocation/PointerAllocation.java
+- [x] allocation/ArrayAllocation.java
+- [x] allocation/PointerAllocation.java
 
 - [x] ConditionalExpression.java
 - [x] Couple.java
