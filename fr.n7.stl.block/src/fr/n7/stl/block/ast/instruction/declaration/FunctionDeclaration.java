@@ -5,11 +5,13 @@ package fr.n7.stl.block.ast.instruction.declaration;
 
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
+import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.block.ast.expression.value.StringValue;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -113,12 +115,10 @@ public class FunctionDeclaration implements Instruction, Declaration {
 		// Ajout de la variable "return" dans la table des symboles des paramètres
 		this.localSymbolTableParameters.register(new VariableDeclaration("return", this.getType(), new StringValue("")));
 
-		for(ParameterDeclaration d : this.getParameters()){
-			//this.localSymbolTableParameters.register(d);
-		}
+
 
 		//localSymbolTable.
-		return this.body.collect(this.localSymbolTableParameters);
+		return this.body.collect(localSymbolTableVariables);
 
 	}
 	
