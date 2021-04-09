@@ -76,14 +76,14 @@ public class Second implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		//TODO : verifier
 		Fragment fragment = _factory.createFragment();
 
+		//TODO : verifier
 		int firstLen = new First(this.target).getType().length();
 		int sndLen = this.getType().length();
 
-		// On pop le snd
-		fragment.add(_factory.createPop(firstLen, sndLen));
+		// On pop le first (de taille firstLen) a partir de sndLen
+		fragment.add(_factory.createPop(sndLen, firstLen));
 
 
 		return fragment;

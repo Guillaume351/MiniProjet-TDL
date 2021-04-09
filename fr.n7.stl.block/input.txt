@@ -2,8 +2,9 @@ pgcd {
 
      <int,int> c = <47,53>;
      <boolean, boolean> glp = <false, true>;
-     const int test = 0;
+     const int test = 5;
 
+     int t[] = new int[5];
      int kaka = a;
 
      int a = true ? fst c: snd c;

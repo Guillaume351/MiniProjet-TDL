@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.expression.allocation;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.ArrayType;
@@ -78,12 +79,26 @@ public class ArrayAllocation implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException( "Semantics getCode is undefined in ArrayAllocation.");
 
-		/*
-		D'après le TD :
-		LOADL this.size
-		SUBR IMul	// pourquoi ??
-		SUBR Malloc
-		 */
+		Fragment fragment = _factory.createFragment();
+
+		int elementTypeSize = this.element.length();
+
+		if (!(this.size instanceof IntegerValue)) {
+			Logger.error("ArrayAllocation: Ça ne va pas! Il faut que size soit une IntegerValue, " +
+					"on ne gere pas autre chose en taille d'array!");
+		}
+		// C'est pas très LEGIT, mais on a pas envie de rajouter un getter :( Et puis tant que ça marche...:)
+		int arraySize = Integer.parseInt(this.size.toString());
+
+		fragment.add(_factory.createLoadL(arraySize));
+
+		fragment.add(_factory.createLoadL(elementTypeSize));
+
+		fragment.add(Library.IMul);
+
+		fragment.add(Library.MAlloc);
+
+		return fragment;
 	}
 
 }
