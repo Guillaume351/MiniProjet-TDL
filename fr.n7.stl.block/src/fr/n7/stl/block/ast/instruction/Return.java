@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.instruction;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -23,6 +24,10 @@ public class Return implements Instruction {
 
 	protected Expression value;
 
+	protected Type returnType;
+
+	protected int parametersSize;
+
 	public Return(Expression _value) {
 		this.value = _value;
 	}
@@ -40,6 +45,21 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
+		if (_scope.contains("return")){
+			this.returnType = (_scope.get("return")).getType();
+		} else {
+			Logger.error("Return: Il y a un soucis! La fonction n'a pas renseigné son type de retour");
+		}
+		if(_scope.contains("$parameterslength$")){
+			// Comme $parameterslength$ ne contient pas d'entier, ça passe ! On a juste a convertir en string,
+			// puis retirer tout ce qui ne correspond pas a la valeur...
+			// Encore une fois, c'est pas tres propre, mais on a pas besoin de rajouter de getter comme ça...
+			// Et on aime pas rajouter de getter.
+			// On aurait pu aussi jouer avec l'héritage... Mais bon, tant que ça marche ...:))))
+			this.parametersSize = Integer.parseInt(_scope.get("$parameterslength$").toString().replaceAll("[^0-9]",""));;
+		}else{
+			Logger.error("Return: Il y a un soucis! Je n'ai pas acces a la longueur des parametres :(");
+		}
 		return this.value.collect(_scope);
 	}
 	
@@ -57,7 +77,9 @@ public class Return implements Instruction {
 	@Override
 	public boolean checkType() {
 		Type te = this.value.getType();
-		return (te != AtomicType.ErrorType);
+
+		return te.compatibleWith(this.returnType);
+
 	}
 
 	/* (non-Javadoc)
@@ -77,9 +99,7 @@ public class Return implements Instruction {
 
 		int returnSize = this.value.getType().length();
 
-		// TODO : il faut avoir accès à la taille des paramètres de la fonction
-
-		//fragment.add(_factory.createReturn());
+		fragment.add(_factory.createReturn(this.parametersSize, returnSize));
 
 		return fragment;
 	}

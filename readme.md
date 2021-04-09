@@ -56,7 +56,7 @@ genre ça : int b = c; int c = 3;
 - [x] Iteration
 - [ ] Printer
 - [x] Repetition
-- [ ] Return
+- [x] Return
 
 - [ ] declaration/ConstantDeclaration   /!\ À VOIR
 - [ ] declaration/FunctionDeclaration

@@ -17,6 +17,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+import java.lang.reflect.Parameter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -114,6 +115,14 @@ public class FunctionDeclaration implements Instruction, Declaration {
 
 		// Ajout de la variable "return" dans la table des symboles des paramètres
 		this.localSymbolTableParameters.register(new VariableDeclaration("return", this.getType(), new StringValue("")));
+
+		// Ajout de la variable $parameterslength$ pour pop lors d'un return de la taille des parameters
+		int parametersLength = 0;
+		for(ParameterDeclaration d : this.getParameters()){
+			parametersLength += d.getType().length();
+		}
+
+		this.localSymbolTableParameters.register(new VariableDeclaration("$parameterslength$", AtomicType.IntegerType, new IntegerValue(String.valueOf(parametersLength))));
 
 
 
