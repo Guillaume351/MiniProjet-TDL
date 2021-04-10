@@ -33,5 +33,10 @@ pgcd {
      if (res == test) {
          res = b;
      }
-     print res ;
+
+
+     int * monTableau = new int[3];
+
+     res = monTableau[0];
+
  }

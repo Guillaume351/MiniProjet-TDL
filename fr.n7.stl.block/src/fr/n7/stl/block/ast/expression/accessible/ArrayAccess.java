@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression.accessible;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractArray;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.tam.ast.Fragment;
@@ -33,8 +32,16 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 		Fragment fragment = _factory.createFragment();
 		//TODO : NON FINI, voir operations intermediares
 
-		fragment.append(this.array.getCode(_factory));
-		this.index.getCode(_factory);
+		System.out.println("Voici le type de la chose qu'on sait pas : " + this.array);
+
+//		int arrayOffset = this.array.;
+//
+//		int arrayRegister = this.array;
+//
+//		int indexValue = ;
+//
+//		int typeSize =
+
 		return fragment;
 	}
 
