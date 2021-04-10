@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.instruction.declaration;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -12,7 +11,6 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.util.BlockSemanticsError;
 import fr.n7.stl.util.Logger;
 
 /**
@@ -140,9 +138,10 @@ public class VariableDeclaration implements Declaration, Instruction {
 
 		// Le type virtuel doit être compatible avec le type réel
 		if (!this.getType().compatibleWith(treal)){
-			Logger.error("VariableDeclaration : types incompatibles ; " + this.type.toString());
-			return false;
-		}
+            Logger.error("VariableDeclaration : types incompatibles : ceci est " + this.type +
+                    " alors que cela est " + treal);
+            return false;
+        }
 
 		return true;
 	}

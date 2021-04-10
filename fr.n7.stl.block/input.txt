@@ -35,7 +35,7 @@ pgcd {
      }
 
 
-     int * monTableau = new int[3];
+     int monTableau[] = new int[3];
 
      res = monTableau[0];
 
