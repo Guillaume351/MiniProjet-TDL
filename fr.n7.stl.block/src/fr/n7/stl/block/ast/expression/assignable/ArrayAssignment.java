@@ -6,8 +6,11 @@ package fr.n7.stl.block.ast.expression.assignable;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractArray;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for an expression whose computation assigns a cell in an array.
@@ -29,8 +32,31 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in ArrayAssignment.");
-	}
+		Fragment fragment = _factory.createFragment();
+
+		/*
+		int elementTypeSize = this.array.length();
+
+		if (!(this.size instanceof IntegerValue)) {
+			Logger.error("ArrayAllocation: Ça ne va pas! Il faut que size soit une IntegerValue, " +
+					"on ne gere pas autre chose en taille d'array!");
+		}
+
+		// C'est pas très LEGIT, mais on a pas envie de rajouter un getter :( Et puis tant que ça marche...:)
+		int arrayIndex = Integer.parseInt(this.index.toString());
+
+		fragment.add(_factory.createLoadL(arrayIndex));
+
+		fragment.add(_factory.createLoadL(elementTypeSize));
+
+		fragment.add(Library.IMul);
+
+		fragment.add(Library.IAdd);
+
+		 */
+
+		return fragment;
+		}
 
 	
 }

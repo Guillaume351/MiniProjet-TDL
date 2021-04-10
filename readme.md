@@ -42,6 +42,11 @@ genre ça : int b = c; int c = 3;
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 
+- [ ] assignment/ArrayAssignment.java
+- [ ] assignment/FieldAssignment.java
+- [ ] assignment/PointerAssignment.java
+- [ ] assignment/VariableAssignment.java
+
 - [x] ConditionalExpression.java
 - [x] Couple.java
 - [x] First.java

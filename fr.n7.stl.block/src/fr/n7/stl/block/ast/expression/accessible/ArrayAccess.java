@@ -32,6 +32,9 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 		//TODO : NON FINI, voir operations intermediares
+
+		fragment.append(this.array.getCode(_factory));
+		this.index.getCode(_factory);
 		return fragment;
 	}
 
