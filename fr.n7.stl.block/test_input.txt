@@ -18,6 +18,8 @@ test {
 
     int * monTableau = new int[3];
 
+    i = monTableau[0];
+
 
 
 
