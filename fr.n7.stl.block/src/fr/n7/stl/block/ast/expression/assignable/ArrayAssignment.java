@@ -3,12 +3,12 @@
  */
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractArray;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
@@ -34,29 +34,34 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
-		/*
-		int elementTypeSize = this.array.length();
+		int arrayOffset = ((VariableAssignment) this.array).declaration.getOffset();
 
-		if (!(this.size instanceof IntegerValue)) {
-			Logger.error("ArrayAllocation: Ça ne va pas! Il faut que size soit une IntegerValue, " +
-					"on ne gere pas autre chose en taille d'array!");
+		Register arrayRegister = ((VariableAssignment) this.array).declaration.getRegister();
+
+		int typeSize = this.array.getType().length();
+
+		fragment.add(_factory.createLoad(arrayRegister, arrayOffset, typeSize));
+
+
+		if (!(this.index instanceof IntegerValue)) {
+			Logger.error("ArrayAllocation: Ça ne va pas! Il faut que index soit une IntegerValue, " +
+					"on ne gere pas autre chose en index d'array!");
 		}
 
-		// C'est pas très LEGIT, mais on a pas envie de rajouter un getter :( Et puis tant que ça marche...:)
-		int arrayIndex = Integer.parseInt(this.index.toString());
+		int indexValue = Integer.parseInt(this.index.toString());
 
-		fragment.add(_factory.createLoadL(arrayIndex));
-
-		fragment.add(_factory.createLoadL(elementTypeSize));
+		fragment.add(_factory.createLoadL(indexValue));
+		fragment.add(_factory.createLoadL(typeSize));
 
 		fragment.add(Library.IMul);
 
 		fragment.add(Library.IAdd);
 
-		 */
+		fragment.add(_factory.createStoreI(typeSize));
+
 
 		return fragment;
-		}
+	}
 
 	
 }

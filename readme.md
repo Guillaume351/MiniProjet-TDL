@@ -42,9 +42,9 @@ genre ça : int b = c; int c = 3;
 - [x] allocation/ArrayAllocation.java
 - [x] allocation/PointerAllocation.java
 
-- [ ] assignment/ArrayAssignment.java
+- [x] assignment/ArrayAssignment.java
 - [ ] assignment/FieldAssignment.java
-- [ ] assignment/PointerAssignment.java
+- [x] assignment/PointerAssignment.java
 - [x] assignment/VariableAssignment.java
 
 - [x] ConditionalExpression.java
@@ -158,5 +158,5 @@ genre ça : int b = c; int c = 3;
 - [x] Return
 
 - [x] declaration/ConstantDeclaration
-- [ ] declaration/FunctionDeclaration
+- [x] declaration/FunctionDeclaration
 - [x] declaration/VariableDeclaration

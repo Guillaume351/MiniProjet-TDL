@@ -17,7 +17,6 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-import java.lang.reflect.Parameter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -146,12 +145,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean checkType() {
-		// TODO : vérifier que le return est du même type que le champs type
-		// TODO: problème : comment accéder aux instructions de type return ? Est-ce ce qu'il faut faire ?
-		//for (Instruction i : this.) {
-	//
-	//	}
-		throw new SemanticsUndefinedException( "Semantics checkType is undefined in FunctionDeclaration.");
+		return this.body.checkType();
 	}
 
 	/* (non-Javadoc)
