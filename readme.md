@@ -63,8 +63,8 @@ genre ça : int b = c; int c = 3;
 - [x] Repetition
 - [x] Return
 
-- [ ] declaration/ConstantDeclaration   /!\ À VOIR
-- [ ] declaration/FunctionDeclaration
+- [x] declaration/ConstantDeclaration
+- [x] declaration/FunctionDeclaration
 - [x] declaration/VariableDeclaration
 
 ### allocateMemory
@@ -82,8 +82,8 @@ genre ça : int b = c; int c = 3;
 - [x] Repetition
 - [x] Return
 
-- [x] declaration/ConstantDeclaration   /!\ À VOIR
-- [ ] declaration/FunctionDeclaration
+- [x] declaration/ConstantDeclaration
+- [x] declaration/FunctionDeclaration
 - [x] declaration/VariableDeclaration
 
 ## Expressions à faire

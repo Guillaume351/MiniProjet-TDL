@@ -59,6 +59,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	protected SymbolTable localSymbolTableParameters;
 
 	/**
+	 * The offset summing all the parameters offsets
+	 */
+	protected int totalOffsetParameters;
+
+	/**
 	 * Builds an AST node for a function declaration
 	 * @param _name : Name of the function
 	 * @param _type : AST node for the returned type of the function
@@ -153,18 +158,18 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		//TODO : à vérifier
-		int offset_total_parametres = 0;
+
+		totalOffsetParameters = 0;
 
 		for (ParameterDeclaration par : this.getParameters()) {
-			offset_total_parametres += par.getType().length();
+			totalOffsetParameters += par.getType().length();
 		}
 
-		int offset_param_courant = 0;
+		int currentOffset = 0;
 
 		for (ParameterDeclaration par : parameters) {
-			par.offset = offset_param_courant - offset_total_parametres;
-			offset_param_courant += par.getType().length();
+			par.offset = currentOffset - totalOffsetParameters;
+			currentOffset += par.getType().length();
 		}
 
 		// 3 est une constante qui separe les param du body.
@@ -179,7 +184,19 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "Semantics getCode is undefined in FunctionDeclaration.");
+		Fragment fragment = _factory.createFragment();
+
+		fragment.addPrefix(this.name);
+		for(ParameterDeclaration par : this.parameters){
+			fragment.add(_factory.createLoad(Register.LB, par.offset, par.getType().length()));
+		}
+		fragment.append(this.body.getCode(_factory));
+
+		// Sécurité si absence de return
+		fragment.add(_factory.createLoadL(0));
+		fragment.add(_factory.createReturn(1, this.totalOffsetParameters));
+
+		return fragment;
 	}
 
 }

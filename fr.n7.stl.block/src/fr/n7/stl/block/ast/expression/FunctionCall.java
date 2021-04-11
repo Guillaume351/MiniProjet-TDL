@@ -117,7 +117,9 @@ public class FunctionCall implements Expression {
 			fragment.append(argument.getCode(_factory));
 		}
 
-		// Registre d'appel : LB. TODO: verifier que _label = this.name
+		// LB est le registre pour un appel récursif
+		// SB est le registre par défaut
+		// TODO : tester si l'appel est récursif
 		fragment.add(_factory.createCall(this.name, Register.LB));
 
 		return fragment;
