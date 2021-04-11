@@ -152,15 +152,18 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		int taille = this.getType().length();
-
 		Fragment fragment = _factory.createFragment();
 
-		/* TODO : pourquoi pas de register et offset ?
-		code.add(_factory.createPush(taille));
-		code.append(this.value.getCode(_factory));
-		code.add(_factory.createStore(this.register, this.offset, taille));
-		*/
+		// Taille du type de la constante
+		int taille = this.getType().length();
+
+		// On alloue la taille du type
+		fragment.add(_factory.createPush(taille));
+
+		fragment.append(this.value.getCode(_factory));
+
+		fragment.add(_factory.createStore(this.register, this.offset, taille));
+
 		return fragment;
 	}
 
