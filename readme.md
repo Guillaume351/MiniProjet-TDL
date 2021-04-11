@@ -59,7 +59,7 @@ genre ça : int b = c; int c = 3;
 - [x] Assignment
 - [x] Conditional
 - [x] Iteration
-- [ ] Printer --> Corentin
+- [x] Printer --> Corentin
 - [x] Repetition
 - [x] Return
 

@@ -10,8 +10,10 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a printer instruction.
@@ -72,7 +74,23 @@ public class Printer implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics getCode undefined in Printer.");
+		Fragment fragment = _factory.createFragment();
+
+		fragment.append(this.parameter.getCode(_factory));
+
+		if (this.parameter.getType() == AtomicType.BooleanType){
+			fragment.add(Library.BOut);
+		} else if (this.parameter.getType() == AtomicType.CharacterType){
+			fragment.add(Library.COut);
+		} else if (this.parameter.getType() == AtomicType.IntegerType) {
+			fragment.add(Library.IOut);
+		} else if (this.parameter.getType() == AtomicType.StringType) {
+			fragment.add(Library.SOut);
+		} else {
+			Logger.error("Printer : Impossible d'afficher l'expression");
+		}
+
+		return fragment;
 	}
 
 }
