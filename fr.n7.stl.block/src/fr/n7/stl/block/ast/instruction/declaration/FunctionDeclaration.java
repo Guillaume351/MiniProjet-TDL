@@ -16,6 +16,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 import java.util.Iterator;
 import java.util.List;
@@ -57,6 +58,11 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 * The symbol table for the parameters and local to the function
 	 */
 	protected SymbolTable localSymbolTableParameters;
+
+	/**
+	 * The symbol table for the variables and local to the function
+	 */
+	protected SymbolTable localSymbolTableVariables;
 
 	/**
 	 * The offset summing all the parameters offsets
@@ -114,8 +120,28 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
+		boolean ok = true;
+
+		// Ajout de la fonction dans la table des symboles
+		if (_scope.accepts(this)) {
+			_scope.register(this);
+		} else {
+			Logger.error("FunctionDeclaration : nom de fonction déjà utilisé");
+			ok = false;
+		}
+
+		// Création de la table des symboles des paramètres
 		this.localSymbolTableParameters = new SymbolTable(_scope);
-		SymbolTable localSymbolTableVariables = new SymbolTable(this.localSymbolTableParameters);
+
+		// Ajout des paramètres dans la table des symboles des paramètres
+		for (ParameterDeclaration par : this.parameters){
+			if (this.localSymbolTableParameters.accepts(par)){
+				this.localSymbolTableParameters.register(par);
+			} else {
+				Logger.error("FunctionDeclaration : nom de paramètre déjà utilisé");
+				ok = false;
+			}
+		}
 
 		// Ajout de la variable "return" dans la table des symboles des paramètres
 		this.localSymbolTableParameters.register(new VariableDeclaration("return", this.getType(), new StringValue("")));
@@ -125,13 +151,16 @@ public class FunctionDeclaration implements Instruction, Declaration {
 		for(ParameterDeclaration d : this.getParameters()){
 			parametersLength += d.getType().length();
 		}
-
 		this.localSymbolTableParameters.register(new VariableDeclaration("$parameterslength$", AtomicType.IntegerType, new IntegerValue(String.valueOf(parametersLength))));
 
 
+		// Vérification des paramètres et des variables
+		ok = ok && this.body.resolve(this.localSymbolTableParameters);
 
-		//localSymbolTable.
-		return this.body.collect(localSymbolTableVariables);
+		// Création de la table des symboles des variables
+		this.localSymbolTableVariables = new SymbolTable(this.localSymbolTableParameters);
+
+		return ok && this.body.collect(localSymbolTableVariables);
 
 	}
 	
@@ -142,7 +171,9 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 
 		//TODO: vérifier que le type doit bien être resolve dans le scope global
-		return this.body.resolve(localSymbolTableParameters) && this.type.resolve(localSymbolTableParameters);
+		//return this.body.resolve(localSymbolTableParameters) && this.type.resolve(localSymbolTableParameters);
+
+		return this.body.resolve(this.localSymbolTableVariables);
 	}
 
 	/* (non-Javadoc)

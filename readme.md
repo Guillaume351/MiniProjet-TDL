@@ -166,5 +166,5 @@ genre ça : int b = c; int c = 3;
 
 - [ ] PointerType --> Guillaume 
 - [ ] EnumerationType --> Guillaume
-- [ ] FunctionType --> Corentin
-- [ ] RecordType --> Corentin
+- [x] FunctionType --> Corentin
+- [x] RecordType --> Corentin

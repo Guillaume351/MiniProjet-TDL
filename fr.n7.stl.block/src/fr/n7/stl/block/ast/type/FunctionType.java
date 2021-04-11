@@ -8,8 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
+import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a function type.
@@ -34,7 +36,22 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException( "equalsTo is undefined in FunctionType.");
+		boolean ok;
+
+		if (_other instanceof FunctionType){
+			ok = this.result.equalsTo(((FunctionType) _other).result);
+			if (this.parameters.size() == ((FunctionType) _other).parameters.size()) {
+				for (int i = 0; i < this.parameters.size(); i++) {
+					ok = ok && this.parameters.get(i).equalsTo(((FunctionType) _other).parameters.get(i));
+				}
+			} else {
+				ok = false;
+			}
+		} else {
+			ok = false;
+		}
+
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -42,7 +59,22 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in FunctionType.");
+		boolean ok;
+
+		if (_other instanceof FunctionType){
+			ok = this.result.compatibleWith(((FunctionType) _other).result);
+			if (this.parameters.size() == ((FunctionType) _other).parameters.size()) {
+				for (int i = 0; i < this.parameters.size(); i++) {
+					ok = ok && this.parameters.get(i).compatibleWith(((FunctionType) _other).parameters.get(i));
+				}
+			} else {
+				ok = false;
+			}
+		} else {
+			ok = false;
+		}
+
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -50,7 +82,19 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException( "merge is undefined in FunctionType.");
+		if (_other instanceof FunctionType){
+			if (this.parameters.size() == ((FunctionType) _other).parameters.size()) {
+				List<Type> otherParameters = new LinkedList<Type>();
+				for (int i = 0; i < this.parameters.size(); i++) {
+					otherParameters.add(this.parameters.get(i).merge(((FunctionType) _other).parameters.get(i)));
+				}
+				return new FunctionType(this.result.merge(((FunctionType) _other).result), otherParameters);
+			} else {
+				return AtomicType.ErrorType;
+			}
+		} else {
+			return AtomicType.ErrorType;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -58,7 +102,12 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length is undefined in FunctionType.");
+		int length = this.result.length();
+		for (Type parType : this.parameters){
+			length += parType.length();
+		}
+
+		return length;
 	}
 
 	/* (non-Javadoc)
@@ -82,7 +131,12 @@ public class FunctionType implements Type {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve is undefined in FunctionType.");
+		boolean ok = this.result.resolve(_scope);
+		for (Type parType : this.parameters){
+			ok = ok && parType.resolve(_scope);
+		}
+
+		return ok;
 	}
 
 }

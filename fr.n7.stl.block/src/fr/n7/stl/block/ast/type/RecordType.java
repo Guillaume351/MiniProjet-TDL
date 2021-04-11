@@ -70,8 +70,20 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		//TODO
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		boolean ok = true;
+		if (_other instanceof RecordType){
+			if (this.fields.size() == ((RecordType) _other).fields.size()) {
+				for (int i = 0; i < this.fields.size(); i++) {
+					ok = ok && this.fields.get(i).getType().equalsTo(((RecordType) _other).fields.get(i).getType());
+				}
+			} else {
+				ok = false;
+			}
+		} else {
+			ok = false;
+		}
+
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +91,20 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		return (_other).compatibleWith(this.getType());
+		boolean ok = true;
+		if (_other instanceof RecordType){
+			if (this.fields.size() == ((RecordType) _other).fields.size()) {
+				for (int i = 0; i < this.fields.size(); i++) {
+					ok = ok && this.fields.get(i).getType().compatibleWith(((RecordType) _other).fields.get(i).getType());
+				}
+			} else {
+				ok = false;
+			}
+		} else {
+			ok = false;
+		}
+
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +112,21 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException( "compatibleWith is undefined in RecordType.");
+		if (_other instanceof RecordType){
+			if (this.fields.size() == ((RecordType) _other).fields.size()) {
+				List<FieldDeclaration> otherFields = new LinkedList<FieldDeclaration>();
+				for (int i = 0; i < this.fields.size(); i++) {
+					FieldDeclaration currentFD = this.fields.get(i);
+					FieldDeclaration otherCurrentFD = ((RecordType) _other).fields.get(i);
+					otherFields.add(new FieldDeclaration(currentFD.getName(), currentFD.getType().merge(otherCurrentFD.getType())));
+				}
+				return new RecordType(this.name, otherFields);
+			} else {
+				return AtomicType.ErrorType;
+			}
+		} else {
+			return AtomicType.ErrorType;
+		}
 	}
 
 	/* (non-Javadoc)
