@@ -31,7 +31,7 @@ genre ça : int b = c; int c = 3;
 
 ### expression
 - [x] accessible/AddressAccess.java
-- [ ] accessible/ArrayAccess.java
+- [ ] accessible/ArrayAccess.java --> Guillaume
 - [x] accessible/ConstantAccess.java
 - [x] accessible/FieldAccess.java
 - [x] accessible/IdentifierAccess.java
@@ -43,7 +43,7 @@ genre ça : int b = c; int c = 3;
 - [x] allocation/PointerAllocation.java
 
 - [x] assignment/ArrayAssignment.java
-- [ ] assignment/FieldAssignment.java
+- [ ] assignment/FieldAssignment.java --> Corentin/Guillaume
 - [x] assignment/PointerAssignment.java
 - [x] assignment/VariableAssignment.java
 
@@ -59,7 +59,7 @@ genre ça : int b = c; int c = 3;
 - [x] Assignment
 - [x] Conditional
 - [x] Iteration
-- [ ] Printer
+- [ ] Printer --> Corentin
 - [x] Repetition
 - [x] Return
 
@@ -98,7 +98,7 @@ genre ça : int b = c; int c = 3;
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
 - [x] AbstractArray.java
-- [ ] AbstractConversion.java
+- [ ] AbstractConversion.java  --> Guillaume
 
 ### collect
 - [x] Second.java 
@@ -110,7 +110,7 @@ genre ça : int b = c; int c = 3;
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
 - [x] AbstractArray.java
-- [ ] AbstractConversion.java
+- [ ] AbstractConversion.java   --> Guillaume
 
 ### getType
 - [x] First.java
@@ -123,7 +123,7 @@ genre ça : int b = c; int c = 3;
 - [x] allocation/PointerAllocation.java
 - [x] accessible/AddressAccess.java
 - [x] AbstractArray.java
-- [ ] AbstractConversion.java
+- [ ] AbstractConversion.java   --> Guillaume
 - [x] assignable/VariableAssignment.java
 
 ## Instructions à faire
@@ -134,7 +134,7 @@ genre ça : int b = c; int c = 3;
 - [x] Printer
 - [x] Repetition
 - [x] Return
-- [ ] declaration/FunctionDeclaration -> a reflechir
+- [ ] declaration/FunctionDeclaration   --> Corentin
 - [x] declaration/TypeDeclaration
 
 ### collect
@@ -144,7 +144,7 @@ genre ça : int b = c; int c = 3;
 - [x] Return
 - [x] declaration/TypeDeclaration
 
-- [x] declaration/FunctionDeclaration
+- [ ] declaration/FunctionDeclaration   --> Corentin
 
 ### getType
 - [x] Assignment -> pas sûr pour ErrorType
@@ -160,3 +160,11 @@ genre ça : int b = c; int c = 3;
 - [x] declaration/ConstantDeclaration
 - [x] declaration/FunctionDeclaration
 - [x] declaration/VariableDeclaration
+
+
+## Type à faire
+
+- [ ] PointerType --> Guillaume 
+- [ ] EnumerationType --> Guillaume
+- [ ] FunctionType --> Corentin
+- [ ] RecordType --> Corentin
