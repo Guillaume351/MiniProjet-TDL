@@ -11,6 +11,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 /**
  * Common elements between left (Assignable) and right (Expression) end sides of assignments. These elements
@@ -60,7 +61,13 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics collect undefined in TypeConversion.");
+		if(target instanceof Expression){
+			return ((Expression) this.target).collect(_scope);
+		}else{
+			Logger.error("AbstractConversion : la target n'est pas une expression !? C'est ; " + this.target);
+		}
+
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -68,7 +75,13 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		throw new SemanticsUndefinedException("Semantics resolve undefined in TypeConversion.");
+		// La target est necessairement une expression car sinon le collect n'aurait pas fonctionne
+		boolean ok = ((Expression) this.target).resolve(_scope);
+
+
+
+
+		return ok;
 	}
 
 	/* (non-Javadoc)
