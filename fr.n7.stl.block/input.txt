@@ -17,6 +17,12 @@ pgcd {
      } coords;
      coords origin = {0, 0, 0};
 
+     typedef struct coords2D {
+              int x;
+              int y;
+     } coords2D;
+     coords2D origin2D = {0,0};
+
      int maVariable = origin.x + origin.y;
 
      while (a * b != test) {
