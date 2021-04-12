@@ -131,6 +131,7 @@ public class Block {
 			fragment.append(i.getCode(_factory));
 		}
 
+		// TODO : vérifier que l'on est dans le block principal
 		fragment.add(_factory.createPop(0, this.offset));
 		fragment.add(_factory.createHalt());
 

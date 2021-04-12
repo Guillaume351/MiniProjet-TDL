@@ -40,8 +40,12 @@ public class ParameterAccess extends AbstractAccess {
     public Fragment getCode(TAMFactory _factory) {
         Fragment fragment = _factory.createFragment();
         // On accède dans le negatif du registre LB
+        /*
         fragment.add(_factory.createLoad(Register.LB, this.declaration.getOffset(),
                 this.getDeclaration().getType().length()));
+         */
+        //TODO : verifier
+        fragment.add(_factory.createLoadA(Register.LB, this.declaration.getOffset()));
 		//fragment.addComment(this.toString());
         return fragment;
     }
