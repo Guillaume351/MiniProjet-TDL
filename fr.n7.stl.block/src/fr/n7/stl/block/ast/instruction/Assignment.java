@@ -130,8 +130,9 @@ public class Assignment implements Instruction, Expression {
 	public Fragment getCode(TAMFactory _factory) {
 
 		Fragment fragment = _factory.createFragment();
-		fragment.append(this.assignable.getCode(_factory));
+
 		fragment.append(this.value.getCode(_factory));
+		fragment.append(this.assignable.getCode(_factory));
 
 		return fragment;
 	}
