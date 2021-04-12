@@ -81,7 +81,6 @@ public class Block {
 	 */
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		boolean ok = true;
-
 		for(Instruction i : this.instructions){
 			ok = ok && i.resolve(_scope);
 		}
