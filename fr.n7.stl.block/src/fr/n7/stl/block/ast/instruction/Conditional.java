@@ -110,7 +110,6 @@ public class Conditional implements Instruction {
 
 		Fragment fragment = _factory.createFragment();
 		fragment.append(this.condition.getCode(_factory));
-		fragment.add(_factory.createJumpIf("end_if_" + id, 0));
 		if (this.elseBranch != null) {
 			fragment.add(_factory.createJumpIf("else_tag_" + id, 0));
 			fragment.append(this.thenBranch.getCode(_factory));

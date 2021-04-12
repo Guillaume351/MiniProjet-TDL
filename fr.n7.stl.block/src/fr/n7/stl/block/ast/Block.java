@@ -138,6 +138,7 @@ public class Block {
 		for(Instruction i : this.instructions){
 			fragment.append(i.getCode(_factory));
 		}
+
 		fragment.add(_factory.createPop(0, this.offset));
 		fragment.add(_factory.createHalt());
 

@@ -42,7 +42,7 @@ public class ParameterAccess extends AbstractAccess {
         // On accède dans le negatif du registre LB
         fragment.add(_factory.createLoad(Register.LB, this.declaration.getOffset(),
                 this.getDeclaration().getType().length()));
-		fragment.addComment(this.toString());
+		//fragment.addComment(this.toString());
         return fragment;
     }
 
