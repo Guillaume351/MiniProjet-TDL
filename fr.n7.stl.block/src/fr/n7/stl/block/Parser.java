@@ -760,7 +760,9 @@ class CUP$Parser$actions {
 					    if (bloc.checkType()) {
                             System.out.println("CheckType succeeded.");
                             bloc.allocateMemory( Register.SB, 0);
-                            Fragment code = bloc.getCode(new TAMFactoryImpl());
+                            TAMFactoryImpl factory = new TAMFactoryImpl();
+                            Fragment code = bloc.getCode(factory);
+                            code.add(factory.createHalt());
                             System.out.println( "Generated code:" );
                             System.out.println( code );
                             File file = new File(parser + "_tam");

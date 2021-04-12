@@ -96,7 +96,7 @@ public class Conditional implements Instruction {
 	public int allocateMemory(Register _register, int _offset) {
 		this.thenBranch.allocateMemory(_register, _offset);
 		if (this.elseBranch != null) {
-			this.elseBranch.allocateMemory(_register, _offset);
+			this.elseBranch.allocateMemory(_register, 0);
 		}
 		return 0;
 	}

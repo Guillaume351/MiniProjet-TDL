@@ -217,6 +217,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
+
 		/*
 		for(ParameterDeclaration par : this.parameters){
 			fragment.add(_factory.createLoad(Register.LB, par.offset, par.getType().length()));
