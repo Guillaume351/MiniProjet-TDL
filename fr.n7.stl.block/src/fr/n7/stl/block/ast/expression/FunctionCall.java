@@ -109,7 +109,7 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		boolean ok = this.function.resolve(_scope);
+		boolean ok = true/*= this.function.resolve(_scope)*/;
 		for(Expression argument : this.arguments) {
 			ok = ok && argument.resolve(_scope);
 		}

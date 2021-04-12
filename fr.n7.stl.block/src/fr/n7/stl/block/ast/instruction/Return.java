@@ -37,7 +37,8 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public String toString() {
-		return "return " + this.value + ";\n";
+		//return "return " + this.value + ";\n";
+		return "";
 	}
 	
 	/* (non-Javadoc)
@@ -96,6 +97,8 @@ public class Return implements Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
+
+		fragment.append(this.value.getCode(_factory));
 
 		int returnSize = this.value.getType().length();
 
