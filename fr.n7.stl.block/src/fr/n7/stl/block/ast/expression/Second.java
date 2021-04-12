@@ -78,7 +78,8 @@ public class Second implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
-		//TODO : verifier
+		fragment.append(this.target.getCode(_factory));
+
 		int firstLen = new First(this.target).getType().length();
 		int sndLen = this.getType().length();
 
