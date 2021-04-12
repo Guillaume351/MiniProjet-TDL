@@ -155,7 +155,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 
 
 		// Vérification des paramètres et des variables
-		ok = ok && this.body.resolve(this.localSymbolTableParameters);
+		//ok = ok && this.body.resolve(this.localSymbolTableParameters);
 
 		// Création de la table des symboles des variables
 		this.localSymbolTableVariables = new SymbolTable(this.localSymbolTableParameters);

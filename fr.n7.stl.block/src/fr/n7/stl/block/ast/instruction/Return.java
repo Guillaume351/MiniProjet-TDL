@@ -45,12 +45,12 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		if (_scope.contains("return")){
+		if (_scope.knows("return")){
 			this.returnType = (_scope.get("return")).getType();
 		} else {
 			Logger.error("Return: Il y a un soucis! La fonction n'a pas renseigné son type de retour");
 		}
-		if(_scope.contains("$parameterslength$")){
+		if(_scope.knows("$parameterslength$")){
 			// Comme $parameterslength$ ne contient pas d'entier, ça passe ! On a juste a convertir en string,
 			// puis retirer tout ce qui ne correspond pas a la valeur...
 			// Encore une fois, c'est pas tres propre, mais on a pas besoin de rajouter de getter comme ça...

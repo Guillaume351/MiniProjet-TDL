@@ -10,6 +10,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 import java.util.Iterator;
 import java.util.List;
@@ -75,10 +76,29 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		boolean ok = this.function.collect(_scope);
+		boolean ok;
+
+		// Affectation de l'attribut function
+		if (_scope.knows(this.name)){
+			if (_scope.get(this.name) instanceof FunctionDeclaration){
+				this.function = (FunctionDeclaration) _scope.get(this.name);
+				ok = true;
+			} else {
+				Logger.error("FunctionCall : la fonction appelée n'est pas du type FunctionType");
+				ok = false;
+			}
+		} else {
+			Logger.error("FunctionCall : fonction appelée non trouvée");
+			ok = false;
+		}
+
+		/*
+		ok = ok && this.function.collect(_scope);
+
 		for(Expression argument : this.arguments) {
 			ok = ok && argument.collect(_scope);
 		}
+		 */
 
 		return ok;
 
