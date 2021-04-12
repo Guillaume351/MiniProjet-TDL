@@ -65,16 +65,8 @@ public class Block {
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
 		boolean ok = true;
 
-		// TODO : a retirer si ça fonctionne sans ..;
-		HierarchicalScope<Declaration> tds;
-		if(_scope == null){
-			tds = new SymbolTable();
-		}else{
-			tds = _scope;
-		}
-
 		for(Instruction i : this.instructions){
-			ok = ok && i.collect(tds);
+			ok = ok && i.collect(_scope);
 		}
 
 		return ok;
