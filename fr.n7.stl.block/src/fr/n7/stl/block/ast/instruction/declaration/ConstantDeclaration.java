@@ -47,6 +47,11 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	protected int offset;
 
 	/**
+	 * Is it the first get code ?
+	 */
+	protected boolean isDeclarationGetCode = true;
+
+	/**
 	 * Builds an AST node for a constant declaration
 	 *
 	 * @param _name  : Name of the constant
@@ -142,9 +147,7 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		this.register = _register;
-		this.offset = _offset;
-		return this.getType().length();
+		return 0; // On ne met pas dans la pile
 	}
 
 	/* (non-Javadoc)
@@ -154,15 +157,11 @@ public class ConstantDeclaration implements Instruction, Declaration {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
-		// Taille du type de la constante
-		int taille = this.getType().length();
-
-		// On alloue la taille du type
-		fragment.add(_factory.createPush(taille));
-
-		fragment.append(this.value.getCode(_factory));
-
-		fragment.add(_factory.createStore(this.register, this.offset, taille));
+		if(isDeclarationGetCode){
+			isDeclarationGetCode = false;
+		}else{
+			fragment.append(this.getValue().getCode(_factory));
+		}
 
 		return fragment;
 	}
