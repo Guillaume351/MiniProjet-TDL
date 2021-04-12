@@ -11,17 +11,8 @@ En effet, certaines erreurs de types incompatibles ont peut être été oubliée
 /!\ Pourquoi quand on affecte une variable pas encore déclarée bah ça plante pas
 genre ça : int b = c; int c = 3;
 
-/!\ Dans la functiondeclaration, quand on checktype comment qu'on fait pour avoir les instructions return
-
-/!\ Utilité de addPrefix ??
-
 /!\ La différence entre Repetition et Iteration ???
 
-/!\ Poser la question de getCode() pour Printer et Return
-
-/!\ Revoir le getCode pour First et Second (notamment LOAD de la variable et POP)
-
-/!\ Pourquoi pas de append du left dans le getCode de BinaryExpression ?
 
 ## Génération de code
 ### getCode
