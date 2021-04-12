@@ -72,7 +72,8 @@ public class PointerType implements Type {
 	@Override
 	public int length() {
 		//TODO : Quelle est la longueur d'un PointerType?
-		throw new SemanticsUndefinedException("Semantics length undefined in PointerType.");
+		Logger.warning("PointerType : Quelle est la longueur d'un Pointer?");
+		return 1;
 	}
 
 	/* (non-Javadoc)

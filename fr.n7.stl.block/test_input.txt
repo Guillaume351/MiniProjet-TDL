@@ -16,11 +16,8 @@ test {
 
     int * monPointeur = &i;
 
-    int * monTableau = new int[3];
 
-    i = monTableau[0];
-
-
+    print i;
 
 
 
