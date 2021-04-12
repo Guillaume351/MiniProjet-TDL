@@ -6,6 +6,7 @@ package fr.n7.stl.block.ast.type;
 import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.util.Logger;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer type.
@@ -29,7 +30,13 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		throw new SemanticsUndefinedException("Semantics equalsTo undefined in PointerType.");
+		boolean ok = false;
+		// On compare le type des éléments pointés
+		if(_other instanceof PointerType){
+			ok = ((PointerType) _other).getPointedType().equalsTo(this.getPointedType());
+		}
+
+		return ok;
 	}
 
 	/* (non-Javadoc)
@@ -49,7 +56,14 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-		throw new SemanticsUndefinedException("Semantics merge undefined in PointerType.");
+
+		if (_other instanceof PointerType) {
+			return this.element.merge(((PointerType) _other).getPointedType());
+		} else {
+			Logger.error("PointerType : merge failed. _other n'est pas un PointerType. C'est : " + _other);
+			return AtomicType.ErrorType;
+		}
+
 	}
 
 	/* (non-Javadoc)
@@ -57,6 +71,7 @@ public class PointerType implements Type {
 	 */
 	@Override
 	public int length() {
+		//TODO : Quelle est la longueur d'un PointerType?
 		throw new SemanticsUndefinedException("Semantics length undefined in PointerType.");
 	}
 
