@@ -166,6 +166,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 		Fragment fragment = _factory.createFragment();
 		fragment.add(_factory.createPush(taille));
 		fragment.append(this.value.getCode(_factory));
+		//fragment.add(_factory.createLoadI(this.value.getType().length()));
 		fragment.add(_factory.createStore(this.register, this.offset, taille)); // TODO : à comprendre le this.offset
 
 		return fragment;

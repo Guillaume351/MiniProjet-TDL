@@ -117,6 +117,7 @@ public class Conditional implements Instruction {
 			fragment.addSuffix("else_tag_" + id);
 			fragment.append(this.elseBranch.getCode(_factory));
 		} else {
+			fragment.add(_factory.createJumpIf("end_if_" + id, 0));
 			fragment.append(this.thenBranch.getCode(_factory));
 		}
 		fragment.addSuffix("end_if_" +id);

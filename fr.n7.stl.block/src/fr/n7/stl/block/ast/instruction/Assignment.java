@@ -3,22 +3,17 @@
  */
 package fr.n7.stl.block.ast.instruction;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
 import fr.n7.stl.block.ast.instruction.declaration.ConstantDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.scope.SymbolTable;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
-
-import javax.lang.model.type.ErrorType;
-import java.net.http.HttpHeaders;
 
 /**
  * Implementation of the Abstract Syntax Tree node for an array type.
@@ -134,7 +129,7 @@ public class Assignment implements Instruction, Expression {
 		fragment.append(this.value.getCode(_factory));
 
 		// TODO : vérifier si n'est pas à mettre ailleurs
-		fragment.add(_factory.createLoadI(this.value.getType().length()));
+		//fragment.add(_factory.createLoadI(this.value.getType().length()));
 
 		fragment.append(this.assignable.getCode(_factory));
 
