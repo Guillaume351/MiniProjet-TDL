@@ -1,9 +1,5 @@
 # TODO
-- Faire les resolve
-- Faire les collect
-- Faire les checkType
 
-- Traiter les TODOs en commentaire
 
 /!\ Il se peut que des getType que l'on a fait au debut ne soit pas assez complet.
 En effet, certaines erreurs de types incompatibles ont peut être été oubliées
@@ -14,148 +10,31 @@ genre ça : int b = c; int c = 3;
 /!\ La différence entre Repetition et Iteration ???
 
 
-## Génération de code
-### getCode
-
-### autre
-- [x] Block
-
-### expression
-- [x] accessible/AddressAccess.java
-- [ ] accessible/ArrayAccess.java --> Guillaume
-- [x] accessible/ConstantAccess.java
-- [x] accessible/FieldAccess.java
-- [x] accessible/IdentifierAccess.java
-- [x] accessible/ParameterAccess.java
-- [x] accessible/PointerAccess.java
-- [x] accessible/VariableAccess.java
-  
-- [x] allocation/ArrayAllocation.java
-- [x] allocation/PointerAllocation.java
-
-- [x] assignment/ArrayAssignment.java
-- [ ] assignment/FieldAssignment.java --> Corentin/Guillaume
-- [x] assignment/PointerAssignment.java
-- [x] assignment/VariableAssignment.java
-
-- [x] ConditionalExpression.java
-- [x] Couple.java
-- [x] First.java
-- [x] FunctionCall.java
-- [x] Second.java
-- [x] Sequence.java
-
-
-### instructions
-- [x] Assignment
-- [x] Conditional
-- [x] Iteration
-- [x] Printer --> Corentin
-- [x] Repetition
-- [x] Return
-
-- [x] declaration/ConstantDeclaration
-- [x] declaration/FunctionDeclaration
-- [x] declaration/VariableDeclaration
-
-### allocateMemory
-
-### autre
-
-- [x] Block
-
-### instructions
-
-- [x] Assignment
-- [x] Conditional
-- [x] Iteration
-- [x] Printer
-- [x] Repetition
-- [x] Return
-
-- [x] declaration/ConstantDeclaration
-- [x] declaration/FunctionDeclaration
-- [x] declaration/VariableDeclaration
-
-## Expressions à faire
-
-### resolve
-
-- [x] Second.java
-- [x] FunctionCall.java
-- [x] AbstractPointer.java
-- [x] AbstractField.java
-- [x] allocation/ArrayAllocation.java
-- [x] allocation/PointerAllocation.java
-- [x] accessible/AddressAccess.java
-- [x] AbstractArray.java
-- [x] AbstractConversion.java  --> Guillaume
-
-### collect
-- [x] Second.java 
-- [x] FunctionCall.java
-- [x] ConditionalExpression
-- [x] AbstractPointer.java
-- [x] AbstractField.java
-- [x] allocation/ArrayAllocation.java
-- [x] allocation/PointerAllocation.java
-- [x] accessible/AddressAccess.java
-- [x] AbstractArray.java
-- [x] AbstractConversion.java   --> Guillaume
-
-### getType
-- [x] First.java
-- [x] Second.java
-- [x] FunctionCall.java
-- [x] ConditionalExpression.java
-- [x] AbstractPointer.java
-- [x] AbstractField.java
-- [x] allocation/ArrayAllocation.java
-- [x] allocation/PointerAllocation.java
-- [x] accessible/AddressAccess.java
-- [x] AbstractArray.java
-- [ ] AbstractConversion.java   --> Guillaume
-- [x] assignable/VariableAssignment.java
-
-## Instructions à faire
-
-
-### resolve
-- [x] Assignment -> pourquoi Logger.error ?
-- [x] Printer
-- [x] Repetition
-- [x] Return
-- [ ] declaration/FunctionDeclaration   --> Corentin
-- [x] declaration/TypeDeclaration
-
-### collect
-- [x] Assignment
-- [x] Printer
-- [x] Repetition
-- [x] Return
-- [x] declaration/TypeDeclaration
-
-- [ ] declaration/FunctionDeclaration   --> Corentin
-
-### getType
-- [x] Assignment -> pas sûr pour ErrorType
-
-### checkType
-- [x] Assignment
-- [x] Conditional
-- [x] Iteration
-- [x] Printer
-- [x] Repetition
-- [x] Return
-
-- [x] declaration/ConstantDeclaration
-- [x] declaration/FunctionDeclaration
-- [x] declaration/VariableDeclaration
 
 
 ## Type à faire
 
-- [ ] PointerType --> Guillaume 
-- [ ] EnumerationType --> Guillaume
-- [x] FunctionType --> Corentin
-- [x] RecordType --> Corentin
+- [ ] EnumerationType
+
+
+## Ce dont on va parler à la présentation
+
+- Présenter la manière dont on a géré le lien entre FunctionDeclaration et Return pour le checkType() + ajout du $parameterslength$ pour le getCode() du Return
+
+- Pour le FunctionCall : pourquoi le CALL SB fonctionne dans un appel récursif ?
+  
+- Parler du TODO qu'il nous reste, cad la longueur d'un PointerType
+
+- Présenter nos différents exemples pour les différentes fonctionnalités :
+    - la fonction PGCD          --> Corentin   (parler du fait qu'on a ajouté un JUMP pour sauter les déclarations de méthodes pour que TAM fonctionne)
+    - la fonction factorielle   --> Guillaumus (Cf probleme de registre ?)
+    - les Segments et Points    --> Guillaumus (Mécanisme de remontée des fields)
+    - les pointeurs et tableaux --> Corentin   (parler des fichiers PointerAccess et PointerAssignment) + dire que c'est idem pour les tableaux
+    
+    --> Il faut qu'on précise qu'on a rajouté un getDeclaration dans IdentifierAccess pour obtenir les register + offset des déclarations dans FieldAccess, PointerAccess,...
+  
+- Parler du fait que le LOADA LOADI nous a un peu poser problème ; on ne savait où placer le LOADI  --> dans Assignment ? puis finalement dans VariableAccess mais cela a posé le
+  problème que dans les autres Access par exemple PointerAccess, on ne pouvait faire this.pointer.getCode()
+  
+- Parler des Enumerations ; idées d'implémentation/montrer l'implémentation si on l'a déjà fait
+
