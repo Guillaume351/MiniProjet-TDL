@@ -38,7 +38,7 @@ public class PointerAllocation implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		return true; //TODO : a verifier (pas de collect dans this.element)
+		return true;
 	}
 
 	/* (non-Javadoc)

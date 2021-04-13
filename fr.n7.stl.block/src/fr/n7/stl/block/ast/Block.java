@@ -110,7 +110,7 @@ public class Block {
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
 		// On met à 0 pour ne pas porter le offset parent (evite les pop)
-		this.offset = 0;	// TODO : penser à mettre l'offset à 0 dans le programme principal
+		this.offset = 0;
 
 		for (Instruction i : this.instructions) {
 			// On somme l'offset du body courant et l'offset du parent
@@ -132,7 +132,7 @@ public class Block {
 			fragment.append(i.getCode(_factory));
 		}
 
-		if(this.offset > 0) { // Si le pop est necesaire
+		if(this.offset > 0) { // Si le pop est nécessaire
 			fragment.add(_factory.createPop(0, this.offset));
 		}
 

@@ -125,9 +125,6 @@ public class Assignment implements Instruction, Expression {
 
 		fragment.append(this.value.getCode(_factory));
 
-		// TODO : vérifier si n'est pas à mettre ailleurs
-		//fragment.add(_factory.createLoadI(this.value.getType().length()));
-
 		fragment.append(this.assignable.getCode(_factory));
 
 		return fragment;

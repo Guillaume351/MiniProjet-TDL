@@ -60,7 +60,6 @@ public class ArrayType implements Type {
 	 */
 	@Override
 	public int length() {
-		//TODO : verifier
 		return this.element.length();
 	}
 
