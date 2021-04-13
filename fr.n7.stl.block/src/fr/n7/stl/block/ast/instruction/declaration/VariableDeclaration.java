@@ -138,10 +138,11 @@ public class VariableDeclaration implements Declaration, Instruction {
 
 		// Le type virtuel doit être compatible avec le type réel
 		if (!this.getType().compatibleWith(treal)){
-            Logger.error("VariableDeclaration : types incompatibles : ceci est " + this.type +
-                    " alors que cela est " + treal);
-            return false;
-        }
+
+			Logger.error("VariableDeclaration : types incompatibles : ceci (" + this.name + ") est " + this.type +
+					" alors que cela (" + this.value + ") est " + treal);
+			return false;
+		}
 
 		return true;
 	}

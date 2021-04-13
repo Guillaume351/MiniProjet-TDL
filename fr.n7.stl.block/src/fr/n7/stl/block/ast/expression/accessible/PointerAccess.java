@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression.accessible;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractPointer;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.tam.ast.Fragment;
@@ -36,4 +35,9 @@ public class PointerAccess extends AbstractPointer implements Expression {
 		return  fragment;
 	}
 
+
+	@Override
+	public Type getType() {
+		return ((PointerType) this.pointer.getType()).getPointedType();
+	}
 }

@@ -87,7 +87,7 @@ public class Assignment implements Instruction, Expression {
 		Type tvalue = this.value.getType();
 
 		if (!(texpr.compatibleWith(tvalue))){
-			Logger.warning("Assignment : types non compatibles");
+			Logger.error("Assignment : types non compatibles");
 			return AtomicType.ErrorType;
 		} else {
 			return texpr;
@@ -102,8 +102,8 @@ public class Assignment implements Instruction, Expression {
 		Type texpr = this.assignable.getType();
 		Type tvalue = this.value.getType();
 
-		if (!(texpr.compatibleWith(tvalue))){
-			Logger.warning("Assignment : types non compatibles");
+		if (!(texpr.compatibleWith(tvalue))) {
+			Logger.error("Assignment : types non compatibles entre " + this.assignable + " et " + this.value);
 			return false;
 		} else {
 			return true;
