@@ -84,4 +84,7 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 		return fragment;
 	}
 
+	public VariableDeclaration getDeclaration() {
+		return declaration;
+	}
 }

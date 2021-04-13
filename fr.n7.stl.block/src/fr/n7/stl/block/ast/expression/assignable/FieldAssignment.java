@@ -34,27 +34,41 @@ public class FieldAssignment extends AbstractField implements AssignableExpressi
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
+		Expression expression = this;
 
-		Type typeDuRecord = this.record.getType();
+		int offsetDuField = 0;
 
-		if (typeDuRecord instanceof NamedType) {
-			typeDuRecord = ((NamedType) typeDuRecord).getType();
+		// Tant qu'on a du FieldAccess, on descend (enfin on remonte) (exemple : segment.point.x)
+		while (expression instanceof FieldAssignment) {
+
+			FieldAssignment fieldAssignment = ((FieldAssignment) expression);
+
+			Type typeDuRecordDuField = fieldAssignment.record.getType();
+
+			if (typeDuRecordDuField instanceof NamedType) {
+				typeDuRecordDuField = ((NamedType) typeDuRecordDuField).getType();
+			}
+
+			RecordType recordType = ((RecordType) typeDuRecordDuField);
+
+			offsetDuField += recordType.getOffSetForField(fieldAssignment.name);
+
+			expression = ((FieldAssignment) expression).record;
+
 		}
 
-		// Calcul de l'offset associe a FieldAssignment
-		RecordType recordDuField = (RecordType) typeDuRecord;
+		VariableAssignment accesALaVariableDesFields = ((VariableAssignment) expression);
 
-		int offsetDuField = recordDuField.getOffSetForField(this.field.getName());
+		VariableDeclaration declaration = accesALaVariableDesFields.getDeclaration();
 
-		// On recupere le register associe
-		if (true) {//recordDuField.getDeclaration().getType() instanceof ){
-			//	Register register = (()recordDuField.getDeclaration()).getRegister();
+		fragment.add(_factory.createLoadA(declaration.getRegister(), declaration.getOffset()));
 
+		fragment.add(_factory.createLoadL(offsetDuField));
 
-			//fragment.add(_factory.createStore(register, offsetDuField, this.getType().length()));
-		} else {
-			Logger.error("FieldAssignment : La declaration du register n'est pas VariableDeclaration! C'est : " + recordDuField.getDeclaration().getType());
-		}
+		fragment.add(Library.IAdd);
+
+		fragment.add(_factory.createStoreI(this.field.getType().length()));
+
 
 		return fragment;
 	}

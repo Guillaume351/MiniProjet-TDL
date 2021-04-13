@@ -245,7 +245,6 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 		int offsetDuField = 0;
 		for (FieldDeclaration fieldDeclaration : this.fields) {
 			if (fieldDeclaration.getName().equals(fieldName)) {
-				Logger.warning("Heureux de reporter que l'offset de " + fieldName + " est " + offsetDuField);
 				return offsetDuField;
 			}
 			offsetDuField += fieldDeclaration.getOffset();
