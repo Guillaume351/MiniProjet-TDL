@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.type.declaration;
 
 import fr.n7.stl.block.ast.scope.Declaration;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.Type;
 
 /**
@@ -52,7 +53,14 @@ public class FieldDeclaration implements Declaration {
 	 * @return Offset of the field.
 	 */
 	public int getOffset() {
-		return this.offset;
+
+		Type type = this.type;
+		if (type instanceof NamedType) {
+			type = ((NamedType) type).getType();
+		}
+
+
+		return type.length();
 	}
 
 }

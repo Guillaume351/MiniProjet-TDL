@@ -61,14 +61,14 @@ public class Assignment implements Instruction, Expression {
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
 		Declaration info = _scope.get(this.assignable.toString().trim()); //TODO : verifier si y'a pas une fonction pour recup le nom
-		boolean ok1 = (info != null);
+		boolean ok1 = true;//(info != null);
 		boolean ok2 = this.value.resolve(_scope);
 		boolean ok3 = this.assignable.resolve(_scope);
-		if(!ok1){
+		if (!ok1) {
 			//TODO : cette verification est maintenant redondante a cause du ok3. Retirer
 			Logger.error("Assignment impossible : l'assignable n'est pas dans le scope");
-		}else{
-			if(info instanceof ConstantDeclaration){
+		} else {
+			if (info instanceof ConstantDeclaration) {
 				ok1 = false;
 				Logger.error("Assignment impossible : l'assignable est constant");
 			}

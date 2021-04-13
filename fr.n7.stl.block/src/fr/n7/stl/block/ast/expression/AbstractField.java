@@ -4,7 +4,6 @@ import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.RecordType;
-import fr.n7.stl.block.ast.type.SequenceType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.util.Logger;
@@ -20,11 +19,14 @@ public abstract class AbstractField implements Expression {
 	protected Expression record;
 	protected String name;
 	protected FieldDeclaration field;
-	
+
+	protected Declaration recordDeclaration;
+
 	/**
 	 * Construction for the implementation of a record field access expression Abstract Syntax Tree node.
+	 *
 	 * @param _record Abstract Syntax Tree for the record part in a record field access expression.
-	 * @param _name Name of the field in the record field access expression.
+	 * @param _name   Name of the field in the record field access expression.
 	 */
 	public AbstractField(Expression _record, String _name) {
 		this.record = _record;
@@ -57,7 +59,6 @@ public abstract class AbstractField implements Expression {
 		}
 
 		Type type = this.record.getType();
-
 		// On descend le type
 		if(type instanceof NamedType){
 			type = ((NamedType) type).getType();

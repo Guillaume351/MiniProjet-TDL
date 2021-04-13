@@ -3,17 +3,15 @@
  */
 package fr.n7.stl.block.ast.type;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
-import fr.n7.stl.block.ast.expression.assignable.FieldAssignment;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.Scope;
 import fr.n7.stl.block.ast.type.declaration.FieldDeclaration;
 import fr.n7.stl.util.Logger;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a record type.
@@ -245,15 +243,16 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	public int getOffSetForField(String fieldName){
 		int offsetDuField = 0;
-		for(FieldDeclaration fieldDeclaration : this.fields){
-			offsetDuField += fieldDeclaration.getOffset();
-			if(fieldDeclaration.getName().equals(fieldName)){
+		for (FieldDeclaration fieldDeclaration : this.fields) {
+			if (fieldDeclaration.getName().equals(fieldName)) {
+				Logger.warning("Heureux de reporter que l'offset de " + fieldName + " est " + offsetDuField);
 				return offsetDuField;
 			}
+			offsetDuField += fieldDeclaration.getOffset();
 		}
 
 		Logger.error("RecordType : Le field n'a pas ete trouve! Field : " + fieldName);
-		return 0;
+		return -666; // Constante demoniaque
 	}
 
 	/**

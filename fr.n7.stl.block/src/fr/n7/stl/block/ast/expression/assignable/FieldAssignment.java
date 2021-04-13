@@ -3,12 +3,11 @@
  */
 package fr.n7.stl.block.ast.expression.assignable;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractField;
-import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
+import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.RecordType;
+import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
@@ -35,17 +34,26 @@ public class FieldAssignment extends AbstractField implements AssignableExpressi
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
+
+		Type typeDuRecord = this.record.getType();
+
+		if (typeDuRecord instanceof NamedType) {
+			typeDuRecord = ((NamedType) typeDuRecord).getType();
+		}
+
 		// Calcul de l'offset associe a FieldAssignment
-		RecordType recordDuField = (RecordType) this.record;
+		RecordType recordDuField = (RecordType) typeDuRecord;
 
 		int offsetDuField = recordDuField.getOffSetForField(this.field.getName());
 
 		// On recupere le register associe
-		if(recordDuField.getDeclaration() instanceof VariableDeclaration){
-			Register register = ((VariableDeclaration)recordDuField.getDeclaration()).getRegister();
-			fragment.add(_factory.createStore(register, offsetDuField, this.getType().length()));
-		}else{
-			Logger.error("FieldAssignment : La declaration du register n'est pas VariableDeclaration! C'est : " + recordDuField.getDeclaration());
+		if (true) {//recordDuField.getDeclaration().getType() instanceof ){
+			//	Register register = (()recordDuField.getDeclaration()).getRegister();
+
+
+			//fragment.add(_factory.createStore(register, offsetDuField, this.getType().length()));
+		} else {
+			Logger.error("FieldAssignment : La declaration du register n'est pas VariableDeclaration! C'est : " + recordDuField.getDeclaration().getType());
 		}
 
 		return fragment;

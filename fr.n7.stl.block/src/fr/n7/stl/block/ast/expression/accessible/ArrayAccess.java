@@ -5,7 +5,6 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.expression.AbstractArray;
 import fr.n7.stl.block.ast.expression.Expression;
-import fr.n7.stl.block.ast.expression.assignable.ArrayAssignment;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -33,7 +32,7 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 		Fragment fragment = _factory.createFragment();
 		//TODO : NON FINI, voir operations intermediares
 
-		System.out.println("Voici le type de la chose qu'on sait pas : " + (this.array instanceof ArrayAssignment));
+		System.out.println("Voici le type de la chose qu'on sait pas : " + this.array.getClass().toString());
 
 //		int arrayOffset = this.array.;
 //

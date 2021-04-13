@@ -27,8 +27,11 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 
 	protected AbstractAccess expression;
 
+	protected VariableDeclaration declaration;
+
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
+	 *
 	 * @param _name Name of the used variable.
 	 */
 	public IdentifierAccess(String _name) {
@@ -59,6 +62,7 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 		if (((HierarchicalScope<Declaration>) _scope).knows(this.name)) {
 			Declaration _declaration = _scope.get(this.name);
 			if (_declaration instanceof VariableDeclaration) {
+				this.declaration = (VariableDeclaration) _declaration;
 				this.expression = new VariableAccess((VariableDeclaration) _declaration);
 				return true;
 			} else {
@@ -98,4 +102,7 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 		return this.expression.getCode(_factory);
 	}
 
+	public VariableDeclaration getDeclaration() {
+		return declaration;
+	}
 }

@@ -4,4 +4,14 @@ test {
     Point s = {0, 1};
 
     Segment monSegment = {s, s};
+
+    print monSegment.p1.x;
+    print s.x;
+
+    print monSegment.p2.y;
+
+    s.x = 69;
+
+
+    print s.x;
 }
