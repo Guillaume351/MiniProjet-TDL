@@ -22,6 +22,7 @@ pgcd {
               int y;
      } coords2D;
      coords2D origin2D = {0,0};
+     coords originBis = origin2D;
 
      int maVariable = origin.x + origin.y;
 
@@ -39,7 +40,6 @@ pgcd {
      if (res == test) {
          res = b;
      }
-
 
      int monTableau[] = new int[3];
 

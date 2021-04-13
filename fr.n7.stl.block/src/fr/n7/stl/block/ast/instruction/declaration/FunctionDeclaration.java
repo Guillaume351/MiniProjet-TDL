@@ -4,7 +4,6 @@
 package fr.n7.stl.block.ast.instruction.declaration;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.block.ast.expression.value.StringValue;
 import fr.n7.stl.block.ast.instruction.Instruction;
@@ -217,18 +216,20 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 
+		// Pour ignorer le code de la fonction, on va sauter à la fin du code de declaration
+		fragment.add(_factory.createJump("end_declaration_function_" + this.getName()));
 
-		/*
-		for(ParameterDeclaration par : this.parameters){
-			fragment.add(_factory.createLoad(Register.LB, par.offset, par.getType().length()));
-		}
+		// On met le nom de la fonction
+		fragment.addSuffix(this.name);
 
-		 */
 		fragment.append(this.body.getCode(_factory));
-		fragment.addPrefix(this.name);
+
 		// Sécurité si absence de return
 		fragment.add(_factory.createLoadL(0));
 		fragment.add(_factory.createReturn(1, this.totalOffsetParameters));
+
+		// Tag pour sauter la declaration de f onction
+		fragment.addSuffix("end_declaration_function_" + this.getName());
 
 		return fragment;
 	}
