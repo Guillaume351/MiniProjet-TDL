@@ -38,9 +38,7 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 
 		Register arrayRegister = ((VariableAssignment) this.array).declaration.getRegister();
 
-		int typeSize = this.array.getType().length();
-
-		fragment.add(_factory.createLoad(arrayRegister, arrayOffset, typeSize));
+		fragment.add(_factory.createLoad(arrayRegister, arrayOffset, 1));
 
 
 		if (!(this.index instanceof IntegerValue)) {
@@ -49,6 +47,8 @@ public class ArrayAssignment extends AbstractArray implements AssignableExpressi
 		}
 
 		int indexValue = Integer.parseInt(this.index.toString());
+
+		int typeSize = this.array.getType().length();
 
 		fragment.add(_factory.createLoadL(indexValue));
 		fragment.add(_factory.createLoadL(typeSize));
