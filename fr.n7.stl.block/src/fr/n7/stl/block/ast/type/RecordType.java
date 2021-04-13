@@ -69,20 +69,8 @@ public class RecordType implements Type, Declaration, Scope<FieldDeclaration> {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-		boolean ok = true;
-		if (_other instanceof RecordType){
-			if (this.fields.size() == ((RecordType) _other).fields.size()) {
-				for (int i = 0; i < this.fields.size(); i++) {
-					ok = ok && this.fields.get(i).getType().equalsTo(((RecordType) _other).fields.get(i).getType());
-				}
-			} else {
-				ok = false;
-			}
-		} else {
-			ok = false;
-		}
-
-		return ok;
+		// Si le other est un SequenceType, il y aura verification des fields
+		return (_other).equalsTo(this.getType());
 	}
 
 	/* (non-Javadoc)
