@@ -90,7 +90,6 @@ public class Repetition implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-
 		String id = String.valueOf(_factory.createLabelNumber());
 
 		Fragment fragment = _factory.createFragment();
