@@ -5,6 +5,8 @@ package fr.n7.stl.block.ast.expression.assignable;
 
 import fr.n7.stl.block.ast.expression.AbstractPointer;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.type.PointerType;
+import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -45,5 +47,10 @@ public class PointerAssignment extends AbstractPointer implements AssignableExpr
 		return fragment;
 
 	}
-	
+
+	@Override
+	public Type getType() {
+		return ((PointerType) this.pointer.getType()).getPointedType();
+	}
+
 }

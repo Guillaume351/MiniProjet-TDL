@@ -5,6 +5,9 @@ package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.expression.AbstractPointer;
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
+import fr.n7.stl.block.ast.type.PointerType;
+import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -29,10 +32,14 @@ public class PointerAccess extends AbstractPointer implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
-		//TODO: Verifier qu'il s'agit de la bonne size
-		fragment.add(_factory.createLoadI(this.getType().length()));
-		fragment.addComment(this.toString());
-		return  fragment;
+
+		VariableDeclaration laDeclaration = ((IdentifierAccess) this.pointer).getDeclaration();
+
+		fragment.add(_factory.createLoad(laDeclaration.getRegister(), laDeclaration.getOffset(), this.pointer.getType().length()));
+
+		fragment.add(_factory.createLoadI(this.pointer.getType().length()));
+
+		return fragment;
 	}
 
 
