@@ -34,13 +34,26 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 
 		System.out.println("Voici le type de la chose qu'on sait pas : " + this.array.getClass().toString());
 
-//		int arrayOffset = this.array.;
-//
-//		int arrayRegister = this.array;
-//
-//		int indexValue = ;
-//
-//		int typeSize =
+		VariableDeclaration laDeclaration = ((IdentifierAccess) this.array).getDeclaration();
+
+		fragment.add(_factory.createLoad(laDeclaration.getRegister(), laDeclaration.getOffset(), 1));
+		if (!(this.index instanceof IntegerValue)) {
+			Logger.error("ArrayAllocation: Ça ne va pas! Il faut que index soit une IntegerValue, " +
+					"on ne gere pas autre chose en index d'array!");
+		}
+
+		int indexValue = Integer.parseInt(this.index.toString());
+		int typeSize = this.array.getType().length();
+
+		// On multiplie la taille du type par le numero d'index
+		fragment.add(_factory.createLoadL(indexValue));
+		fragment.add(_factory.createLoadL(typeSize));
+
+		fragment.add(Library.IMul);
+
+		fragment.add(Library.IAdd);
+
+		fragment.add(_factory.createLoadI(typeSize));
 
 		return fragment;
 	}
