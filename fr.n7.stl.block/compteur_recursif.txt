@@ -1,0 +1,16 @@
+compteur {
+
+ int compteur_fonction( int c ) {
+
+        if( c < 10){
+            print c;
+            int paramsuivant = c + 1;
+            return compteur_fonction(paramsuivant);
+        }
+
+        return c;
+ }
+
+  print compteur_fonction(1);
+
+}

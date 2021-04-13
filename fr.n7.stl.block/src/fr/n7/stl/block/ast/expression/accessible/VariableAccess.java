@@ -51,6 +51,9 @@ public class VariableAccess extends AbstractAccess {
 				this.declaration.getOffset()
 		));
 
+		//TODO: verifier si c'est la bonne length
+		_result.add(_factory.createLoadI(this.declaration.getType().length()));
+
 		_result.addComment("Acces Variable " + this.declaration.getName());
 		return _result;
 	}

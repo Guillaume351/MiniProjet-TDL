@@ -140,7 +140,7 @@ public class FunctionCall implements Expression {
 		// LB est le registre pour un appel récursif
 		// SB est le registre par défaut
 		// TODO : tester si l'appel est récursif
-		fragment.add(_factory.createCall(this.name, Register.LB));
+		fragment.add(_factory.createCall(this.name, Register.SB));
 
 		return fragment;
 	}

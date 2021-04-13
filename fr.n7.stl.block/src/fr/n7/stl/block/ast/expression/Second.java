@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -79,7 +78,7 @@ public class Second implements Expression {
 		Fragment fragment = _factory.createFragment();
 
 		fragment.append(this.target.getCode(_factory));
-
+		//fragment.add(_factory.createLoadI(this.target.getType().length()));
 		int firstLen = new First(this.target).getType().length();
 		int sndLen = this.getType().length();
 

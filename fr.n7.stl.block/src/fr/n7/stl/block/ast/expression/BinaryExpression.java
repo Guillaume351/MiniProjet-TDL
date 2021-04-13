@@ -4,6 +4,8 @@
 package fr.n7.stl.block.ast.expression;
 
 import fr.n7.stl.block.ast.expression.accessible.AccessibleExpression;
+import fr.n7.stl.block.ast.expression.accessible.IdentifierAccess;
+import fr.n7.stl.block.ast.instruction.declaration.ConstantDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.AtomicType;
@@ -27,23 +29,27 @@ public class BinaryExpression implements Expression {
 	 * AST node for the expression whose value is the left parameter for the binary expression.
 	 */
 	protected Expression left;
-	
+
 	/**
 	 * AST node for the expression whose value is the left parameter for the binary expression.
 	 */
 	protected Expression right;
-	
+
 	/**
 	 * Binary operator computed by the Binary Expression.
 	 */
 	protected BinaryOperator operator;
-	
+
+	protected Declaration leftDeclaration;
+	protected Declaration rightDeclaration;
+
 	/**
 	 * Builds a binary expression Abstract Syntax Tree node from the left and right sub-expressions
 	 * and the binary operation.
-	 * @param _left : Expression for the left parameter.
+	 *
+	 * @param _left     : Expression for the left parameter.
 	 * @param _operator : Binary Operator.
-	 * @param _right : Expression for the right parameter.
+	 * @param _right    : Expression for the right parameter.
 	 */
 	public BinaryExpression(Expression _left, BinaryOperator _operator, Expression _right) {
 		this.left = _left;
@@ -63,6 +69,31 @@ public class BinaryExpression implements Expression {
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
 		boolean _left = this.left.collect(_scope);
 		boolean _right = this.right.collect(_scope);
+
+		if (this.left instanceof IdentifierAccess) {
+			if ((_scope).knows(((IdentifierAccess) this.left).name)) {
+				this.leftDeclaration = _scope.get(((IdentifierAccess) this.left).name);
+			} else {
+				Logger.error("BinaryExpression:  Impossible de recuperer la declaration de left!");
+			}
+
+		} else {
+			Logger.warning("BinaryExpression: Left n'est pas un IdentifierAccess. Ouf. C'est : " + this.left);
+		}
+
+
+		if (this.right instanceof IdentifierAccess) {
+			if ((_scope).knows(((IdentifierAccess) this.right).name)) {
+				this.rightDeclaration = _scope.get(((IdentifierAccess) this.right).name);
+			} else {
+				Logger.error("BinaryExpression:  Impossible de recuperer la declaration de right!");
+			}
+
+		} else {
+			Logger.warning("BinaryExpression: Right n'est pas un IdentifierAccess. Ouf.");
+		}
+
+
 		return _left && _right;
 	}
 	
@@ -145,13 +176,25 @@ public class BinaryExpression implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = this.left.getCode(_factory);
 		//_result.addComment(this.toString());
-		if (this.left instanceof AccessibleExpression) {
-			_result.add(_factory.createLoadI(this.left.getType().length()));
+
+		// Si c'est une constante, on ne loadI pas
+		if (!(this.left instanceof IdentifierAccess) || !(this.leftDeclaration instanceof ConstantDeclaration)) {
+			if (this.left instanceof AccessibleExpression) {
+
+				//_result.add(_factory.createLoadI(this.left.getType().length()));
+			}
 		}
+
 		_result.append(this.right.getCode(_factory));
-		if (this.right instanceof AccessibleExpression) {
-			_result.add(_factory.createLoadI(this.right.getType().length()));
+
+		// Si c'est une constante, on ne loadI pas
+		if (!(this.right instanceof IdentifierAccess) || !(this.rightDeclaration instanceof ConstantDeclaration)) {
+			if (this.right instanceof AccessibleExpression) {
+
+				//_result.add(_factory.createLoadI(this.right.getType().length()));
+			}
 		}
+
 		_result.add(TAMFactory.createBinaryOperator(this.operator));
 		return _result;
 	}

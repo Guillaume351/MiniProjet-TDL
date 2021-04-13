@@ -93,10 +93,10 @@ public class Iteration implements Instruction {
 
 		Fragment fragment = _factory.createFragment();
 
+		fragment.append(this.condition.getCode(_factory));
+
 		// Pour remonter quand on arrive en bas du while
 		fragment.addPrefix("start_while_" + id);
-
-		fragment.append(this.condition.getCode(_factory));
 
 		// On sort du while si la condition n'est pas respectee
 		fragment.add(_factory.createJumpIf("end_while_" + id, 0));

@@ -1,0 +1,7 @@
+compteur {
+    int i = 0;
+    while (i < 10) { // Implémentation des boucles
+        print i + 1; // Implémentation de print
+        i = i + 1; // Implémentation de i++ et i--
+    }
+}
