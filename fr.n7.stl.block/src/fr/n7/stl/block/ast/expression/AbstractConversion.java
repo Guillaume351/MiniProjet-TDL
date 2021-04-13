@@ -111,7 +111,7 @@ public abstract class AbstractConversion<TargetType> implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
 		fragment.addComment("Conversion Abstraite. TODO?");
-		return fragment; //TODO : rien à faire ? Verifier
+		return fragment;
 	}
 
 }

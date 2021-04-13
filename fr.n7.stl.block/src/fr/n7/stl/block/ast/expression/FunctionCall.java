@@ -38,12 +38,6 @@ public class FunctionCall implements Expression {
 	 * List of AST nodes that computes the values of the parameters for the function call.
 	 */
 	protected List<Expression> arguments;
-
-	/**
-	 * Il faut creer une symbol table locale
-	 * TODO: Non en fait ?
-	 */
-	//SymbolTable localTable = new SymbolTable();
 	
 	/**
 	 * @param _name : Name of the called function.
@@ -139,7 +133,6 @@ public class FunctionCall implements Expression {
 
 		// LB est le registre pour un appel récursif
 		// SB est le registre par défaut
-		// TODO : tester si l'appel est récursif
 		fragment.add(_factory.createCall(this.name, Register.SB));
 
 		return fragment;

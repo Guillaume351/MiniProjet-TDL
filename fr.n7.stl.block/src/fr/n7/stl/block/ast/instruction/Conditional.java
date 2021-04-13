@@ -54,7 +54,7 @@ public class Conditional implements Instruction {
 		boolean b2 = thenBranch.collect(_scope);
 		boolean b3 = elseBranch == null || elseBranch.collect(_scope);
 
-		return b1 && b2 && b3; //TODO : il faut mettre quoi ici ?
+		return b1 && b2 && b3;
 	}
 	
 	/* (non-Javadoc)

@@ -168,10 +168,6 @@ public class FunctionDeclaration implements Instruction, Declaration {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-
-		//TODO: vérifier que le type doit bien être resolve dans le scope global
-		//return this.body.resolve(localSymbolTableParameters) && this.type.resolve(localSymbolTableParameters);
-
 		return this.body.resolve(this.localSymbolTableVariables);
 	}
 

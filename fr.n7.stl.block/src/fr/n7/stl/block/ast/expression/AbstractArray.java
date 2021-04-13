@@ -73,7 +73,7 @@ public abstract class AbstractArray implements Expression {
 	 */
 	public Type getType() {
 		// Check Types
-		if (this.index.getType().compatibleWith(AtomicType.IntegerType)){ // TODO: retirer si ce n'est pas necessaire
+		if (this.index.getType().compatibleWith(AtomicType.IntegerType)){
 			// Return Type
 			return ((ArrayType) this.array.getType()).getType();
 		}else{

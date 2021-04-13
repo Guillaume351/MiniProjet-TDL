@@ -19,7 +19,7 @@ public class VariableAccess extends AbstractAccess {
 	
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
-	 * @param _name Name of the used variable.
+	 * @param _declaration Name of the used variable.
 	 */
 	public VariableAccess(VariableDeclaration _declaration) {
 		this.declaration = _declaration;
@@ -38,20 +38,12 @@ public class VariableAccess extends AbstractAccess {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _result = _factory.createFragment();
 
-		/*
-		_result.add(_factory.createLoad(
-				this.declaration.getRegister(), 
-				this.declaration.getOffset(),
-				this.declaration.getType().length()));
-		 */
-
 		// On a remplacé LOAD par LOADA pour fonctionner avec LOADI dans les opérateurs
 		_result.add(_factory.createLoadA(
 				this.declaration.getRegister(),
 				this.declaration.getOffset()
 		));
 
-		//TODO: verifier si c'est la bonne length
 		_result.add(_factory.createLoadI(this.declaration.getType().length()));
 
 		_result.addComment("Acces Variable " + this.declaration.getName());

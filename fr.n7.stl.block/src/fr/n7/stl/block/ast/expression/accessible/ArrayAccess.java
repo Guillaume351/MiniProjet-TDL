@@ -34,9 +34,6 @@ public class ArrayAccess extends AbstractArray implements AccessibleExpression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment fragment = _factory.createFragment();
-		//TODO : NON FINI, voir operations intermediares
-
-		System.out.println("Voici le type de la chose qu'on sait pas : " + this.array.getClass().toString());
 
 		VariableDeclaration laDeclaration = ((IdentifierAccess) this.array).getDeclaration();
 

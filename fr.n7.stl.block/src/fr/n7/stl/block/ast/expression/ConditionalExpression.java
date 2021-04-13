@@ -103,7 +103,6 @@ public class ConditionalExpression implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		// On utilise un identifiant pour avoir des tag uniques
-		//TODO: verifier que l'usage est bon
 		int idCond = _factory.createLabelNumber();
 
 		Fragment fragment = _factory.createFragment();

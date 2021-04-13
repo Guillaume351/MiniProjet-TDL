@@ -83,7 +83,7 @@ public abstract class AbstractField implements Expression {
 	 * @return Synthesized Type of the expression.
 	 */
 	public Type getType() {
-		return this.field.getType(); //TODO : verifier que "record" n'est pas implique dans le getType.
+		return this.field.getType();
 	}
 
 }
