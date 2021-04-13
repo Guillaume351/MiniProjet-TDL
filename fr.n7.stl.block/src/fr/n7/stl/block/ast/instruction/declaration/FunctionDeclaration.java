@@ -228,7 +228,7 @@ public class FunctionDeclaration implements Instruction, Declaration {
 		fragment.add(_factory.createLoadL(0));
 		fragment.add(_factory.createReturn(1, this.totalOffsetParameters));
 
-		// Tag pour sauter la declaration de f onction
+		// Tag pour sauter la declaration de fonction
 		fragment.addSuffix("end_declaration_function_" + this.getName());
 
 		return fragment;

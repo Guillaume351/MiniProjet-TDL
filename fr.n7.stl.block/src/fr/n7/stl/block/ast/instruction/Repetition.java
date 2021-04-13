@@ -4,11 +4,9 @@
 package fr.n7.stl.block.ast.instruction;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
-import fr.n7.stl.block.ast.scope.Scope;
 import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
@@ -96,11 +94,21 @@ public class Repetition implements Instruction {
 		String id = String.valueOf(_factory.createLabelNumber());
 
 		Fragment fragment = _factory.createFragment();
+
+		// Pour remonter quand on arrive en bas du while
+		fragment.addPrefix("start_while_" + id);
+
 		fragment.append(this.condition.getCode(_factory));
+
+		// On sort du while si la condition n'est pas respectee
 		fragment.add(_factory.createJumpIf("end_while_" + id, 0));
 		fragment.append(this.body.getCode(_factory));
-		fragment.add(_factory.createJump("end_while_" + id));
-		fragment.addSuffix("end_while_" +id);
+
+		// On remonte dans le while
+		fragment.add(_factory.createJump("start_while_" + id));
+
+		// Tag de sortie du while
+		fragment.addSuffix("end_while_" + id);
 
 		return fragment;
 	}

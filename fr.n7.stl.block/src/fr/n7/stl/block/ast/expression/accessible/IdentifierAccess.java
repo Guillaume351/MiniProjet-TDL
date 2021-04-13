@@ -1,13 +1,12 @@
 /**
- * 
+ *
  */
 package fr.n7.stl.block.ast.expression.accessible;
 
-import fr.n7.stl.block.ast.expression.AbstractIdentifier;
+import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.AbstractAccess;
+import fr.n7.stl.block.ast.expression.AbstractIdentifier;
 import fr.n7.stl.block.ast.instruction.declaration.ConstantDeclaration;
-import fr.n7.stl.block.ast.instruction.declaration.FunctionDeclaration;
-import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.VariableDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -25,9 +24,9 @@ import fr.n7.stl.util.Logger;
  * TODO : Should also hold a function and not only a variable.
  */
 public class IdentifierAccess extends AbstractIdentifier implements AccessibleExpression {
-	
+
 	protected AbstractAccess expression;
-	
+
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
 	 * @param _name Name of the used variable.
@@ -35,60 +34,74 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 	public IdentifierAccess(String _name) {
 		super(_name);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override 
+	@Override
 	public String toString() {
 		return this.name;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.expression.Expression#collect(fr.n7.stl.block.ast.scope.HierarchicalScope)
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
+		/* This is the backward resolve part. */
+		if (((HierarchicalScope<Declaration>) _scope).knows(this.name)) {
+			Declaration _declaration = _scope.get(this.name);
+			/* These kinds are handled by partial resolve. */
+			if (_declaration instanceof VariableDeclaration) {
+				this.expression = new VariableAccess((VariableDeclaration) _declaration);
+			}
+		}
 		return true;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.expression.Expression#resolve(fr.n7.stl.block.ast.scope.HierarchicalScope)
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		if (((HierarchicalScope<Declaration>)_scope).knows(this.name)) {
-			Declaration _declaration = _scope.get(this.name);
-			if (_declaration instanceof VariableDeclaration) {
-				this.expression = new VariableAccess((VariableDeclaration) _declaration);
-				return true;
-			} else {
-				if (_declaration instanceof ConstantDeclaration) {
-					// TODO : refactor the management of Constants
-					this.expression = new ConstantAccess((ConstantDeclaration) _declaration);
-					return true;
+		/* This is the full resolve part that complements the backward resolve. */
+		/* If the resolution has not been done by the backward resolve */
+		if (this.expression == null) {
+			if (((HierarchicalScope<Declaration>) _scope).knows(this.name)) {
+				Declaration _declaration = _scope.get(this.name);
+				/* This kind should have been handled by partial resolve. */
+				if (_declaration instanceof VariableDeclaration) {
+					throw new SemanticsUndefinedException("Collect and partial resolve have probably not been implemented correctly. The identifier " + this.name + " should have not been resolved previously.");
 				} else {
-					if (_declaration instanceof ParameterDeclaration) {
-						this.expression = new ParameterAccess((ParameterDeclaration) _declaration);
+					/* These kinds are handled by full resolve. */
+					if (_declaration instanceof ConstantDeclaration) {
+						// TODO : refactor the management of Constants
+						this.expression = new ConstantAccess((ConstantDeclaration) _declaration);
 						return true;
 					} else {
-							Logger.error("The declaration for " + this.name + " is of the wrong kind.");
-							return false;
-						}
+						Logger.error("The declaration for " + this.name + " is of the wrong kind.");
+						return false;
+					}
 				}
+			} else {
+				Logger.error("The identifier " + this.name + " has not been found.");
+				return false;
 			}
-		} else {
-			Logger.error("The identifier " + this.name + " has not been found.");
-			return false;	
+		} else {  /* The resolution has been done previously */
+			return true;
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getType()
 	 */
 	@Override
 	public Type getType() {
-		return this.expression.getType();
+		if (this.expression != null) {
+			return this.expression.getType();
+		} else {
+			throw new SemanticsUndefinedException("Collect and Resolve have probably not been implemented correctly. The identifier " + this.name + " has not been resolved.");
+		}
 	}
 
 	/* (non-Javadoc)
