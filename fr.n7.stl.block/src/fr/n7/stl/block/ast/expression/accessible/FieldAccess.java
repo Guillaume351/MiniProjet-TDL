@@ -10,6 +10,7 @@ import fr.n7.stl.block.ast.type.NamedType;
 import fr.n7.stl.block.ast.type.RecordType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
@@ -61,7 +62,9 @@ public class FieldAccess extends AbstractField implements Expression {
 		IdentifierAccess accesALaVariableDesFields = ((IdentifierAccess) expression);
 		VariableDeclaration declaration = accesALaVariableDesFields.getDeclaration();
 
-		//offsetDuField += declaration.getOffset();
+		fragment.add(_factory.createLoadA(declaration.getRegister(), declaration.getOffset()));
+
+		fragment.add(_factory.createLoadL(offsetDuField));
 
 		fragment.add(Library.IAdd);
 
