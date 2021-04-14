@@ -3,7 +3,6 @@
  */
 package fr.n7.stl.block.ast.expression.allocation;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.expression.value.IntegerValue;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -66,7 +65,7 @@ public class ArrayAllocation implements Expression {
 		if(this.size.getType().compatibleWith(AtomicType.IntegerType)){
 			return new ArrayType(this.element);
 		}else{
-			Logger.warning("ArrayAllocation : La taille doit être un entier! " +
+			Logger.error("ArrayAllocation : La taille doit être un entier! " +
 					"Il est fourni une taille de type : " + this.size.getType());
 		}
 

@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.instruction.declaration;
 
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.FunctionCall;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -103,7 +104,13 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		if(_scope.accepts(this)){
+
+		// Si c'est un FunctionCall, il n'a jamais ete collect, donc il faut le collect
+		if (this.value instanceof FunctionCall) {
+			this.value.collect(_scope);
+		}
+
+		if (_scope.accepts(this)) {
 			_scope.register(this);
 			return true;
 
@@ -121,7 +128,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 		boolean ok1 = this.getType().resolve(_scope);
 		boolean ok2 = this.value.resolve(_scope);
 		boolean ok3 = _scope.contains(getName());
-		
+
 
 		if(!ok3) {
 			Logger.warning("VariableDeclaration : Pas OK3. Scope pas contains");

@@ -70,11 +70,11 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		boolean ok;
+		boolean ok = true;
 
 		// Affectation de l'attribut function
-		if (_scope.knows(this.name)){
-			if (_scope.get(this.name) instanceof FunctionDeclaration){
+		if (_scope.knows(this.name)) {
+			if (_scope.get(this.name) instanceof FunctionDeclaration) {
 				this.function = (FunctionDeclaration) _scope.get(this.name);
 				ok = true;
 			} else {
@@ -103,8 +103,19 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		boolean ok = true/*= this.function.resolve(_scope)*/;
-		for(Expression argument : this.arguments) {
+		if (_scope.knows(this.name)) {
+			if (_scope.get(this.name) instanceof FunctionDeclaration) {
+				this.function = (FunctionDeclaration) _scope.get(this.name);
+			} else {
+				Logger.error("FunctionCall : la fonction appelée n'est pas du type FunctionType");
+			}
+		} else {
+			Logger.error("FunctionCall : fonction appelée non trouvée");
+		}
+
+
+		boolean ok = true;//this.function.resolve(_scope);/*= this.function.resolve(_scope)*/;
+		for (Expression argument : this.arguments) {
 			ok = ok && argument.resolve(_scope);
 		}
 

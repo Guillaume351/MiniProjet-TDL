@@ -1,0 +1,36 @@
+test {
+
+
+    // Affectation entier à un pointeur
+    // int monSuperEntier = 7;
+    // int * monSuperPointeur = &monSuperEntier;
+
+    // Affectation constante
+    // const maSuperConstante = 7;
+    // maSuperConstante = 42;
+
+    // Duplication var
+    //int maSuperVar = 7;
+    //int maSuperVar = 42;
+
+    // Affectation variable non déclarée
+    // int maVariableTriste = oui; // :(
+
+    // Tableau de taille true
+    // int monGrandTableau[] = new int[42];
+
+    //int appel_habile(){
+    //    return 14;
+    //}
+
+
+
+    // Appel fonction inexistante
+     int ma = appel_habile();
+    // print appel_habile();
+
+    // Test de first
+    //<int, int> deuxSupersEntiers = <7,42>;
+    // int moi = fst deuxSupersEntiers;
+    // print moi;
+}

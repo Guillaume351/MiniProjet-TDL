@@ -49,7 +49,7 @@ public class VariableAssignment extends AbstractIdentifier implements Assignable
 				this.declaration = ((VariableDeclaration) _declaration);
 				return true;
 			} else {
-				Logger.error("The declaration for " + this.name + " is of the wrong kind.");
+				Logger.error("The declaration for " + this.name + " is of the wrong kind. (It's not a variable!)");
 				return false;
 			}
 		} else {

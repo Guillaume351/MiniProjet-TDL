@@ -5,7 +5,7 @@ pgcd {
      const int test = 5;
 
      int t[] = new int[5];
-     int kaka = a;
+     int ka = a;
 
      int a = true ? fst c: snd c;
      int b = snd c;
@@ -22,7 +22,7 @@ pgcd {
               int y;
      } coords2D;
      coords2D origin2D = {0,0};
-     coords originBis = origin2D;
+     coords  originBis = origin2D;
 
      int maVariable = origin.x + origin.y;
 
