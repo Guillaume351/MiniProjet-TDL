@@ -114,8 +114,8 @@ public class VariableDeclaration implements Declaration, Instruction {
 			_scope.register(this);
 			return true;
 
-		}else{
-			Logger.error("Tentative de double ajout d'une var. pas OK");
+		} else {
+			Logger.error("VariableDeclaration : Tentative de double ajout d'une variable");
 			return false;
 		}
 	}
@@ -131,7 +131,7 @@ public class VariableDeclaration implements Declaration, Instruction {
 
 
 		if(!ok3) {
-			Logger.warning("VariableDeclaration : Pas OK3. Scope pas contains");
+			Logger.error("VariableDeclaration : Le scope ne contient pas la variable " + this.getName());
 		} 
 		return ok1 && ok2 && ok3;
 	}
