@@ -10,7 +10,7 @@ test {
 
     print monSegment.p2.y;
 
-    s.x = 69;
+    s.x = 42;
 
 
     print s.x;
