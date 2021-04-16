@@ -1,0 +1,29 @@
+JUMP end_declaration_function_fact
+fact
+LOADA -1[LB]
+LOADI (1)
+LOADL 0
+SUBR IEq
+JUMPIF (0) else_tag_1
+LOADL 1
+RETURN (1) 1
+JUMP end_if_1
+else_tag_1
+LOADA -1[LB]
+LOADI (1)
+LOADA -1[LB]
+LOADI (1)
+LOADL 1
+SUBR ISub
+CALL (SB) fact
+SUBR IMul
+RETURN (1) 1
+end_if_1
+LOADL 0
+RETURN (1) 1
+end_declaration_function_fact
+LOADL 5
+CALL (SB) fact
+SUBR IOut
+HALT
+
