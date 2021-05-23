@@ -471,32 +471,6 @@ Type ::= Atomique:atomique
 			{:
 			:}
 		/* fin ajout miniJava */
-		/* retrait miniJava
-		| UL_Identificateur:nom
-			{:
-				RESULT = new NamedType( nom );
-			:}
-		| UL_Enregistrement UL_Identificateur:nom UL_Accolade_Ouvrante Champs:champs UL_Accolade_Fermante
-			{:
-				RESULT = new RecordType( nom, champs );
-			:}
-		| UL_Enumeration UL_Identificateur:nom UL_Accolade_Ouvrante Etiquettes:etiquettes UL_Accolade_Fermante
-			{:
-				RESULT = new EnumerationType( nom, etiquettes );
-			:}
-		| UL_Enregistrement UL_Identificateur:nom
-			{:
-				RESULT = new NamedType( nom );
-			:}
-		| UL_Enumeration UL_Identificateur:nom
-			{:
-				RESULT = new NamedType( nom );
-			:}
-				| UL_Inferieur Type:gauche UL_Virgule Type:droit UL_Superieur
-			{:
-				RESULT = new CoupleType( gauche, droit );
-			:}
-		fin retrait miniJava */
 		;
 
 Instructions ::= Instructions:instructions Instruction:instruction
@@ -512,17 +486,6 @@ Identifiant ::= UL_Identificateur:nom
 				{:
 					RESULT = new Pair<String,PartialType>( nom, null );
 				:}
-			/* debut retrait miniJava
-			| UL_Asterisque Identifiant:identifiant
-				{:
-					if (identifiant.getRight() == null) {
-						identifiant.setRight( new PartialPointerType() );
-					} else {
-						identifiant.getRight().enrich(new PartialPointerType());
-					}
-					RESULT = identifiant;
-				:}
-			fin retrait miniJava */
 			| Identifiant:identifiant UL_Crochet_Ouvrant UL_Crochet_Fermant
 				{:
 					if (identifiant.getRight() == null) {
@@ -532,12 +495,6 @@ Identifiant ::= UL_Identificateur:nom
 					}
 					RESULT = identifiant;
 				:}
-			/* debut retrait miniJava
-			| UL_Parenthese_Ouvrante Identifiant:identifiant UL_Parenthese_Fermante
-				{:
-					RESULT = identifiant;
-				:}
-			fin retrait miniJava */
 			;
 
 Parameters ::= Parameters:parameters UL_Virgule Type:type Identifiant:identifiant
@@ -575,51 +532,6 @@ Declaration ::= Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_P
  					}
 					RESULT = new VariableDeclaration( identifiant.getLeft(), _type, valeur);
 				:}
-			/* début retrait miniJava
-			| Type:type Identifiant:identifiant UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante Block:corps
-				{:
-					Type _type = identifiant.getRight();
-					if (_type == null) {
-						_type = type;
-					} else {
-						_type = ((PartialType)_type).complete( type );
- 					}
-					RESULT = new FunctionDeclaration( identifiant.getLeft(), _type, parametres, corps);
-
-				:}
-			| Type:type Identifiant:identifiant UL_Parenthese_Ouvrante UL_Parenthese_Fermante Block:corps
-				{:
-					Type _type = identifiant.getRight();
-					if (_type == null) {
-						_type = type;
-					} else {
-						_type = ((PartialType)_type).complete( type );
- 					}
-					List<ParameterDeclaration> _parametres = new LinkedList<ParameterDeclaration>();
-					RESULT = new FunctionDeclaration( identifiant.getLeft(), _type, _parametres, corps);
-
-				:}
-			| UL_Definition_Type Type:type Identifiant:identifiant UL_Point_Virgule
-				{:
-					Type _type = identifiant.getRight();
-					if (_type == null) {
-						_type = type;
-					} else {
-						_type = ((PartialType)_type).complete( type );
- 					}
-					RESULT = new TypeDeclaration( identifiant.getLeft(), _type);
-				:}
-			| UL_Definition_Constante Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
-				{:
-					Type _type = identifiant.getRight();
-					if (_type == null) {
-						_type = type;
-					} else {
-						_type = ((PartialType)_type).complete( type );
- 					}
-					RESULT = new ConstantDeclaration( identifiant.getLeft(), _type, valeur);
-				:}
-			fin retrait miniJava */
 			;
 
 Instruction ::= Declaration:declaration
@@ -674,12 +586,6 @@ Affectable ::= UL_Identificateur:nom
 				{:
 				:}
 			/* fin ajout miniJava */
-			/* début retrait miniJava
-			| UL_Asterisque Affectable:pointeur
-				{:
-					RESULT = new PointerAssignment( pointeur );
-				:}
-			fin retrait miniJava */
 			| Affectable:tableau UL_Crochet_Ouvrant Expression:indice UL_Crochet_Fermant
 				{:
 					RESULT = new ArrayAssignment( tableau, indice);
@@ -774,24 +680,6 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
              	{:
 					RESULT = new UnaryExpression( UnaryOperator.Negate, expression);
 				:}
-			/* début retrait miniJava
-            | UL_Esperluette Affectable:affectable
-             	{:
-					RESULT = new AddressAccess( affectable );
-				:}
-			| UL_Asterisque Expression:expression
-             	{:
-					RESULT = new PointerAccess( expression );
-				:}
-			| UL_Premier Expression:expression
-             	{:
-					RESULT = new First( expression );
-				:}
-			| UL_Second Expression:expression
-             	{:
-					RESULT = new Second( expression );
-				:}
-			fin retrait miniJava */
 			| Expression:expression UL_Crochet_Ouvrant Expression:indice UL_Crochet_Fermant
 				{:
 					RESULT = new ArrayAccess( expression, indice );
@@ -816,16 +704,6 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
              	{:
 					RESULT = new AccessibleConversion( expression, type);
 				:}
-			/* début retrait miniJava
-			| UL_Accolade_Ouvrante Expressions:expressions UL_Accolade_Fermante
-             	{:
-					RESULT = new Sequence( expressions );
-				:}
-			| UL_Inferieur Expression:premier UL_Virgule Expression:second UL_Superieur
-             	{:
-					RESULT = new Couple( premier, second );
-				:}
-			fin retrait */
 			| UL_Identificateur:nom
              	{:
 					RESULT = new IdentifierAccess( nom );
