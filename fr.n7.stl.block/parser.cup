@@ -172,9 +172,10 @@ Elements ::= Main
 		:}
 		;
 
-Interface ::= UL_Interface UL_Identificateur Generics MultipleInherits
-		UL_Accolade_Ouvrante InterfaceElements UL_Accolade_Fermante
+Interface ::= UL_Interface UL_Identificateur:nom Generics MultipleInherits:inherits
+		UL_Accolade_Ouvrante InterfaceElements:elements UL_Accolade_Fermante
 		{:
+		    RESULT = new InterfaceDeclaration(nom, inherits, elements);
 		:}
 		;
 
@@ -280,9 +281,11 @@ ClassElements ::= /* Lambda */
 
 InterfaceElements ::= /* Lambda */
 		{:
+		    RESULT = new LinkedList<InterfaceElement>();
 		:}
-		| InterfaceElement InterfaceElements
+		| InterfaceElement:element InterfaceElements:reste
 		{:
+		    RESULT = reste.add(element);
 		:}
 		;
 
@@ -324,6 +327,7 @@ ClassElement ::=
 InterfaceElement ::=
 		Signature:entete UL_Point_Virgule
 		{:
+		    RESULT = new InterfaceElement(entete);
 		:}
 		;
 
@@ -366,10 +370,26 @@ Method ::=
 Signature ::=
 		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante
 		{:
+            Type _type = identifiant.getRight();
+            if (_type == null) {
+                _type = type;
+            } else {
+                _type = ((PartialType)_type).complete( type );
+            }
+            RESULT = new Signature(identifiant.getLeft(), type, parametres);
 		:}
 		|
 		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante UL_Parenthese_Fermante
 		{:
+            Type _type = identifiant.getRight();
+            if (_type == null) {
+                _type = type;
+            } else {
+                _type = ((PartialType)_type).complete( type );
+            }
+            List<ParameterDeclaration> _parametres = new LinkedList<ParameterDeclaration>();
+
+		    RESULT = new Signature(identifiant.getLeft(), type, _parametres);
 		:}
 		;
 

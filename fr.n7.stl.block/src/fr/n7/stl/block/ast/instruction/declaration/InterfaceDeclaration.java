@@ -17,11 +17,18 @@ public class InterfaceDeclaration implements Instruction, Declaration {
 
     String name;
 
-    Block block;
+    //Generics generics;
 
-    public InterfaceDeclaration(String name, Block block) {
+    //MultipleInherits inherits;
+
+    List<InterfaceElement> elements;
+
+    public InterfaceDeclaration(String name /*,Generics generics, MultipleInherits inherits*/, List<InterfaceElement> elements) {
         this.name = name;
-        this.block = block;
+
+        //this.generics = generics;
+        //this.multipleInherits = multipleInherits;
+        this.elements = elements;
     }
 
     @Override
