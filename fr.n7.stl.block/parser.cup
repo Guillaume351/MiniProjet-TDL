@@ -274,20 +274,20 @@ Instance ::= UL_Identificateur
 
 ClassElements ::= /* Lambda */
 		{:
-		    LinkedList<ClassElement> liste = new LinkedList<ClassElement>();
+		    List<ClassElement> liste = new LinkedList<ClassElement>();
 		    RESULT = liste;
 		:}
 		| AccessRight:access ClassElement:element ClassElements:reste
 		{:
 		    element.setAccessRight(access);
-		    reste.add(element);
+		    reste.add((ClassElement) element);
 		    RESULT = reste;
 		:}
 		;
 
 InterfaceElements ::= /* Lambda */
 		{:
-		    LinkedList<InterfaceElement> elements = new LinkedList<InterfaceElement>();
+		    List<InterfaceElement> elements = new LinkedList<InterfaceElement>();
 		    RESULT = elements;
 		:}
 		| InterfaceElement:element InterfaceElements:reste
@@ -300,15 +300,15 @@ InterfaceElements ::= /* Lambda */
 AccessRight ::=
 		UL_Public
 		{:
-		    RESULT = new AccessRight(3);
+		    RESULT = AccessRight.PUBLIC;
 		:}
 		| UL_Protege
 		{:
-		    RESULT = new AccessRight(2);
+		    RESULT = AccessRight.PROTECTED;
 		:}
 		| UL_Prive
 		{:
-		    RESULT = new AccessRight(0);
+		    RESULT = AccessRight.PRIVATE;
 		:}
 		;
 

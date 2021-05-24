@@ -11,7 +11,10 @@ import fr.n7.stl.tam.ast.TAMFactory;
 
 public class ClassElement implements Instruction, Declaration {
 
-    AccessRight accessRight;
+    /**
+     * Modificateur d'accès (Private, Public..) Cf Enum AccessRight
+     */
+    int accessRight;
 
     @Override
     public String getName() {
@@ -23,11 +26,11 @@ public class ClassElement implements Instruction, Declaration {
         return null;
     }
 
-    public AccessRight getAccessRight() {
+    public int getAccessRight() {
         return accessRight;
     }
 
-    public void setAccessRight(AccessRight accessRight) {
+    public void setAccessRight(int accessRight) {
         this.accessRight = accessRight;
     }
 

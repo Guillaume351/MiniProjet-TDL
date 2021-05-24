@@ -68,7 +68,7 @@ public class Signature implements Instruction, Declaration {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
