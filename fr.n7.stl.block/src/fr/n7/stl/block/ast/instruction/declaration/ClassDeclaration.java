@@ -19,15 +19,20 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
     String name;
 
     /**
+     * Liste les identifiants (nom) des interfaces implementees
+     */
+    List<String> identifiantsInterfaces;
+
+    /**
      * Liste des interfaces implementees par la classe
      */
-    List<Expression> interfacesImplementees; //TODO : verifier si c'est bien une liste d'expressions
+    List<InterfaceDeclaration> interfacesImplementees; //TODO : verifier si c'est bien une liste d'expressions
 
     List<ClassElement> bodyElements;
 
-    public ClassDeclaration(String name, List<Expression> interfacesImplementees, List<ClassElement> elements) {
+    public ClassDeclaration(String name, List<String> identifiantsInterfaces, List<ClassElement> elements) {
         this.name = name;
-        this.interfacesImplementees = interfacesImplementees;
+        this.identifiantsInterfaces = identifiantsInterfaces;
         this.bodyElements = elements;
     }
 

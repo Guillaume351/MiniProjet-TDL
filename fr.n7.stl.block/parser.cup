@@ -95,13 +95,21 @@ non terminal Type						Type, Atomique;
 non terminal Expression 				Expression;
 non terminal AssignableExpression		Affectable;
 /* miniJava */
+non terminal Signature                  Signature;
+non terminal AccessRight                AccessRight;
+non terminal List<ClassElement>         ClassElements;
+non terminal ClassElement               ClassElement;
+non terminal List<InterfaceElement>     InterfaceElements;
+non terminal InterfaceElement           InterfaceElement;
+non terminal List<String>         Implements;
+non terminal List<String>         Instances;
+non terminal String                     Instance;
 non terminal							Elements, Main, Class, Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
-non terminal							SingleInherits, MultipleInherits, Implements;
-non terminal							ClassElements, InterfaceElements, Instances;
-non terminal							Instance, ClassElement, InterfaceElement;
-non terminal							 Attribute, Signature, Method, Constructor, ConstructorPrelude;
-non terminal							AccessRight, ElementNature;
+non terminal							SingleInherits, MultipleInherits;
+non terminal							 Attribute, Method, Constructor, ConstructorPrelude;
+non terminal							ElementNature;
+
 
 /* Associativité et Priorité relative des opérateurs (du moins prioritaire au plus prioritaire) */
 /* Opérateur le moins prioritiaire */
@@ -248,19 +256,26 @@ MultipleInherits ::= /* Lambda */
 
 Implements ::= /* Lambda */
 		{:
+		    RESULT = new LinkedList<String>();
 		:}
 		|
-		UL_Realise Instances
+		UL_Realise Instances:instances
 		{:
+		    RESULT = instances;
 		:}
 		;
 
-Instances ::= Instance UL_Virgule Instances
+Instances ::= Instance:instance UL_Virgule Instances:instances
 		{:
+		    instances.add(instance);
+		    RESULT = instances;
 		:}
 		|
-		Instance
+		Instance:instance
 		{:
+		    List<String> instances = new LinkedList<String>();
+		    instances.add(instance);
+		    RESULT = instances;
 		:}
 		;
 
