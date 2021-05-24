@@ -287,11 +287,13 @@ ClassElements ::= /* Lambda */
 
 InterfaceElements ::= /* Lambda */
 		{:
-		    RESULT = new LinkedList<InterfaceElement>();
+		    LinkedList<InterfaceElement> elements = new LinkedList<InterfaceElement>();
+		    RESULT = elements;
 		:}
 		| InterfaceElement:element InterfaceElements:reste
 		{:
-		    RESULT = reste.add(element);
+		     reste.add(element);
+		     RESULT = reste;
 		:}
 		;
 
