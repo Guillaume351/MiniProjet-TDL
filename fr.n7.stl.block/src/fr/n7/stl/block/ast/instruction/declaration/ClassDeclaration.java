@@ -1,5 +1,7 @@
 package fr.n7.stl.block.ast.instruction.declaration;
 
+import fr.n7.stl.block.ast.Block;
+import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -8,8 +10,26 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+import java.util.List;
+
+//TODO
+
 public class ClassDeclaration implements Instruction, Declaration {
-    //TODO
+
+    String name;
+
+    /**
+     * Liste des interfaces implementees par la classe
+     */
+    List<Expression> interfacesImplementees; //TODO : verifier si c'est bien une liste d'expressions
+
+    Block block;
+
+    public ClassDeclaration(String name, List<Expression> interfacesImplementees, Block block) {
+        this.name = name;
+        this.interfacesImplementees = interfacesImplementees;
+        this.block = block;
+    }
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
