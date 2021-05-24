@@ -1,7 +1,5 @@
-interface I {
+class I {
 
-	void m();
-
-	T m(T _t);
+	int i;
 
 }
