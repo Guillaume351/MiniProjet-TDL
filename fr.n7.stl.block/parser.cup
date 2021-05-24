@@ -175,13 +175,14 @@ Elements ::= Main
 Interface ::= UL_Interface UL_Identificateur:nom Generics MultipleInherits:inherits
 		UL_Accolade_Ouvrante InterfaceElements:elements UL_Accolade_Fermante
 		{:
-		    RESULT = new InterfaceDeclaration(nom, inherits, elements);
+		    RESULT = new InterfaceDeclaration(nom, elements);
 		:}
 		;
 
-Class ::= UL_Classe UL_Identificateur Generics SingleInherits Implements
-		UL_Accolade_Ouvrante ClassElements UL_Accolade_Fermante
+Class ::= UL_Classe UL_Identificateur:nom Generics SingleInherits Implements:interfaces
+		UL_Accolade_Ouvrante ClassElements:elements UL_Accolade_Fermante
 		{:
+		    RESULT = new ClassDeclaration(nom, interfaces, elements);
 		:}
 		;
 
@@ -273,9 +274,14 @@ Instance ::= UL_Identificateur
 
 ClassElements ::= /* Lambda */
 		{:
+		    LinkedList<ClassElement> liste = new LinkedList<ClassElement>();
+		    RESULT = liste;
 		:}
-		| AccessRight ClassElement ClassElements
+		| AccessRight:access ClassElement:element ClassElements:reste
 		{:
+		    element.setAccessRight(access);
+		    reste.add(element);
+		    RESULT = reste;
 		:}
 		;
 
@@ -292,12 +298,15 @@ InterfaceElements ::= /* Lambda */
 AccessRight ::=
 		UL_Public
 		{:
+		    RESULT = new AccessRight(3);
 		:}
 		| UL_Protege
 		{:
+		    RESULT = new AccessRight(2);
 		:}
 		| UL_Prive
 		{:
+		    RESULT = new AccessRight(0);
 		:}
 		;
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 //TODO
 
-public class ClassDeclaration implements Instruction, Declaration {
+public class ClassDeclaration extends AbstractDeclarationElement implements Instruction, Declaration {
 
     String name;
 
@@ -23,12 +23,12 @@ public class ClassDeclaration implements Instruction, Declaration {
      */
     List<Expression> interfacesImplementees; //TODO : verifier si c'est bien une liste d'expressions
 
-    Block block;
+    List<ClassElement> bodyElements;
 
-    public ClassDeclaration(String name, List<Expression> interfacesImplementees, Block block) {
+    public ClassDeclaration(String name, List<Expression> interfacesImplementees, List<ClassElement> elements) {
         this.name = name;
         this.interfacesImplementees = interfacesImplementees;
-        this.block = block;
+        this.bodyElements = elements;
     }
 
     @Override

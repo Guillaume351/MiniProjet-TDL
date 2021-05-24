@@ -13,7 +13,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
 import java.util.List;
 
 //TODO
-public class InterfaceDeclaration implements Instruction, Declaration {
+public class InterfaceDeclaration extends AbstractDeclarationElement implements Instruction, Declaration {
 
     String name;
 
@@ -25,7 +25,6 @@ public class InterfaceDeclaration implements Instruction, Declaration {
 
     public InterfaceDeclaration(String name /*,Generics generics, MultipleInherits inherits*/, List<InterfaceElement> elements) {
         this.name = name;
-
         //this.generics = generics;
         //this.multipleInherits = multipleInherits;
         this.elements = elements;
