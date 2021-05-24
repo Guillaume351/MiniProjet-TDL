@@ -103,17 +103,6 @@ public class FunctionCall implements Expression {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		if (_scope.knows(this.name)) {
-			if (_scope.get(this.name) instanceof FunctionDeclaration) {
-				this.function = (FunctionDeclaration) _scope.get(this.name);
-			} else {
-				Logger.error("FunctionCall : la fonction appelée n'est pas du type FunctionType");
-			}
-		} else {
-			Logger.error("FunctionCall : fonction appelée non trouvée");
-		}
-
-
 		boolean ok = true;//this.function.resolve(_scope);/*= this.function.resolve(_scope)*/;
 		for (Expression argument : this.arguments) {
 			ok = ok && argument.resolve(_scope);
