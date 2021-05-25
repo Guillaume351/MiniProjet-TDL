@@ -139,25 +139,8 @@ precedence left UL_Point; // , UL_Crochet_Ouvrant, UL_Parenthese_Ouvrante;
 Program ::=/* ajout miniJava */
 			Elements:elements
 			/* ajout miniJava */
-			/* retrait miniJava
-			Block:block
-			retrait miniJava */
 			{:
-				/* retrait miniJava
-				System.out.println( "Block named : " + nom );
-				System.out.println( block );
-				SymbolTable tds = new SymbolTable();
-				if (block.collect(tds)) {
-					System.out.println("Collect succeeded : " + tds);
-					if (block.resolve(tds)) {
-						System.out.println("Resolve succeeded.");
-					} else {
-						System.out.println("Resolve failed." + tds);
-					}
-				} else {
-					System.out.println("Collect failed : " + tds);
-				}
-				retrait miniJava */
+				//TODO
 			:}
 		;
 
