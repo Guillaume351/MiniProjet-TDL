@@ -1240,8 +1240,12 @@ class CUP$Parser$actions {
           case 38: // ClassElement ::= Method 
             {
               ClassElement RESULT =null;
+		Location methodxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location methodxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object method = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG40
 
+		    //RESULT = method;
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ClassElement",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1251,8 +1255,12 @@ class CUP$Parser$actions {
           case 39: // ClassElement ::= Constructor 
             {
               ClassElement RESULT =null;
+		Location constructorxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location constructorxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object constructor = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG41
 
+		    //RESULT = constructor;
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ClassElement",19, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

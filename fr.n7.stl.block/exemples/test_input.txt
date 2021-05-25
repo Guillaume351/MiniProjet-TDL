@@ -1,3 +1,5 @@
-public class I {
+public class MaClasse {
+
+    int monAttribut;
 
 }

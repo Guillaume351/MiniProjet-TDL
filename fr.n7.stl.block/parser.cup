@@ -136,10 +136,7 @@ precedence left UL_Point; // , UL_Crochet_Ouvrant, UL_Parenthese_Ouvrante;
 /* UL_Identificateur est un terminal (Unité lexicale) */
 /* Block est la variable utilisable dans l'action sémantique qui contient la valeur renvoyé par l'analyse du Block */
 /* TODO */
-Program ::= /* retrait miniJava
-			UL_Identificateur:nom
-			retrait miniJava */
-			/* ajout miniJava */
+Program ::=/* ajout miniJava */
 			Elements:elements
 			/* ajout miniJava */
 			/* retrait miniJava
@@ -344,12 +341,14 @@ ClassElement ::=
 		    RESULT = attribute;
 		:}
 		|
-		Method
+		Method: method
 		{:
+		    //RESULT = method;
 		:}
 		|
-		Constructor
+		Constructor: constructor
 		{:
+		    //RESULT = constructor;
 		:}
 		;
 
@@ -441,52 +440,6 @@ Block ::= UL_Accolade_Ouvrante Instructions:instructions UL_Accolade_Fermante
 				RESULT = new Block( instructions );
 			:}
 		;
-
-/* retrait miniJava
-Champ ::= Type:type Identifiant:identifiant UL_Point_Virgule
-			{:
-				Type _type = identifiant.getRight();
-				if (_type == null) {
-					_type = type;
-				} else {
-					_type = ((PartialType)_type).complete( type );
- 				}
-				RESULT = new FieldDeclaration( identifiant.getLeft(), _type);
-			:}
-		;
-
-Champs ::= Champs:champs Champ:champ
-			{:
-				champs.add(champ);
-				RESULT = champs;
-			:}
-		| Champ:champ
-			{:
-				List<FieldDeclaration> _champs = new LinkedList<FieldDeclaration>();
-				_champs.add(champ);
-				RESULT = _champs;
-			:}
-		;
-
-Etiquette ::= UL_Identificateur:nom
-				{:
-					RESULT = new LabelDeclaration( nom );
-				:}
-			;
-
-Etiquettes ::= Etiquettes:etiquettes UL_Virgule Etiquette:etiquette
-			{:
-				etiquettes.add(etiquette);
-				RESULT = etiquettes;
-			:}
-		| Etiquette:etiquette
-			{:
-				List<LabelDeclaration> _etiquettes = new LinkedList<LabelDeclaration>();
-				_etiquettes.add(etiquette);
-				RESULT = _etiquettes;
-			:}
-		;
-fin retrait miniJava */
 
 Atomique ::= UL_Type_Booleen
 			{:
