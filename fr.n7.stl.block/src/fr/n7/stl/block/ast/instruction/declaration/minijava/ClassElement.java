@@ -1,4 +1,4 @@
-package fr.n7.stl.block.ast.instruction.declaration;
+package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.AccessRight;
@@ -16,9 +16,11 @@ public class ClassElement implements Instruction, Declaration {
      */
     AccessRight accessRight;
 
+    String name;
+
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override

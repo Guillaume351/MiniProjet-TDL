@@ -24,6 +24,7 @@ import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
 import fr.n7.stl.util.*;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.*;
 
 /* Variables partagées dans les actions de l'analyseur syntaxique. */
 parser code {:
@@ -104,10 +105,11 @@ non terminal InterfaceElement           InterfaceElement;
 non terminal List<String>         Implements;
 non terminal List<String>         Instances;
 non terminal String                     Instance;
+non terminal ClassElement               Attribute;
 non terminal							Elements, Main, Class, Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
 non terminal							SingleInherits, MultipleInherits;
-non terminal							 Attribute, Method, Constructor, ConstructorPrelude;
+non terminal							Method, Constructor, ConstructorPrelude;
 non terminal							ElementNature;
 
 
@@ -337,8 +339,9 @@ ElementNature ::=
 		;
 
 ClassElement ::=
-		Attribute
+		Attribute: attribute
 		{:
+		    RESULT = attribute;
 		:}
 		|
 		Method
@@ -360,14 +363,17 @@ InterfaceElement ::=
 Attribute ::=
 		Type:type Identifiant:identifiant UL_Point_Virgule
 		{:
+		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), type, false);
 		:}
 		|
 		UL_De_Classe Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
 		{:
+		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), valeur, type, false);
 		:}
 		|
 		UL_De_Classe UL_Definitif Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule
 		{:
+		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), valeur, type, true);
 		:}
 		;
 

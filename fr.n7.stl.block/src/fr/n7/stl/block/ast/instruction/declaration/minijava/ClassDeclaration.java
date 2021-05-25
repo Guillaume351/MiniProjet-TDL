@@ -1,8 +1,8 @@
-package fr.n7.stl.block.ast.instruction.declaration;
+package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
-import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
+import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
+import fr.n7.stl.block.ast.instruction.declaration.InterfaceDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
