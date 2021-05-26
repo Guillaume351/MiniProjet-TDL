@@ -1,5 +1,12 @@
+class maSuperClass {
+
+    public String monAttribut;
+}
+
+
 public class Main{
     public static void main(String args) {
 
     }
 }
+
