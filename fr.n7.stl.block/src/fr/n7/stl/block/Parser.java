@@ -736,21 +736,7 @@ class CUP$Parser$actions {
 		Object elements = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG3
 
-				/* retrait miniJava
-				System.out.println( "Block named : " + nom );
-				System.out.println( block );
-				SymbolTable tds = new SymbolTable();
-				if (block.collect(tds)) {
-					System.out.println("Collect succeeded : " + tds);
-					if (block.resolve(tds)) {
-						System.out.println("Resolve succeeded.");
-					} else {
-						System.out.println("Resolve failed." + tds);
-					}
-				} else {
-					System.out.println("Collect failed : " + tds);
-				}
-				retrait miniJava */
+				//TODO
 			
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Program",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }

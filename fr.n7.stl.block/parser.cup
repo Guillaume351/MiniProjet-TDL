@@ -102,8 +102,8 @@ non terminal List<ClassElement>         ClassElements;
 non terminal ClassElement               ClassElement;
 non terminal List<InterfaceElement>     InterfaceElements;
 non terminal InterfaceElement           InterfaceElement;
-non terminal List<String>         Implements;
-non terminal List<String>         Instances;
+non terminal List<String>               Implements;
+non terminal List<String>               Instances;
 non terminal String                     Instance;
 non terminal ClassElement               Attribute;
 non terminal							Elements, Main, Class, Interface;
@@ -145,10 +145,10 @@ Program ::=/* ajout miniJava */
 		;
 
 /* ajout miniJava : classes, interfaces, attributs, méthodes, constructeurs, etc */
-Elements ::= Main
+Elements ::= Main: main
 		{:
 		:}
-		| Interface Elements
+		| Interface:interface Elements:elements
 		{:
 		:}
 		| Class Elements
