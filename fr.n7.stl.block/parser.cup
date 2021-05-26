@@ -345,7 +345,13 @@ InterfaceElement ::=
 Attribute ::=
 		Type:type Identifiant:identifiant UL_Point_Virgule
 		{:
-		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), type, false);
+           Type _type = identifiant.getRight();
+            if (_type == null) {
+                _type = type;
+            } else {
+                _type = ((PartialType)_type).complete( type );
+            }
+		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), _type, false);
 		:}
 		|
 		UL_De_Classe Type:type Identifiant:identifiant UL_Egal Expression:valeur UL_Point_Virgule

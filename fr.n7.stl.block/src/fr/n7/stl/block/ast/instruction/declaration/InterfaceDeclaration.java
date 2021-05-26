@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 import java.util.List;
 
@@ -30,19 +31,58 @@ public class InterfaceDeclaration extends AbstractDeclarationElement implements 
         this.elements = elements;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "interface" + this.name + " { " + this.elements + " } "  + ";\n";
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public Type getType() {
+        return null;
+    }
+
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        return false;
+        if (_scope.accepts(this)) {
+            _scope.register(this);
+            return true;
+
+        } else {
+            Logger.error("InterfaceDeclaration : Tentative de double ajout d'une interface");
+            return false;
+        }
     }
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return false;
+
+        boolean ok = true;
+        for (InterfaceElement element : this.elements){
+            ok = ok && element.resolve(_scope);
+        }
+        boolean ok3 = _scope.contains(getName());
+
+        if(!ok3) {
+            Logger.error("InterfaceDeclaration : Le scope ne contient pas l'interface' " + this.getName());
+        }
+        return ok && ok3;
     }
 
     @Override
     public boolean checkType() {
-        return false;
+        boolean ok = true;
+        for (InterfaceElement element : this.elements){
+            ok = ok && element.checkType();
+        }
+        return ok;
     }
 
     @Override
@@ -52,16 +92,6 @@ public class InterfaceDeclaration extends AbstractDeclarationElement implements 
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public Type getType() {
         return null;
     }
 }
