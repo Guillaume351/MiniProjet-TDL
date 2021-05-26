@@ -148,7 +148,7 @@ Program ::=/* ajout miniJava */
 Elements ::= Main: main
 		{:
 		:}
-		| Interface:interface Elements:elements
+		| Interface:interfaceE Elements:elements
 		{:
 		:}
 		| Class Elements
@@ -362,22 +362,27 @@ Attribute ::=
 Method ::=
 		Signature:entete Block:corps
 		{:
+		    RESULT = new MethodDeclarationElement(entete, false, false, false, corps);
 		:}
 		|
 		UL_Definitif Signature:entete Block:corps
 		{:
+		    RESULT = new MethodDeclarationElement(entete, true, false, false, corps);
 		:}
 		|
 		UL_De_Classe Signature:entete Block:corps
 		{:
+		    RESULT = new MethodDeclarationElement(entete, false, true, false, corps);
 		:}
 		|
 		UL_De_Classe UL_Definitif Signature:entete Block:corps
 		{:
+		    RESULT = new MethodDeclarationElement(entete, true, true, false, corps);
 		:}
 		|
 		UL_Abstrait Signature:entete UL_Point_Virgule
 		{:
+		    RESULT = new MethodDeclarationElement(entete, false, false, true, null);
 		:}
 		;
 

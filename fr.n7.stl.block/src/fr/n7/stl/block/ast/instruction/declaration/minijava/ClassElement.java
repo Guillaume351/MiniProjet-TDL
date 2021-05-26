@@ -18,6 +18,10 @@ public class ClassElement implements Instruction, Declaration {
 
     String name;
 
+    public ClassElement(String name) {
+        this.name = name;
+    }
+
     @Override
     public String getName() {
         return name;

@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
-import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.Block;
+import fr.n7.stl.block.ast.instruction.declaration.Signature;
 import fr.n7.stl.block.ast.scope.AccessRight;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -9,44 +10,31 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class AttributeDeclarationElement extends ClassElement {
+public class MethodDeclarationElement extends ClassElement {
 
-    /**
-     * AST node for the type of the declared variable.
-     */
-    protected Type type;
-
-    /**
-     * AST node for the initial value of the declared variable.
-     */
-    protected Expression value;
+    protected Signature signature;
 
     /**
      * Est-ce que l'attribut est final
      */
     boolean isFinal;
 
+    boolean isStatic;
+
+    boolean isAbstract;
 
     /**
-     * Expression avec valeur par defaut
-     * @param value
-     * @param isFinal
+     * Corps de la fonction
      */
-    public AttributeDeclarationElement(String identifiant, Expression value, Type type, boolean isFinal) {
-        super(identifiant);
-        this.value = value;
-        this.type = type;
-        this.isFinal = isFinal;
-    }
+    Block body;
 
-    /**
-     * Attribut sans expression de valeur par defaut
-     * @param isFinal
-     */
-    public AttributeDeclarationElement(String identifiant, Type type, boolean isFinal) {
-        super(identifiant);
-        this.type = type;
+    public MethodDeclarationElement(Signature signature, boolean isFinal, boolean isStatic, boolean isAbstract, Block body) {
+        super(signature.getName());
+        this.signature = signature;
         this.isFinal = isFinal;
+        this.isStatic = isStatic;
+        this.isAbstract = isAbstract;
+        this.body = body;
     }
 
     @Override

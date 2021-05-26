@@ -760,6 +760,9 @@ class CUP$Parser$actions {
           case 2: // Elements ::= Main 
             {
               Object RESULT =null;
+		Location mainxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location mainxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object main = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG4
 
 		
@@ -771,6 +774,12 @@ class CUP$Parser$actions {
           case 3: // Elements ::= Interface Elements 
             {
               Object RESULT =null;
+		Location interfaceExleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+		Location interfaceExright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+		Object interfaceE = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		Location elementsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location elementsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		Object elements = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG5
 
 		
@@ -1279,7 +1288,13 @@ class CUP$Parser$actions {
 		Pair<String,PartialType> identifiant = (Pair<String,PartialType>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG43
 
-		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), type, false);
+           Type _type = identifiant.getRight();
+            if (_type == null) {
+                _type = type;
+            } else {
+                _type = ((PartialType)_type).complete( type );
+            }
+		    RESULT = new AttributeDeclarationElement(identifiant.getLeft(), _type, false);
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Attribute",25, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1339,6 +1354,7 @@ class CUP$Parser$actions {
 		Block corps = (Block)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG46
 
+		    RESULT = new MethodDeclarationElement(entete, false, false, false, corps);
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Method",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1356,6 +1372,7 @@ class CUP$Parser$actions {
 		Block corps = (Block)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG47
 
+		    RESULT = new MethodDeclarationElement(entete, true, false, false, corps);
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Method",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1373,6 +1390,7 @@ class CUP$Parser$actions {
 		Block corps = (Block)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG48
 
+		    RESULT = new MethodDeclarationElement(entete, false, true, false, corps);
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Method",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1390,6 +1408,7 @@ class CUP$Parser$actions {
 		Block corps = (Block)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG49
 
+		    RESULT = new MethodDeclarationElement(entete, true, true, false, corps);
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Method",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1404,6 +1423,7 @@ class CUP$Parser$actions {
 		Signature entete = (Signature)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		//@@CUPDBG50
 
+		    RESULT = new MethodDeclarationElement(entete, false, false, true, null);
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Method",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
