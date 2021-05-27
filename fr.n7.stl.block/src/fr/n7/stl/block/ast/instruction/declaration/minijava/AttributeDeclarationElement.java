@@ -56,41 +56,31 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public Type getType() {
-        return super.getType();
-    }
-
-    @Override
-    public AccessRight getAccessRight() {
-        return super.getAccessRight();
-    }
-
-    @Override
-    public void setAccessRight(AccessRight accessRight) {
-        super.setAccessRight(accessRight);
+        return null;
     }
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        return super.collect(_scope);
+        return false;
     }
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return super.resolve(_scope);
+        return false;
     }
 
     @Override
     public boolean checkType() {
-        return super.checkType();
+        return false;
     }
 
     @Override
     public int allocateMemory(Register _register, int _offset) {
-        return super.allocateMemory(_register, _offset);
+        return 0;
     }
 
     @Override
     public Fragment getCode(TAMFactory _factory) {
-        return super.getCode(_factory);
+        return null;
     }
 }

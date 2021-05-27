@@ -1,7 +1,7 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
 import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.instruction.declaration.Signature;
+import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.AccessRight;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -10,36 +10,28 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class MethodDeclarationElement extends ClassElement {
+import java.util.ArrayList;
+import java.util.List;
 
-    protected Signature signature;
-
-    /**
-     * Est-ce que l'attribut est final
-     */
-    boolean isFinal;
-
-    boolean isStatic;
-
-    boolean isAbstract;
+public class ConstructorDeclarationElement extends ClassElement {
 
     /**
-     * Corps de la fonction
+     * Liste des paramètres du constructeur
      */
+    List<ParameterDeclaration> parametres;
+
     Block body;
 
-    public MethodDeclarationElement(Signature signature, boolean isFinal, boolean isStatic, boolean isAbstract, Block body) {
-        super(signature.getName());
-        this.signature = signature;
-        this.isFinal = isFinal;
-        this.isStatic = isStatic;
-        this.isAbstract = isAbstract;
-        this.body = body;
-    }
+    public ConstructorDeclarationElement(String name, List<ParameterDeclaration> parametres, Block body) {
+        super(name);
 
-    @Override
-    public String getName() {
-        return super.getName();
+        if(parametres != null){
+            this.parametres = parametres;
+        }else{
+            this.parametres = new ArrayList<>();
+        }
+
+        this.body = body;
     }
 
     @Override
