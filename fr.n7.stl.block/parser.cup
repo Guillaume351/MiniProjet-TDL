@@ -106,10 +106,12 @@ non terminal List<String>               Implements;
 non terminal List<String>               Instances;
 non terminal String                     Instance;
 non terminal ClassElement               Attribute;
+non terminal ClassElement               Method;
+non terminal ClassElement               Constructor;
 non terminal							Elements, Main, Class, Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
 non terminal							SingleInherits, MultipleInherits;
-non terminal							Method, Constructor, ConstructorPrelude;
+non terminal							ConstructorPrelude;
 non terminal							ElementNature;
 
 
@@ -326,12 +328,12 @@ ClassElement ::=
 		|
 		Method: method
 		{:
-		    //RESULT = method;
+		    RESULT = method;
 		:}
 		|
 		Constructor: constructor
 		{:
-		    //RESULT = constructor;
+		    RESULT = constructor;
 		:}
 		;
 
