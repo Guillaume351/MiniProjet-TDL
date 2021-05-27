@@ -9,7 +9,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class ClassElement implements Instruction, Declaration {
+public abstract class ClassElement implements Instruction, Declaration {
 
     /**
      * Modificateur d'accès (Private, Public..)
@@ -28,9 +28,7 @@ public class ClassElement implements Instruction, Declaration {
     }
 
     @Override
-    public Type getType() {
-        return null;
-    }
+    public abstract Type getType();
 
     public AccessRight getAccessRight() {
         return accessRight;
@@ -41,27 +39,17 @@ public class ClassElement implements Instruction, Declaration {
     }
 
     @Override
-    public boolean collect(HierarchicalScope<Declaration> _scope) {
-        return false;
-    }
+    public abstract boolean collect(HierarchicalScope<Declaration> _scope);
 
     @Override
-    public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return false;
-    }
+    public abstract boolean resolve(HierarchicalScope<Declaration> _scope);
 
     @Override
-    public boolean checkType() {
-        return false;
-    }
+    public abstract boolean checkType();
 
     @Override
-    public int allocateMemory(Register _register, int _offset) {
-        return 0;
-    }
+    public abstract int allocateMemory(Register _register, int _offset);
 
     @Override
-    public Fragment getCode(TAMFactory _factory) {
-        return null;
-    }
+    public abstract Fragment getCode(TAMFactory _factory);
 }
