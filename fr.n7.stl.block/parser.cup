@@ -80,7 +80,7 @@ terminal String		UL_Nombre_Entier, UL_Nombre_Flottant, UL_Nul, UL_Vrai, UL_Faux;
 /* Non terminaux avec type renvoyé par actions sémantiques (RESULT = ...) */
 non terminal Block						Program;
 /* début modification miniJava */
-non terminal Block						Block;
+non terminal Block						Main, Block;
 /* fin modification miniJava */
 non terminal List<Instruction>			Instructions;
 non terminal Instruction				Instruction;
@@ -108,7 +108,7 @@ non terminal String                     Instance;
 non terminal ClassElement               Attribute;
 non terminal ClassElement               Method;
 non terminal ClassElement               Constructor;
-non terminal List<Declaration>          Main, Elements;
+non terminal ProgramDeclaration         Elements;
 non terminal ClassDeclaration           Class;
 non terminal							Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
@@ -148,7 +148,7 @@ Program ::= Elements:elements
 /* ajout miniJava : classes, interfaces, attributs, méthodes, constructeurs, etc */
 Elements ::= Main:main
 		{:
-			RESULT = new ArrayList<Declaration>();
+			RESULT = new ProgramDeclaration(main);
 		:}
 		| Class:cls Elements:elements
 		{:
@@ -174,8 +174,9 @@ Class ::= UL_Classe UL_Identificateur:nom
 Main ::= UL_Public UL_Classe UL_Classe_Principale
 		UL_Accolade_Ouvrante
 			UL_Public UL_De_Classe UL_Type_Vide UL_Methode_Principale
-			UL_Parenthese_Ouvrante Parameters UL_Parenthese_Fermante Block UL_Accolade_Fermante
+			UL_Parenthese_Ouvrante Parameters UL_Parenthese_Fermante Block:bloc UL_Accolade_Fermante
 		{:
+		 	RESULT = bloc;
 		:}
 		;
 
