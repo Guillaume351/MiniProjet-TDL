@@ -23,6 +23,8 @@ import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.*;
 import fr.n7.stl.block.ast.type.declaration.*;
 import fr.n7.stl.util.*;
+import fr.n7.stl.tam.ast.*;
+import fr.n7.stl.tam.ast.impl.*;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.*;
 import java_cup.runtime.ComplexSymbolFactory.Location;
 import java_cup.runtime.XMLElement;
@@ -679,13 +681,27 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 0: // Program ::= Elements 
             {
-              Block RESULT =null;
-		Location elementsxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
-		Location elementsxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
-		ProgramDeclaration elements = (ProgramDeclaration)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+              ProgramDeclaration RESULT =null;
+		Location programxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xleft;
+		Location programxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.peek()).xright;
+		ProgramDeclaration program = (ProgramDeclaration)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		//@@CUPDBG3
 
-			System.out.println(elements);
+			SymbolTable globalScope = new SymbolTable();
+			if (! program.collect(globalScope)) {
+				Logger.error("Collect failed");
+			}
+			if (! program.resolve(globalScope)) {
+				Logger.error("Resolve failed");
+			}
+			if (! program.checkType()) {
+				Logger.error("Checktype failed");
+			}
+			TAMFactory tamFactory = new TAMFactoryImpl();
+			Fragment fragment = program.getCode(tamFactory);
+			fragment.add(tamFactory.createHalt());
+			System.out.println(fragment);
+			RESULT = program;
 		
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Program",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -697,7 +713,7 @@ class CUP$Parser$actions {
               Object RESULT =null;
 		Location start_valxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
 		Location start_valxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
-		Block start_val = (Block)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		ProgramDeclaration start_val = (ProgramDeclaration)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		RESULT = start_val;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
