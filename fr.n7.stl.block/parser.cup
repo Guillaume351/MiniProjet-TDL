@@ -108,9 +108,9 @@ non terminal String                     Instance;
 non terminal ClassElement               Attribute;
 non terminal ClassElement               Method;
 non terminal ClassElement               Constructor;
-non terminal List<Declaration>          Elements;
-non terminal ClassDeclaration Class;
-non terminal							Main, Interface;
+non terminal List<Declaration>          Main, Elements;
+non terminal ClassDeclaration           Class;
+non terminal							Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
 non terminal							SingleInherits, MultipleInherits;
 non terminal							ConstructorPrelude;
@@ -146,18 +146,14 @@ Program ::= Elements:elements
 		:};
 
 /* ajout miniJava : classes, interfaces, attributs, méthodes, constructeurs, etc */
-Elements ::= Main: main
+Elements ::= Main:main
 		{:
-			RESULT = null;
+			RESULT = new ArrayList<Declaration>();
 		:}
 		| Class:cls Elements:elements
 		{:
 			elements.add(cls);
 			RESULT = elements;
-		:}
-		| // Lambda
-		{:
-			RESULT = new ArrayList<Declaration>();
 		:};
 
 Interface ::= UL_Interface UL_Identificateur:nom Generics MultipleInherits:inherits
