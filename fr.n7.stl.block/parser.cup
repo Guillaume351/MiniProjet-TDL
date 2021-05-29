@@ -108,7 +108,9 @@ non terminal String                     Instance;
 non terminal ClassElement               Attribute;
 non terminal ClassElement               Method;
 non terminal ClassElement               Constructor;
-non terminal							Elements, Main, Class, Interface;
+non terminal List<Declaration>          Elements;
+non terminal ClassDeclaration Class;
+non terminal							Main, Interface;
 non terminal							Generics, TypeParameter, TypeParameters, Constraints;
 non terminal							SingleInherits, MultipleInherits;
 non terminal							ConstructorPrelude;
@@ -138,31 +140,25 @@ precedence left UL_Point; // , UL_Crochet_Ouvrant, UL_Parenthese_Ouvrante;
 /* UL_Identificateur est un terminal (Unité lexicale) */
 /* Block est la variable utilisable dans l'action sémantique qui contient la valeur renvoyé par l'analyse du Block */
 /* TODO */
-Program ::=/* ajout miniJava */
-			Elements:elements
-			/* ajout miniJava */
-			{:
-				//TODO
-			:}
-		;
+Program ::= Elements:elements
+		{:
+			System.out.println(elements);
+		:};
 
 /* ajout miniJava : classes, interfaces, attributs, méthodes, constructeurs, etc */
 Elements ::= Main: main
 		{:
+			RESULT = null;
 		:}
-		| Interface:interfaceE Elements:elements
+		| Class:cls Elements:elements
 		{:
+			elements.add(cls);
+			RESULT = elements;
 		:}
-		| Class Elements
+		| // Lambda
 		{:
-		:}
-		| UL_Abstrait Class Elements
-		{:
-		:}
-		| UL_Definitif Class Elements
-		{:
-		:}
-		;
+			RESULT = new ArrayList<Declaration>();
+		:};
 
 Interface ::= UL_Interface UL_Identificateur:nom Generics MultipleInherits:inherits
 		UL_Accolade_Ouvrante InterfaceElements:elements UL_Accolade_Fermante
@@ -171,10 +167,11 @@ Interface ::= UL_Interface UL_Identificateur:nom Generics MultipleInherits:inher
 		:}
 		;
 
-Class ::= UL_Classe UL_Identificateur:nom Generics SingleInherits Implements:interfaces
+Class ::= UL_Classe UL_Identificateur:nom
+		/* Generics SingleInherits Implements:interfaces */
 		UL_Accolade_Ouvrante ClassElements:elements UL_Accolade_Fermante
 		{:
-		    RESULT = new ClassDeclaration(nom, interfaces, elements);
+		    RESULT = new ClassDeclaration(nom, null, elements);
 		:}
 		;
 
@@ -784,4 +781,3 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 				:}
 			/* fin ajout miniJava */
             ;
-       
