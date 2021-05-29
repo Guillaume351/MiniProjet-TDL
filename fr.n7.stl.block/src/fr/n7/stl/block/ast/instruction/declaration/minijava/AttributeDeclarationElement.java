@@ -57,13 +57,22 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public Type getType() {
-        return null;
+        return this.type;
     }
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        Logger.error("AttributeDeclarationElement");
-        return false;
+        if(this.value != null){
+            if(this.value.collect(_scope)){
+                return true;
+            } else {
+                Logger.error("AttributeDeclarationElement : Le collect passe pas!");
+                return false;
+            }
+
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -73,7 +82,14 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public boolean checkType() {
-        return false;
+        if(this.value != null){
+            if(this.value.getType().compatibleWith(this.getType())){
+                return true;
+            } else {
+                Logger.error("AttributeDeclarationElement : Le type ne colle pas !");
+            }
+        }
+        return true;
     }
 
     @Override
