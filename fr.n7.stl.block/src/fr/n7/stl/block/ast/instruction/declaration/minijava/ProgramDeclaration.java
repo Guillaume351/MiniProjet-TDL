@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.AtomicType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -35,8 +36,7 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
 
   @Override
   public Type getType() {
-    // TODO Auto-generated method stub
-    return null;
+    return AtomicType.VoidType;
   }
 
   @Override
