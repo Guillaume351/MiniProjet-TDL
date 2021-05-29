@@ -17,13 +17,13 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
 
   private Block main;
 
-  private List<Declaration> declarations = new ArrayList<>();
+  private List<ClassDeclaration> declarations = new ArrayList<>();
 
   public ProgramDeclaration(Block main) {
     this.main = main;
   }
 
-  public void add(Declaration declaration) {
+  public void add(ClassDeclaration declaration) {
     this.declarations.add(declaration);
   }
 
@@ -41,8 +41,7 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
 
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
-    // TODO Auto-generated method stub
-    return false;
+    return main.collect(_scope) && declarations.stream().allMatch(declaration -> declaration.collect(_scope));
   }
 
   @Override
