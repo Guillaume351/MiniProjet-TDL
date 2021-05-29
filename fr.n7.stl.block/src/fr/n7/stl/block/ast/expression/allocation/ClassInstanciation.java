@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 public class ClassInstanciation implements Expression {
 
@@ -21,7 +22,7 @@ public class ClassInstanciation implements Expression {
 
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
-    // TODO Auto-generated method stub
+    Logger.error("new Class");
     return false;
   }
 
