@@ -1,16 +1,17 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
+import java.util.List;
+
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
-import fr.n7.stl.block.ast.instruction.declaration.InterfaceDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.OwnedHierarchicalScope;
+import fr.n7.stl.block.ast.scope.OwnedSymbolTable;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.List;
 
 //TODO
 
@@ -26,19 +27,23 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
     /**
      * Liste des interfaces implementees par la classe
      */
-    List<InterfaceDeclaration> interfacesImplementees; //TODO : verifier si c'est bien une liste d'expressions
+    List<String> interfacesImplementees;
 
     List<ClassElement> bodyElements;
 
+    OwnedHierarchicalScope<Declaration> scope;
+
     public ClassDeclaration(String name, List<String> identifiantsInterfaces, List<ClassElement> elements) {
         this.name = name;
-        this.identifiantsInterfaces = identifiantsInterfaces;
+        // this.identifiantsInterfaces = identifiantsInterfaces;
         this.bodyElements = elements;
     }
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        return false;
+        _scope.register(this);
+        scope = new OwnedSymbolTable(_scope, this);
+        return this.bodyElements.stream().allMatch(element -> element.collect(scope));
     }
 
     @Override
