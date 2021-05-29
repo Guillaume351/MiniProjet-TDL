@@ -1,13 +1,13 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
 import fr.n7.stl.block.ast.expression.Expression;
-import fr.n7.stl.block.ast.scope.AccessRight;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 public class AttributeDeclarationElement extends ClassElement {
 
@@ -26,9 +26,9 @@ public class AttributeDeclarationElement extends ClassElement {
      */
     boolean isFinal;
 
-
     /**
      * Expression avec valeur par defaut
+     *
      * @param value
      * @param isFinal
      */
@@ -41,6 +41,7 @@ public class AttributeDeclarationElement extends ClassElement {
 
     /**
      * Attribut sans expression de valeur par defaut
+     *
      * @param isFinal
      */
     public AttributeDeclarationElement(String identifiant, Type type, boolean isFinal) {
@@ -61,6 +62,7 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
+        Logger.error("AttributeDeclarationElement");
         return false;
     }
 

@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 public class MethodDeclarationElement extends ClassElement {
 
@@ -28,7 +29,8 @@ public class MethodDeclarationElement extends ClassElement {
      */
     Block body;
 
-    public MethodDeclarationElement(Signature signature, boolean isFinal, boolean isStatic, boolean isAbstract, Block body) {
+    public MethodDeclarationElement(Signature signature, boolean isFinal, boolean isStatic, boolean isAbstract,
+            Block body) {
         super(signature.getName());
         this.signature = signature;
         this.isFinal = isFinal;
@@ -59,6 +61,7 @@ public class MethodDeclarationElement extends ClassElement {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
+        Logger.error("MethodDeclarationElement");
         return false;
     }
 
