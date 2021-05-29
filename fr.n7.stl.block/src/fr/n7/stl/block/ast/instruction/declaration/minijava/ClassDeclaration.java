@@ -53,7 +53,7 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
 
     @Override
     public boolean checkType() {
-        return false;
+        return true;
     }
 
     @Override

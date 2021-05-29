@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.AccessRight;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.OwnedSymbolTable;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -22,6 +23,11 @@ public class ConstructorDeclarationElement extends ClassElement {
     List<ParameterDeclaration> parametres;
 
     Block body;
+
+    /**
+     * Table de symbole locale
+     */
+    OwnedSymbolTable localScope;
 
     public ConstructorDeclarationElement(String name, List<ParameterDeclaration> parametres, Block body) {
         super(name);
@@ -52,8 +58,13 @@ public class ConstructorDeclarationElement extends ClassElement {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        Logger.error("ConstructorDeclarationElement");
-        return false;
+        this.localScope = new OwnedSymbolTable(_scope, this);
+        if (this.body.collect(_scope)){
+            return true;
+        }else{
+            Logger.error("ConstructorDeclarationElement : Le collect passe pas!");
+            return false;
+        }
     }
 
     @Override
@@ -63,6 +74,7 @@ public class ConstructorDeclarationElement extends ClassElement {
 
     @Override
     public boolean checkType() {
+        //TODO : verifier que le type du body colle avec void
         return false;
     }
 

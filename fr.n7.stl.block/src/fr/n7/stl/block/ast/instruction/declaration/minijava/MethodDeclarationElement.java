@@ -2,9 +2,7 @@ package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.instruction.declaration.Signature;
-import fr.n7.stl.block.ast.scope.AccessRight;
-import fr.n7.stl.block.ast.scope.Declaration;
-import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.scope.*;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -28,6 +26,11 @@ public class MethodDeclarationElement extends ClassElement {
      * Corps de la fonction
      */
     Block body;
+
+    /**
+     * Table de symbole locale
+     */
+    OwnedSymbolTable localScope;
 
     public MethodDeclarationElement(Signature signature, boolean isFinal, boolean isStatic, boolean isAbstract,
             Block body) {
@@ -61,8 +64,13 @@ public class MethodDeclarationElement extends ClassElement {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        Logger.error("MethodDeclarationElement");
-        return false;
+        this.localScope = new OwnedSymbolTable(_scope, this);
+        if (this.body.collect(_scope)){
+            return true;
+        }else{
+            Logger.error("MethodDeclarationElement : Le collect passe pas!");
+            return false;
+        }
     }
 
     @Override
@@ -72,6 +80,7 @@ public class MethodDeclarationElement extends ClassElement {
 
     @Override
     public boolean checkType() {
+        //TODO : verifier que le type de retour du body est celui declare
         return false;
     }
 
