@@ -46,8 +46,7 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
 
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
-    // TODO Auto-generated method stub
-    return false;
+    return main.resolve(_scope) && declarations.stream().allMatch(declaration -> declaration.resolve(_scope));
   }
 
   @Override

@@ -51,7 +51,7 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return false;
+        return this.bodyElements.stream().allMatch(element -> element.resolve(scope));
     }
 
     @Override
