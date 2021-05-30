@@ -1,10 +1,9 @@
 /**
- * 
+ *
  */
 package fr.n7.stl.block.ast.instruction.declaration;
 
 import fr.n7.stl.block.ast.expression.Expression;
-import fr.n7.stl.block.ast.expression.FunctionCall;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -16,6 +15,7 @@ import fr.n7.stl.util.Logger;
 
 /**
  * Abstract Syntax Tree node for a variable declaration instruction.
+ *
  * @author Marc Pantel
  *
  */
@@ -25,32 +25,34 @@ public class VariableDeclaration implements Declaration, Instruction {
 	 * Name of the declared variable.
 	 */
 	protected String name;
-	
+
 	/**
 	 * AST node for the type of the declared variable.
 	 */
 	protected Type type;
-	
+
 	/**
 	 * AST node for the initial value of the declared variable.
 	 */
 	protected Expression value;
-	
+
 	/**
-	 * Address register that contains the base address used to store the declared variable.
+	 * Address register that contains the base address used to store the declared
+	 * variable.
 	 */
 	protected Register register;
-	
+
 	/**
-	 * Offset from the base address used to store the declared variable
-	 * i.e. the size of the memory allocated to the previous declared variables
+	 * Offset from the base address used to store the declared variable i.e. the
+	 * size of the memory allocated to the previous declared variables
 	 */
 	protected int offset;
-	
+
 	/**
 	 * Creates a variable declaration instruction node for the Abstract Syntax Tree.
-	 * @param _name Name of the declared variable.
-	 * @param _type AST node for the type of the declared variable.
+	 *
+	 * @param _name  Name of the declared variable.
+	 * @param _type  AST node for the type of the declared variable.
 	 * @param _value AST node for the initial value of the declared variable.
 	 */
 	public VariableDeclaration(String _name, Type _type, Expression _value) {
@@ -59,7 +61,9 @@ public class VariableDeclaration implements Declaration, Instruction {
 		this.value = _value;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -69,13 +73,16 @@ public class VariableDeclaration implements Declaration, Instruction {
 
 	/**
 	 * Synthesized semantics attribute for the type of the declared variable.
+	 *
 	 * @return Type of the declared variable.
 	 */
 	public Type getType() {
 		return this.type;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see fr.n7.block.ast.VariableDeclaration#getName()
 	 */
 	@Override
@@ -84,44 +91,54 @@ public class VariableDeclaration implements Declaration, Instruction {
 	}
 
 	/**
-	 * Synthesized semantics attribute for the register used to compute the address of the variable.
-	 * @return Register used to compute the address where the declared variable will be stored.
+	 * Synthesized semantics attribute for the register used to compute the address
+	 * of the variable.
+	 *
+	 * @return Register used to compute the address where the declared variable will
+	 *         be stored.
 	 */
 	public Register getRegister() {
 		return this.register;
 	}
-	
+
 	/**
-	 * Synthesized semantics attribute for the offset used to compute the address of the variable.
-	 * @return Offset used to compute the address where the declared variable will be stored.
+	 * Synthesized semantics attribute for the offset used to compute the address of
+	 * the variable.
+	 *
+	 * @return Offset used to compute the address where the declared variable will
+	 *         be stored.
 	 */
 	public int getOffset() {
 		return this.offset;
 	}
-	
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#collect(fr.n7.stl.block.ast.scope.Scope)
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * fr.n7.stl.block.ast.instruction.Instruction#collect(fr.n7.stl.block.ast.scope
+	 * .Scope)
 	 */
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
 
-		// Si c'est un FunctionCall, il n'a jamais ete collect, donc il faut le collect
-		if (this.value instanceof FunctionCall) {
-			this.value.collect(_scope);
-		}
+		this.value.collect(_scope);
 
 		if (_scope.accepts(this)) {
 			_scope.register(this);
 			return true;
-
-		} else {
-			Logger.error("VariableDeclaration : Tentative de double ajout d'une variable");
-			return false;
 		}
+
+		Logger.error("VariableDeclaration : Tentative de double ajout d'une variable");
+		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.instruction.Instruction#resolve(fr.n7.stl.block.ast.scope.Scope)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * fr.n7.stl.block.ast.instruction.Instruction#resolve(fr.n7.stl.block.ast.scope
+	 * .Scope)
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
@@ -129,14 +146,15 @@ public class VariableDeclaration implements Declaration, Instruction {
 		boolean ok2 = this.value.resolve(_scope);
 		boolean ok3 = _scope.contains(getName());
 
-
-		if(!ok3) {
+		if (!ok3) {
 			Logger.error("VariableDeclaration : Le scope ne contient pas la variable " + this.getName());
-		} 
+		}
 		return ok1 && ok2 && ok3;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see fr.n7.stl.block.ast.Instruction#checkType()
 	 */
 	@Override
@@ -144,18 +162,22 @@ public class VariableDeclaration implements Declaration, Instruction {
 		Type treal = this.value.getType();
 
 		// Le type virtuel doit être compatible avec le type réel
-		if (!this.getType().compatibleWith(treal)){
+		if (!this.getType().compatibleWith(treal)) {
 
-			Logger.error("VariableDeclaration : types incompatibles : ceci (" + this.name + ") est " + this.type +
-					" alors que cela (" + this.value + ") est " + treal);
+			Logger.error("VariableDeclaration : types incompatibles : ceci (" + this.name + ") est " + this.type
+					+ " alors que cela (" + this.value + ") est " + treal);
 			return false;
 		}
 
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register,
+	 * int)
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
@@ -164,7 +186,9 @@ public class VariableDeclaration implements Declaration, Instruction {
 		return this.getType().length();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see fr.n7.stl.block.ast.Instruction#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
