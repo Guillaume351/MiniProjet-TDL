@@ -122,7 +122,8 @@ public class VariableDeclaration implements Declaration, Instruction {
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
 
-		this.value.collect(_scope);
+		if (!this.value.collect(_scope))
+			return false;
 
 		if (_scope.accepts(this)) {
 			_scope.register(this);

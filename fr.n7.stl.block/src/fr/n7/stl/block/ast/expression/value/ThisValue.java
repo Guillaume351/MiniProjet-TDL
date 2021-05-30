@@ -34,7 +34,7 @@ public class ThisValue implements Value, AssignableExpression {
 
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
-    // TODO Auto-generated method stub
+    Logger.error("THIS");
     return false;
   }
 

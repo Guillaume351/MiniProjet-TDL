@@ -2,6 +2,7 @@ package fr.n7.stl.block.ast.type;
 
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.util.Logger;
 
 public class ClassType implements Type {
 
@@ -9,6 +10,10 @@ public class ClassType implements Type {
 
   public ClassType(String className) {
     this.className = className;
+  }
+
+  public String getClassName() {
+    return className;
   }
 
   @Override
@@ -37,8 +42,10 @@ public class ClassType implements Type {
 
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
-    // TODO Auto-generated method stub
-    return false;
+    if (!_scope.knows(className)) {
+      Logger.error("Class '" + className + "' unknown");
+    }
+    return true;
   }
 
 }
