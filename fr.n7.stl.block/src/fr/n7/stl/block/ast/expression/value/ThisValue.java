@@ -23,7 +23,7 @@ public class ThisValue implements Value, AssignableExpression {
       Logger.error("`this` not in a class member");
       return false;
     }
-    return false;
+    return true;
   }
 
   @Override
