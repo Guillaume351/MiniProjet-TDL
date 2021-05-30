@@ -62,17 +62,14 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        if(this.value != null){
-            if(this.value.collect(_scope)){
-                return true;
-            } else {
-                Logger.error("AttributeDeclarationElement : Le collect passe pas!");
-                return false;
-            }
-
-        } else {
-            return true;
+        if (!super.collect(_scope))
+            return false;
+        _scope.register(this);
+        if (this.value != null && !this.value.collect(_scope)) {
+            Logger.error("AttributeDeclarationElement: cannot collect initial value");
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -82,8 +79,8 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public boolean checkType() {
-        if(this.value != null){
-            if(this.value.getType().compatibleWith(this.getType())){
+        if (this.value != null) {
+            if (this.value.getType().compatibleWith(this.getType())) {
                 return true;
             } else {
                 Logger.error("AttributeDeclarationElement : Le type ne colle pas !");
