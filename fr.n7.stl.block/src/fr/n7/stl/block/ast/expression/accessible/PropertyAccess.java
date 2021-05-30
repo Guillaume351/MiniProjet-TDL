@@ -6,15 +6,30 @@ import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 public class PropertyAccess implements Expression {
 
+  /**
+   * Expression sur laquelle on essaye d'accéder à une propriété"
+   */
+  Expression expression;
+
+  String etiquette;
+
   public PropertyAccess(Expression expression, String etiquette) {
+    this.expression = expression;
+    this.etiquette = etiquette;
   }
 
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
-    throw new RuntimeException("Unimplemented");
+    if (this.expression.collect(_scope)) {
+      return true;
+    } else {
+      Logger.error("PropertyAccess: Impossible de collect");
+      return false;
+    }
   }
 
   @Override
