@@ -63,11 +63,11 @@ public class Assignment implements Instruction, Expression {
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
 		boolean ok = this.value.collect(_scope);
 		if (!ok) {
-			Logger.error("Left-hand side of the assignement cannot be collected");
+			Logger.error("Righ-hand side of the assignement cannot be collected");
 		}
 		ok = ok && this.assignable.collect(_scope);
 		if (!ok) {
-			Logger.error("Right-hand side of the assignement cannot be collected");
+			Logger.error("Left-hand side of the assignement cannot be collected");
 		}
 		return ok;
 	}
