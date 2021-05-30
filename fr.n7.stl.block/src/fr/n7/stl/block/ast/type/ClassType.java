@@ -1,5 +1,7 @@
 package fr.n7.stl.block.ast.type;
 
+import fr.n7.stl.block.ast.instruction.declaration.minijava.AttributeDeclarationElement;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.MethodDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.util.Logger;
@@ -46,6 +48,18 @@ public class ClassType implements Type {
       Logger.error("Class '" + className + "' unknown");
     }
     return true;
+  }
+
+  public boolean contains(String name) {
+    return false;
+  }
+
+  public MethodDeclarationElement getMethod(String name) {
+    return null;
+  }
+
+  public AttributeDeclarationElement getProperty(String name) {
+    return null;
   }
 
 }
