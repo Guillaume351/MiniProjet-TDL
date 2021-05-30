@@ -59,9 +59,9 @@ public class ConstructorDeclarationElement extends ClassElement {
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
         this.localScope = new OwnedSymbolTable(_scope, this);
-        if (this.body.collect(_scope)){
+        if (this.body.collect(localScope)) {
             return true;
-        }else{
+        } else {
             Logger.error("ConstructorDeclarationElement : Le collect passe pas!");
             return false;
         }
@@ -74,7 +74,7 @@ public class ConstructorDeclarationElement extends ClassElement {
 
     @Override
     public boolean checkType() {
-        //TODO : verifier que le type du body colle avec void
+        // TODO : verifier que le type du body colle avec void
         return false;
     }
 
