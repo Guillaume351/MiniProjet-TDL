@@ -1,8 +1,5 @@
-package fr.n7.stl.block;
+package fr.n7.stl.block.ast.expression;
 
-import java.util.List;
-
-import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -10,16 +7,20 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+import java.util.List;
+
 public class ConstructorCall implements Instruction {
 
+  List<Expression> parametres;
+
   public ConstructorCall(List<Expression> arrayList) {
-    throw new RuntimeException();
+    this.parametres = arrayList;
   }
 
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
     // collecter les arguments
-    throw new RuntimeException();
+    return this.parametres.stream().allMatch(param -> param.collect(_scope));
   }
 
   @Override
