@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.expression.value;
 
 import fr.n7.stl.block.ast.expression.assignable.AssignableExpression;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -12,17 +13,22 @@ import fr.n7.stl.util.Logger;
 
 public class ThisValue implements Value, AssignableExpression {
 
+  private Declaration method;
+  private ClassDeclaration parentClass;
+
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
     if (!(_scope instanceof OwnedHierarchicalScope)) {
       Logger.error("`this` not in a class member");
       return false;
     }
-    Declaration owner = ((OwnedHierarchicalScope<Declaration>) _scope).getOwner();
-    if (!(owner instanceof ClassElement)) {
+    method = ((OwnedHierarchicalScope<Declaration>) _scope).getOwner();
+    if (!(method instanceof ClassElement)) {
       Logger.error("`this` not in a class member");
       return false;
     }
+    parentClass = ((ClassElement) method).getParentClass();
+
     return true;
   }
 
