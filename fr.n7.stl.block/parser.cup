@@ -554,9 +554,21 @@ Instruction ::= Declaration:declaration
 					RESULT = new Assignment( affectable, expression);
 				:}
 			/* début ajout miniJava : appel de méthodes sans retour */
-			| Affectable:affectable UL_Point_Virgule
+			| UL_Moi UL_Parenthese_Ouvrante Expressions:parametres UL_Parenthese_Fermante UL_Point_Virgule
 				{:
-					RESULT = new VoidExpression(affectable);
+					RESULT = new ConstructorCall(parametres);
+				:}
+			| UL_Moi UL_Parenthese_Ouvrante UL_Parenthese_Fermante UL_Point_Virgule
+				{:
+					RESULT = new ConstructorCall(new ArrayList<>());
+				:}
+			| Affectable:expression UL_Point UL_Identificateur:etiquette UL_Parenthese_Ouvrante UL_Parenthese_Fermante UL_Point_Virgule
+				{:
+					RESULT = new MethodAccess(expression, etiquette, new ArrayList<>(), true);
+				:}
+			| Affectable:expression UL_Point UL_Identificateur:etiquette  UL_Parenthese_Ouvrante Expressions:parametres UL_Parenthese_Fermante UL_Point_Virgule
+				{:
+					RESULT = new MethodAccess(expression, etiquette, parametres, true);
 				:}
 			/* fin ajout miniJava */
 			| UL_Afficher Expression:expression UL_Point_Virgule
@@ -605,17 +617,18 @@ Affectable ::= UL_Identificateur:nom
 					RESULT = affectable;
 				:}
 			| UL_Parenthese_Ouvrante UL_Identificateur:type UL_Parenthese_Fermante Affectable:affectable
-             	{:
+				{:
 					RESULT = new AssignableConversion( affectable, type);
 				:}
 			| UL_Parenthese_Ouvrante Atomique:type UL_Parenthese_Fermante Affectable:affectable
-             	{:
+				{:
 					RESULT = new AssignableConversion( affectable, type);
 				:}
 			| Affectable:enregistrement UL_Point UL_Identificateur:etiquette
 				{:
 					RESULT = new FieldAssignment( enregistrement, etiquette);
 				:};
+
 
 Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectable UL_Egal Expression:expression
 				{:
@@ -689,7 +702,7 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 				{:
 					RESULT = new MethodAccess( expression, etiquette, new ArrayList<>());
 				:}
-			| Expression:expression UL_Point UL_Identificateur:etiquette UL_Parenthese_Ouvrante Parameters:parametres UL_Parenthese_Fermante
+			| Expression:expression UL_Point UL_Identificateur:etiquette UL_Parenthese_Ouvrante Expressions:parametres UL_Parenthese_Fermante
 				{:
 					RESULT = new MethodAccess( expression, etiquette, parametres );
 				:}
