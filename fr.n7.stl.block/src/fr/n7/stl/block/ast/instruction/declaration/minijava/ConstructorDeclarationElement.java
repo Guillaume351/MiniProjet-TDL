@@ -59,7 +59,7 @@ public class ConstructorDeclarationElement extends ClassElement {
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
         this.localScope = new OwnedSymbolTable(_scope, this);
-        if (this.body.collect(localScope)) {
+        if (this.parametres.stream().allMatch(param -> param.collect(localScope)) && this.body.collect(localScope)) {
             return true;
         } else {
             Logger.error("ConstructorDeclarationElement : Le collect passe pas!");

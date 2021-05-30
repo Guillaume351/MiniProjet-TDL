@@ -68,7 +68,7 @@ public class MethodDeclarationElement extends ClassElement {
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
         this.localScope = new OwnedSymbolTable(_scope, this);
-        if (this.body.collect(localScope)) {
+        if (this.signature.collect(localScope) && this.body.collect(localScope)) {
             return true;
         } else {
             Logger.error("MethodDeclarationElement : Le collect passe pas!");

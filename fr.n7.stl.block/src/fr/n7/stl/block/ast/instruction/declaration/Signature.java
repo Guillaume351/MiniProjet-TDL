@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.instruction.declaration;
 
-import fr.n7.stl.block.ast.Block;
+import java.util.List;
+
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -8,8 +9,6 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.List;
 
 public class Signature implements Instruction, Declaration {
 
@@ -43,7 +42,7 @@ public class Signature implements Instruction, Declaration {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        return false;
+        return this.parameters.stream().allMatch(param -> param.collect(_scope));
     }
 
     @Override
