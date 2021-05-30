@@ -410,7 +410,7 @@ Signature ::=
             } else {
                 _type = ((PartialType)_type).complete( type );
             }
-            RESULT = new Signature(identifiant.getLeft(), type, parametres);
+            RESULT = new Signature(identifiant.getLeft(), identifiant.getRight(), parametres);
 		:}
 		|
 		Type:type Identifiant:identifiant UL_Parenthese_Ouvrante UL_Parenthese_Fermante
@@ -746,9 +746,7 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 			/* début ajout miniJava */
 			| UL_Moi
 				{:
-				:}
-			| UL_Super
-				{:
+					RESULT = new ThisValue();
 				:}
 			/* fin ajout miniJava */
 			| UL_Nul
