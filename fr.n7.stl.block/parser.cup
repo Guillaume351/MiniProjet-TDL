@@ -179,8 +179,8 @@ Interface ::= UL_Interface UL_Identificateur:nom Generics MultipleInherits:inher
 		:}
 		;
 
-Class ::= UL_Classe UL_Identificateur:nom
-		/* Generics SingleInherits Implements:interfaces */ // TODO : reactiver les interfaces
+Class ::= UL_Classe UL_Identificateur:nom Implements:interfaces
+		/* Generics SingleInherits */
 		UL_Accolade_Ouvrante ClassElements:elements UL_Accolade_Fermante
 		{:
 		    RESULT = new ClassDeclaration(nom, null, elements);

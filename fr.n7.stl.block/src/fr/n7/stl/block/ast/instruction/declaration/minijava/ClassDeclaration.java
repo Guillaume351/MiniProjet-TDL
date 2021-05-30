@@ -1,7 +1,5 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
-import java.util.List;
-
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -12,6 +10,8 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+
+import java.util.List;
 
 //TODO
 
@@ -35,7 +35,7 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
 
     public ClassDeclaration(String name, List<String> identifiantsInterfaces, List<ClassElement> elements) {
         this.name = name;
-        // this.identifiantsInterfaces = identifiantsInterfaces;
+        this.identifiantsInterfaces = identifiantsInterfaces;
         this.bodyElements = elements;
     }
 
