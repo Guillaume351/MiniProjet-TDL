@@ -89,8 +89,11 @@ public class ParameterDeclaration implements Declaration, Instruction {
 
 	@Override
 	public boolean collect(HierarchicalScope<Declaration> _scope) {
-		Logger.error("ParameterDeclaration");
-		return false;
+		if (!_scope.accepts(this)) {
+			Logger.error("Cannot declare parameter '" + this.getName() + "', name already used.");
+		}
+		_scope.register(this);
+		return true;
 	}
 
 	@Override
