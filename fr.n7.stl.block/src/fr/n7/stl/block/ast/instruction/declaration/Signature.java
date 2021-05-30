@@ -72,6 +72,7 @@ public class Signature implements Instruction, Declaration {
 
     @Override
     public Type getType() {
-        return null;
+        return this.type;
     }
+
 }
