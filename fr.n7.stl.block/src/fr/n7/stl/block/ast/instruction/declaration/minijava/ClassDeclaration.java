@@ -1,5 +1,8 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -10,8 +13,6 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.List;
 
 //TODO
 
@@ -32,6 +33,8 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
     List<ClassElement> bodyElements;
 
     OwnedHierarchicalScope<Declaration> scope;
+
+    List<ConstructorDeclarationElement> constructors = new ArrayList<>();
 
     public ClassDeclaration(String name, List<String> identifiantsInterfaces, List<ClassElement> elements) {
         this.name = name;
@@ -68,11 +71,15 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
     public Type getType() {
         return null;
+    }
+
+    public void registerConstructor(ConstructorDeclarationElement constructorDeclarationElement) {
+        constructors.add(constructorDeclarationElement);
     }
 }

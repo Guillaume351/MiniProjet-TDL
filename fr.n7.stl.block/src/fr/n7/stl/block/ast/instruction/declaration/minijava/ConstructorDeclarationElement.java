@@ -58,10 +58,10 @@ public class ConstructorDeclarationElement extends ClassElement {
 
     @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
-        if (!super.collect(_scope)) {
+        if (!super.collect(_scope))
             return false;
-        }
         this.localScope = new OwnedSymbolTable(_scope, this);
+        this.getParentClass().registerConstructor(this);
         if (this.parametres.stream().allMatch(param -> param.collect(localScope)) && this.body.collect(localScope)) {
             return true;
         } else {

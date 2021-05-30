@@ -46,13 +46,8 @@ public class MethodDeclarationElement extends ClassElement {
     }
 
     @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    @Override
     public Type getType() {
-        return null;
+        return signature.getType();
     }
 
     @Override
@@ -69,6 +64,7 @@ public class MethodDeclarationElement extends ClassElement {
     public boolean collect(HierarchicalScope<Declaration> _scope) {
         if (!super.collect(_scope))
             return false;
+        _scope.register(this);
         this.localScope = new OwnedSymbolTable(_scope, this);
         if (!this.signature.collect(localScope)) {
             Logger.error("MethodDeclarationElement: signature.collect failed");
