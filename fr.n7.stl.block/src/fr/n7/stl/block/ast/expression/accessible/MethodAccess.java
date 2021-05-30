@@ -1,7 +1,5 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
-import java.util.List;
-
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
@@ -10,22 +8,42 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
+
+import java.util.List;
 
 public class MethodAccess implements Expression, Instruction {
+
+  Expression affectable;
+
+  String etiquette;
+
+  List<Expression> parametres;
+
+  boolean ignoreReturnValue;
 
   public MethodAccess(Expression expression, String etiquette, List<Expression> parametres) {
     this(expression, etiquette, parametres, false);
   }
 
-  public MethodAccess(Expression expression, String etiquette, List<Expression> parametres, Boolean ignoreReturnValue) {
+  public MethodAccess(Expression expression, String etiquette, List<Expression> parametres, boolean ignoreReturnValue) {
     // TODO : Attention c'est aussi une instruction !
     // if ignoreReturnValue is true, we pop the value resulting from the call,
     // keeping only the side effects.
+    this.affectable = expression;
+    this.etiquette = etiquette;
+    this.parametres = parametres;
+    this.ignoreReturnValue = ignoreReturnValue;
   }
 
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
-    throw new RuntimeException("Unimplemented");
+    if (this.affectable.collect(_scope) && this.parametres.stream().allMatch(param -> param.collect(_scope))) {
+      return true;
+    } else {
+      Logger.error("MethodAccess: collect impossible");
+      return false;
+    }
   }
 
   @Override
