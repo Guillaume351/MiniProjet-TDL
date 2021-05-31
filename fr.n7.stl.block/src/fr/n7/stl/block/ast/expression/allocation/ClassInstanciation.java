@@ -1,8 +1,7 @@
 package fr.n7.stl.block.ast.expression.allocation;
 
-import java.util.List;
-
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.AttributeDeclarationElement;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -12,10 +11,12 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
+import java.util.List;
+
 public class ClassInstanciation implements Expression {
 
-  private ClassType classType;
-  private List<Expression> params;
+  private final ClassType classType;
+  private final List<Expression> params;
   private ClassDeclaration classDeclaration;
 
   public ClassInstanciation(Type classType, List<Expression> params) {
@@ -54,6 +55,15 @@ public class ClassInstanciation implements Expression {
 
   public ClassDeclaration getClassDeclaration() {
     return classDeclaration;
+  }
+
+  public boolean containsEtiquette(String etiquette) {
+    for (AttributeDeclarationElement attribute : this.getClassDeclaration().getAllAttributes()) {
+      if ((attribute).getName().equals(etiquette)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

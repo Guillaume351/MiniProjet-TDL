@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.allocation.ClassInstanciation;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
@@ -34,7 +35,16 @@ public class PropertyAccess implements Expression {
 
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
-    throw new RuntimeException("Unimplemented");
+    if (this.expression.resolve(_scope)) {
+      //TODO : verifier
+      if (this.expression instanceof ClassInstanciation) {
+        if (((ClassInstanciation) this.expression).containsEtiquette(etiquette)) {
+          return true;
+        }
+      }
+    }
+    Logger.error("PropertyAccess: Le resolve passe pas.");
+    return false;
   }
 
   @Override
