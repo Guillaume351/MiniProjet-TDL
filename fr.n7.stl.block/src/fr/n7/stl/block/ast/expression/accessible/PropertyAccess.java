@@ -36,13 +36,14 @@ public class PropertyAccess implements Expression {
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
     if (this.expression.resolve(_scope)) {
-      //TODO : verifier
+      //TODO : Il faut gérer un IdentifierAccess egalement...
       if (this.expression instanceof ClassInstanciation) {
         if (((ClassInstanciation) this.expression).containsEtiquette(etiquette)) {
           return true;
         }
       } else {
-        Logger.error("PropertyAccess: Il y a autre chose à gérer que ClassInstanciation");
+        Logger.error("PropertyAccess: Il y a autre chose à gérer que ClassInstanciation : "
+                + this.expression.getClass());
       }
     }
     Logger.error("PropertyAccess: Le resolve passe pas.");
