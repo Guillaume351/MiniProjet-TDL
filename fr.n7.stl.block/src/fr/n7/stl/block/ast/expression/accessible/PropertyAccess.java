@@ -41,6 +41,8 @@ public class PropertyAccess implements Expression {
         if (((ClassInstanciation) this.expression).containsEtiquette(etiquette)) {
           return true;
         }
+      } else {
+        Logger.error("PropertyAccess: Il y a autre chose à gérer que ClassInstanciation");
       }
     }
     Logger.error("PropertyAccess: Le resolve passe pas.");
