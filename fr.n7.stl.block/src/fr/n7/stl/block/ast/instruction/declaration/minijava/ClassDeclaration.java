@@ -94,6 +94,16 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
         return attributes;
     }
 
+    public List<MethodDeclarationElement> getAllMethods() {
+        List<MethodDeclarationElement> methods = new ArrayList<>();
+        for (ClassElement classElement : this.bodyElements) {
+            if (classElement instanceof MethodDeclarationElement) {
+                methods.add((MethodDeclarationElement) classElement);
+            }
+        }
+        return methods;
+    }
+
     public void registerConstructor(ConstructorDeclarationElement constructorDeclarationElement) {
         constructors.add(constructorDeclarationElement);
     }

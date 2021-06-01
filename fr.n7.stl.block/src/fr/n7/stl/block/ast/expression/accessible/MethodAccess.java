@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.expression.allocation.ClassInstanciation;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -48,11 +49,23 @@ public class MethodAccess implements Expression, Instruction {
 
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
-    throw new RuntimeException("Unimplemented");
+    if (this.affectable.resolve(_scope)) {
+      //TODO : verifier
+      if (this.affectable instanceof ClassInstanciation) {
+        if (((ClassInstanciation) this.affectable).containsMethod(etiquette, parametres)) {
+          return true;
+        }
+      } else {
+        Logger.error("MethodAccess: Il y a autre chose à gérer que ClassInstanciation");
+      }
+    }
+    Logger.error("MethodAccess: Le resolve passe pas.");
+    return false;
   }
 
   @Override
   public Type getType() {
+    //TODO : verifier que les types des parametres reels collent avec la signature de la methode
     throw new RuntimeException("Unimplemented");
   }
 

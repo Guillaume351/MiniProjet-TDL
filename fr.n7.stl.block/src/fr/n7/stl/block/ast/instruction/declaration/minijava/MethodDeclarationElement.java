@@ -97,4 +97,8 @@ public class MethodDeclarationElement extends ClassElement {
     public Fragment getCode(TAMFactory _factory) {
         return null;
     }
+
+    public Signature getSignature() {
+        return signature;
+    }
 }

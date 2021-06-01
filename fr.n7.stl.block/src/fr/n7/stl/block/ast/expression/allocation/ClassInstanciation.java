@@ -3,6 +3,7 @@ package fr.n7.stl.block.ast.expression.allocation;
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.AttributeDeclarationElement;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassDeclaration;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.MethodDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.ClassType;
@@ -63,6 +64,20 @@ public class ClassInstanciation implements Expression {
         return true;
       }
     }
+    return false;
+  }
+
+  public boolean containsMethod(String etiquette, List<Expression> params) {
+    List<MethodDeclarationElement> allMethodsOfClass = this.getClassDeclaration().getAllMethods();
+    for (MethodDeclarationElement method : allMethodsOfClass) {
+      if (method.getName().equals(etiquette)) {
+        // Pour le moment, on verifie simplement que le nombre de params colle. dans le checkType, il faut verifier que les types collent.
+        if (method.getSignature().getParameters().size() == params.size()) {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 
