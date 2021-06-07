@@ -96,4 +96,8 @@ public class ConstructorDeclarationElement extends ClassElement {
     public Fragment getCode(TAMFactory _factory) {
         return null;
     }
+
+    public int getNumberOfArguments() {
+        return this.parametres.size();
+    }
 }
