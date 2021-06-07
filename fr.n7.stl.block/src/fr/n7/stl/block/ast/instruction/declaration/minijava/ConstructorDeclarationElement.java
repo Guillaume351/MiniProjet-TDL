@@ -78,7 +78,7 @@ public class ConstructorDeclarationElement extends ClassElement {
         if (!this.body.resolve(localScope)) {
             Logger.error("ConstructorDeclarationElement : Le resolve du corps passe pas!");
         }
-        return false;
+        return true;
     }
 
     @Override
