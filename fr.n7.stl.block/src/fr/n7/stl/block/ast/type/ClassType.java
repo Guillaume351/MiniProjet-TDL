@@ -56,7 +56,7 @@ public class ClassType implements Type {
   }
 
   public boolean contains(String name) {
-    return false;
+    return classDeclaration.containsAttributeNamed(name);
   }
 
   public MethodDeclarationElement getMethod(String name) {
@@ -64,7 +64,7 @@ public class ClassType implements Type {
   }
 
   public AttributeDeclarationElement getProperty(String name) {
-    return null;
+    return classDeclaration.getAllAttributes().stream().filter(attr -> attr.getName().equals(name)).findAny().get();
   }
 
   public ClassDeclaration getClassDeclaration() {
