@@ -1,9 +1,8 @@
 /**
- * 
+ *
  */
 package fr.n7.stl.block.ast.type;
 
-import fr.n7.stl.block.ast.SemanticsUndefinedException;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 
@@ -19,43 +18,51 @@ public class ArrayType implements Type {
 		this.element = _element;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.n7.stl.block.ast.Type#equalsTo(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
 		if (_other instanceof ArrayType) {
-			return this.element.equalsTo(((ArrayType)_other).element);
+			return this.element.equalsTo(((ArrayType) _other).element);
 		} else {
 			return false;
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.n7.stl.block.ast.Type#compatibleWith(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
 		if (_other instanceof ArrayType) {
-			return this.element.compatibleWith(((ArrayType)_other).element);
+			return this.element.compatibleWith(((ArrayType) _other).element);
 		} else {
 			return false;
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.n7.stl.block.ast.Type#merge(fr.n7.stl.block.ast.Type)
 	 */
 	@Override
 	public Type merge(Type _other) {
 		if (_other instanceof ArrayType) {
-			return new ArrayType(this.element.merge(((ArrayType)_other).element));
+			return new ArrayType(this.element.merge(((ArrayType) _other).element));
 		} else {
 			return AtomicType.ErrorType;
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.n7.stl.block.ast.Type#length(int)
 	 */
 	@Override
@@ -63,7 +70,9 @@ public class ArrayType implements Type {
 		return this.element.length();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -71,7 +80,9 @@ public class ArrayType implements Type {
 		return "(" + this.element + " [])";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fr.n7.stl.block.ast.type.Type#resolve(fr.n7.stl.block.ast.scope.Scope)
 	 */
 	@Override

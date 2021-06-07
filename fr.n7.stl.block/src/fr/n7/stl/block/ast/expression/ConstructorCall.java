@@ -34,10 +34,10 @@ public class ConstructorCall implements Instruction {
     if (!(_scope instanceof OwnedHierarchicalScope))
       Logger.error("Cannot use `this()` here");
 
-    if (!(((OwnedHierarchicalScope) _scope).getOwner() instanceof ConstructorDeclarationElement))
+    if (!(((OwnedHierarchicalScope<?>) _scope).getOwner() instanceof ConstructorDeclarationElement))
       Logger.error("Cannot use `this()` here");
 
-    ConstructorDeclarationElement constructor = (ConstructorDeclarationElement) ((OwnedHierarchicalScope) _scope)
+    ConstructorDeclarationElement constructor = (ConstructorDeclarationElement) ((OwnedHierarchicalScope<?>) _scope)
         .getOwner();
     List<ConstructorDeclarationElement> constructors = constructor.getParentClass().getConstructors();
 

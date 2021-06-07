@@ -1,7 +1,7 @@
 package fr.n7.stl.block.ast.instruction.declaration;
 
-import fr.n7.stl.block.ast.Block;
-import fr.n7.stl.block.ast.expression.Expression;
+import java.util.List;
+
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -11,32 +11,33 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
 
-import java.util.List;
-
 //TODO
 public class InterfaceDeclaration extends AbstractDeclarationElement implements Instruction, Declaration {
 
     String name;
 
-    //Generics generics;
+    // Generics generics;
 
-    //MultipleInherits inherits;
+    // MultipleInherits inherits;
 
     List<InterfaceElement> elements;
 
-    public InterfaceDeclaration(String name /*,Generics generics, MultipleInherits inherits*/, List<InterfaceElement> elements) {
+    public InterfaceDeclaration(String name /* ,Generics generics, MultipleInherits inherits */,
+            List<InterfaceElement> elements) {
         this.name = name;
-        //this.generics = generics;
-        //this.multipleInherits = multipleInherits;
+        // this.generics = generics;
+        // this.multipleInherits = multipleInherits;
         this.elements = elements;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "interface" + this.name + " { " + this.elements + " } "  + ";\n";
+        return "interface" + this.name + " { " + this.elements + " } " + ";\n";
     }
 
     @Override
@@ -65,12 +66,12 @@ public class InterfaceDeclaration extends AbstractDeclarationElement implements 
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
 
         boolean ok = true;
-        for (InterfaceElement element : this.elements){
+        for (InterfaceElement element : this.elements) {
             ok = ok && element.resolve(_scope);
         }
         boolean ok3 = _scope.contains(getName());
 
-        if(!ok3) {
+        if (!ok3) {
             Logger.error("InterfaceDeclaration : Le scope ne contient pas l'interface' " + this.getName());
         }
         return ok && ok3;
@@ -79,7 +80,7 @@ public class InterfaceDeclaration extends AbstractDeclarationElement implements 
     @Override
     public boolean checkType() {
         boolean ok = true;
-        for (InterfaceElement element : this.elements){
+        for (InterfaceElement element : this.elements) {
             ok = ok && element.checkType();
         }
         return ok;
