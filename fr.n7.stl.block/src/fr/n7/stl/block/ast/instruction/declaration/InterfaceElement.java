@@ -28,7 +28,7 @@ public class InterfaceElement implements Instruction, Declaration {
 
     @Override
     public boolean checkType() {
-        return false;
+        throw new RuntimeException("Unimplemented");
     }
 
     @Override

@@ -1,8 +1,5 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
@@ -14,11 +11,14 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProgramDeclaration extends AbstractDeclarationElement implements Instruction, Declaration {
 
-  private Block main;
+  private final Block main;
 
-  private List<ClassDeclaration> declarations = new ArrayList<>();
+  private final List<ClassDeclaration> declarations = new ArrayList<>();
 
   public ProgramDeclaration(Block main) {
     this.main = main;
@@ -52,7 +52,7 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
   @Override
   public boolean checkType() {
     // TODO Auto-generated method stub
-    return false;
+    throw new RuntimeException("Unimplemented");
   }
 
   @Override

@@ -103,8 +103,7 @@ public class ParameterDeclaration implements Declaration, Instruction {
 
 	@Override
 	public boolean checkType() {
-		// TODO Auto-generated method stub
-		return false;
+		throw new RuntimeException("Unimplemented");
 	}
 
 	@Override

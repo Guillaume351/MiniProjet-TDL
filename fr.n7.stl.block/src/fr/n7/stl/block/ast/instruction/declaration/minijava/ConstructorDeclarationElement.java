@@ -1,8 +1,5 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.scope.AccessRight;
@@ -14,6 +11,9 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConstructorDeclarationElement extends ClassElement {
 
@@ -84,7 +84,7 @@ public class ConstructorDeclarationElement extends ClassElement {
     @Override
     public boolean checkType() {
         // TODO : verifier que le type du body colle avec void
-        return false;
+        throw new RuntimeException("Unimplemented");
     }
 
     @Override
