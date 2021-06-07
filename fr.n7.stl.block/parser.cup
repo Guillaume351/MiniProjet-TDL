@@ -590,8 +590,8 @@ Expressions ::= Expressions:expressions UL_Virgule Expression:expression
 					expressions.add( expression );
 					RESULT = expressions;
 				:}
-            | Expression:expression
-            		{:
+			| Expression:expression
+				{:
 					List<Expression> _expressions = new LinkedList<Expression>();
 					_expressions.add( expression );
 					RESULT = _expressions;
