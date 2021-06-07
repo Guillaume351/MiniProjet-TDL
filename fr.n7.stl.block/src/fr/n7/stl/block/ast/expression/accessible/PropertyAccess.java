@@ -1,7 +1,8 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.expression.Expression;
-import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassDeclaration;
+import fr.n7.stl.block.ast.expression.value.ThisValue;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.AttributeDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.ClassType;
@@ -18,6 +19,8 @@ public class PropertyAccess implements Expression {
     Expression expression;
 
     String etiquette;
+
+    private AttributeDeclarationElement attribute;
 
     public PropertyAccess(Expression expression, String etiquette) {
         this.expression = expression;
@@ -36,31 +39,48 @@ public class PropertyAccess implements Expression {
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        if (this.expression.resolve(_scope)) {
-            if (this.expression instanceof IdentifierAccess) {
-                if (((IdentifierAccess) this.expression).getExpression() != null) {
-                    VariableAccess access = (VariableAccess) ((IdentifierAccess) this.expression).getExpression();
-                    if (access.getDeclaration().getType() instanceof ClassType) {
-                        ClassType typeDeClasse = (ClassType) access.getDeclaration().getType();
-                        // On resolve typeDeClasse pour qu'il récupère la ClassDeclaration
-                        typeDeClasse.resolve(_scope);
-                        ClassDeclaration declaration = typeDeClasse.getClassDeclaration();
-                        if (declaration.containsAttributeNamed(etiquette)) {
-                            return true;
-                        } else {
-                            Logger.error("PropertyAccess: L'attribut est introuvable ! : "
-                                    + etiquette);
-                        }
-                    } else {
-                        Logger.error("PropertyAccess : ce n'est pas une ClassType! C'est : " + access.getDeclaration().getClass());
-                    }
-                } else {
-                    Logger.error("PropertyAccess : La Declaration est nulle !");
-                }
+        if (!this.expression.resolve(_scope))
+            Logger.error("PropertyAccess: Le resolve passe pas.");
 
-            }
+        if (this.expression instanceof IdentifierAccess) {
+
+            if (((IdentifierAccess) this.expression).getExpression() == null)
+                Logger.error("PropertyAccess : La Declaration est nulle !");
+
+            VariableAccess access = (VariableAccess) ((IdentifierAccess) this.expression).getExpression();
+
+            if (!(access.getDeclaration().getType() instanceof ClassType))
+                Logger.error(
+                        "PropertyAccess : ce n'est pas une ClassType! C'est : " + access.getDeclaration().getClass());
+
+            ClassType typeDeClasse = (ClassType) access.getDeclaration().getType();
+
+            // On resolve typeDeClasse pour qu'il récupère la ClassDeclaration
+            if (!typeDeClasse.resolve(_scope))
+                Logger.error("ClassType failed to resolve");
+
+            if (!typeDeClasse.contains(etiquette))
+                Logger.error("PropertyAccess: L'attribut est introuvable ! : " + etiquette);
+
+            attribute = typeDeClasse.getProperty(etiquette);
+
+            return true;
+
         }
-        Logger.error("PropertyAccess: Le resolve passe pas.");
+
+        else if (this.expression instanceof ThisValue) {
+
+            ThisValue self = (ThisValue) this.expression;
+            ClassType type = (ClassType) self.getType();
+
+            if (!type.contains(etiquette))
+                Logger.error("PropertyAccess: L'attribut est introuvable ! : " + etiquette);
+
+            attribute = type.getProperty(etiquette);
+            return true;
+        }
+
+        Logger.error("Unexpected expression type " + this.expression);
         return false;
     }
 
