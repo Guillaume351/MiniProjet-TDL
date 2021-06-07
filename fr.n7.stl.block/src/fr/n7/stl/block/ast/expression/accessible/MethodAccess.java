@@ -1,10 +1,11 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
 import fr.n7.stl.block.ast.expression.Expression;
-import fr.n7.stl.block.ast.expression.allocation.ClassInstanciation;
 import fr.n7.stl.block.ast.instruction.Instruction;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassDeclaration;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
+import fr.n7.stl.block.ast.type.ClassType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -50,13 +51,27 @@ public class MethodAccess implements Expression, Instruction {
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
     if (this.affectable.resolve(_scope)) {
-      //TODO : verifier
-      if (this.affectable instanceof ClassInstanciation) {
-        if (((ClassInstanciation) this.affectable).containsMethod(etiquette, parametres)) {
-          return true;
+      if (this.affectable instanceof IdentifierAccess) {
+        if (((IdentifierAccess) this.affectable).getExpression() != null) {
+          VariableAccess access = (VariableAccess) ((IdentifierAccess) this.affectable).getExpression();
+          if (access.getDeclaration().getType() instanceof ClassType) {
+            ClassType typeDeClasse = (ClassType) access.getDeclaration().getType();
+            // On resolve typeDeClasse pour qu'il récupère la ClassDeclaration
+            typeDeClasse.resolve(_scope);
+            ClassDeclaration declaration = typeDeClasse.getClassDeclaration();
+            if (declaration.containsMethodNamed(etiquette)) {
+              return true;
+            } else {
+              Logger.error("MethodAccess: L'attribut est introuvable ! : "
+                      + etiquette);
+            }
+          } else {
+            Logger.error("MethodAccess : ce n'est pas une ClassType! C'est : " + access.getDeclaration().getClass());
+          }
+        } else {
+          Logger.error("MethodAccess : La Declaration est nulle !");
         }
-      } else {
-        Logger.error("MethodAccess: Il y a autre chose à gérer que ClassInstanciation");
+
       }
     }
     Logger.error("MethodAccess: Le resolve passe pas.");

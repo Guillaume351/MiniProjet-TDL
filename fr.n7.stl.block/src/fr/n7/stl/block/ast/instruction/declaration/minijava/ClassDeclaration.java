@@ -113,6 +113,15 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
         return false;
     }
 
+    public boolean containsMethodNamed(String etiquette) {
+        for (MethodDeclarationElement methodDeclarationElement : this.getAllMethods()) {
+            if ((methodDeclarationElement).getName().equals(etiquette)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void registerConstructor(ConstructorDeclarationElement constructorDeclarationElement) {
         constructors.add(constructorDeclarationElement);
     }

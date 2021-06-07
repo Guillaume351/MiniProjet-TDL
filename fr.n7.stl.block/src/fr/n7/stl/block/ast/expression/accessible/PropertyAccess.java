@@ -37,12 +37,12 @@ public class PropertyAccess implements Expression {
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
         if (this.expression.resolve(_scope)) {
-            //TODO : Il faut gérer un IdentifierAccess egalement...
             if (this.expression instanceof IdentifierAccess) {
                 if (((IdentifierAccess) this.expression).getExpression() != null) {
                     VariableAccess access = (VariableAccess) ((IdentifierAccess) this.expression).getExpression();
                     if (access.getDeclaration().getType() instanceof ClassType) {
                         ClassType typeDeClasse = (ClassType) access.getDeclaration().getType();
+                        // On resolve typeDeClasse pour qu'il récupère la ClassDeclaration
                         typeDeClasse.resolve(_scope);
                         ClassDeclaration declaration = typeDeClasse.getClassDeclaration();
                         if (declaration.containsAttributeNamed(etiquette)) {
