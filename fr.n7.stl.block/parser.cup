@@ -662,20 +662,20 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 				{:
 					RESULT = new BinaryExpression( gauche, BinaryOperator.Or, droite);
 				:}
-            | Expression:gauche UL_Double_Esperluette Expression:droite
-             	{:
+			| Expression:gauche UL_Double_Esperluette Expression:droite
+				{:
 					RESULT = new BinaryExpression( gauche, BinaryOperator.And, droite);
 				:}
 			| Expression:gauche UL_Plus Expression:droite
 				{:
 					RESULT = new BinaryExpression( gauche, BinaryOperator.Add, droite);
 				:}
-            | Expression:gauche UL_Moins Expression:droite
-             	{:
+			| Expression:gauche UL_Moins Expression:droite
+				{:
 					RESULT = new BinaryExpression( gauche, BinaryOperator.Substract, droite);
 				:}
-            | Expression:gauche UL_Asterisque Expression:droite
-             	{:
+			| Expression:gauche UL_Asterisque Expression:droite
+				{:
 					RESULT = new BinaryExpression( gauche, BinaryOperator.Multiply, droite);
 				:}
 			| Expression:gauche UL_Oblique Expression:droite
@@ -683,15 +683,15 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 					RESULT = new BinaryExpression( gauche, BinaryOperator.Divide, droite);
 				:}
 			| Expression:gauche UL_Pour_Cent Expression:droite
-             	{:
+				{:
 					RESULT = new BinaryExpression( gauche, BinaryOperator.Modulo, droite);
 				:}
-            | UL_Moins Expression:expression
-             	{:
+			| UL_Moins Expression:expression
+				{:
 					RESULT = new UnaryExpression( UnaryOperator.Opposite, expression);
 				:}
-            | UL_Point_Exclamation Expression:expression
-             	{:
+			| UL_Point_Exclamation Expression:expression
+				{:
 					RESULT = new UnaryExpression( UnaryOperator.Negate, expression);
 				:}
 			| Expression:expression UL_Crochet_Ouvrant Expression:indice UL_Crochet_Fermant
@@ -715,31 +715,31 @@ Expression ::= /* TODO (modifications à faire pour 2022) : Affectable:affectabl
 					RESULT = new ConditionalExpression( condition, alors, sinon);
 				:}
 			| UL_Parenthese_Ouvrante Expression:expression UL_Parenthese_Fermante
-             	{:
+				{:
 					RESULT = expression;
 				:}
 			| UL_Parenthese_Ouvrante UL_Identificateur:type UL_Parenthese_Fermante Expression:expression
-             	{:
+				{:
 					RESULT = new AccessibleConversion( expression, type);
 				:}
 			| UL_Parenthese_Ouvrante Atomique:type UL_Parenthese_Fermante Expression:expression
-             	{:
+				{:
 					RESULT = new AccessibleConversion( expression, type);
 				:}
 			| UL_Identificateur:nom
-             	{:
+				{:
 					RESULT = new IdentifierAccess( nom );
 				:}
 			| UL_Nombre_Entier:entier
-             	{:
+				{:
 					RESULT = new IntegerValue( entier );
 				:}
 			| UL_Vrai
-             	{:
+				{:
 					RESULT = BooleanValue.True;
 				:}
 			| UL_Faux
-             	{:
+				{:
 					RESULT = BooleanValue.False;
 				:}
 			/* début ajout miniJava */
