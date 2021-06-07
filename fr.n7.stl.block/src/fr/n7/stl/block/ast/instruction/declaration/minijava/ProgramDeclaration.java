@@ -51,8 +51,7 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
 
   @Override
   public boolean checkType() {
-    // TODO Auto-generated method stub
-    throw new RuntimeException("Unimplemented");
+    return main.checkType() && declarations.stream().allMatch(ClassDeclaration::checkType);
   }
 
   @Override
