@@ -36,6 +36,10 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
 
     List<ConstructorDeclarationElement> constructors = new ArrayList<>();
 
+    public List<ConstructorDeclarationElement> getConstructors() {
+        return constructors;
+    }
+
     public ClassDeclaration(String name, List<String> identifiantsInterfaces, List<ClassElement> elements) {
         this.name = name;
         this.identifiantsInterfaces = identifiantsInterfaces;
