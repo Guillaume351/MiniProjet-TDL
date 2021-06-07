@@ -6,6 +6,7 @@ import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.OwnedHierarchicalScope;
+import fr.n7.stl.block.ast.type.ClassType;
 import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -15,6 +16,7 @@ public class ThisValue implements Value, AssignableExpression {
 
   private Declaration method;
   private ClassDeclaration parentClass;
+  private ClassType type;
 
   @Override
   public boolean collect(HierarchicalScope<Declaration> _scope) {
@@ -28,20 +30,19 @@ public class ThisValue implements Value, AssignableExpression {
       return false;
     }
     parentClass = ((ClassElement) method).getParentClass();
+    type = new ClassType(parentClass.getName());
 
     return true;
   }
 
   @Override
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
-    Logger.error("THIS");
-    return false;
+    return type.resolve(_scope);
   }
 
   @Override
   public Type getType() {
-    // TODO Auto-generated method stub
-    return null;
+    return type;
   }
 
   @Override

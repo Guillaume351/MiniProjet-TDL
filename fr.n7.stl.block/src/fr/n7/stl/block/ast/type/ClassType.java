@@ -49,9 +49,8 @@ public class ClassType implements Type {
   public boolean resolve(HierarchicalScope<Declaration> _scope) {
     if (!_scope.knows(className)) {
       Logger.error("Class '" + className + "' unknown");
-    } else {
-      this.classDeclaration = (ClassDeclaration) _scope.get(className);
     }
+    this.classDeclaration = (ClassDeclaration) _scope.get(className);
     return true;
   }
 
