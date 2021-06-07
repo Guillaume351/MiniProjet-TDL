@@ -74,7 +74,11 @@ public class AttributeDeclarationElement extends ClassElement {
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return false;
+        if (this.value != null && !this.value.resolve(_scope)) {
+            Logger.error("AttributeDeclarationElement: cannot resolve initial value");
+            return false;
+        }
+        return true;
     }
 
     @Override
