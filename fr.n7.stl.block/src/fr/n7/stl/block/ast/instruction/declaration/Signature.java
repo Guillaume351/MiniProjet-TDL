@@ -47,7 +47,7 @@ public class Signature implements Instruction, Declaration {
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return false;
+        return this.parameters.stream().allMatch(param -> param.resolve(_scope));
     }
 
     @Override
