@@ -79,7 +79,15 @@ public class MethodDeclarationElement extends ClassElement {
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        return false;
+        if (!this.signature.resolve(localScope)) {
+            Logger.error("MethodDeclarationElement: signature.resolve failed");
+            return false;
+        }
+        if (!this.body.resolve(localScope)) {
+            Logger.error("MethodDeclarationElement: body.resolve failed");
+            return false;
+        }
+        return true;
     }
 
     @Override

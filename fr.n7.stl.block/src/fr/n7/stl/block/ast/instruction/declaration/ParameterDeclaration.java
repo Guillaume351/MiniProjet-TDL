@@ -98,8 +98,7 @@ public class ParameterDeclaration implements Declaration, Instruction {
 
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getType().resolve(_scope);
 	}
 
 	@Override

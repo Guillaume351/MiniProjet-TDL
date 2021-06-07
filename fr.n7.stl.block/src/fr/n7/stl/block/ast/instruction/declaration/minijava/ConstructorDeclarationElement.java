@@ -72,12 +72,13 @@ public class ConstructorDeclarationElement extends ClassElement {
 
     @Override
     public boolean resolve(HierarchicalScope<Declaration> _scope) {
-        if (this.parametres.stream().allMatch(param -> param.resolve(localScope)) && this.body.resolve(localScope)) {
-            return true;
-        } else {
-            Logger.error("ConstructorDeclarationElement : Le resolve passe pas!");
-            return false;
+        if (!this.parametres.stream().allMatch(param -> param.resolve(localScope))) {
+            Logger.error("ConstructorDeclarationElement : Le resolve des parametres passe pas!");
         }
+        if (!this.body.resolve(localScope)) {
+            Logger.error("ConstructorDeclarationElement : Le resolve du corps passe pas!");
+        }
+        return false;
     }
 
     @Override
