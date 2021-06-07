@@ -104,6 +104,15 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
         return methods;
     }
 
+    public boolean containsAttributeNamed(String etiquette) {
+        for (AttributeDeclarationElement attribute : this.getAllAttributes()) {
+            if ((attribute).getName().equals(etiquette)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void registerConstructor(ConstructorDeclarationElement constructorDeclarationElement) {
         constructors.add(constructorDeclarationElement);
     }

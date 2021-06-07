@@ -71,7 +71,7 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
-		if (!((HierarchicalScope<Declaration>) _scope).knows(this.name)) {
+		if (!_scope.knows(this.name)) {
 			Logger.error("The identifier " + this.name + " has not been found.");
 			return false;
 		}
@@ -105,7 +105,7 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
@@ -115,5 +115,9 @@ public class IdentifierAccess extends AbstractIdentifier implements AccessibleEx
 
 	public VariableDeclaration getDeclaration() {
 		return declaration;
+	}
+
+	public AbstractAccess getExpression() {
+		return expression;
 	}
 }

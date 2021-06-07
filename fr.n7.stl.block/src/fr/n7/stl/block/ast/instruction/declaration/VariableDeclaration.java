@@ -204,4 +204,12 @@ public class VariableDeclaration implements Declaration, Instruction {
 		return fragment;
 	}
 
+	/**
+	 * Value déclarée initialement
+	 *
+	 * @return
+	 */
+	public Expression getValue() {
+		return value;
+	}
 }
