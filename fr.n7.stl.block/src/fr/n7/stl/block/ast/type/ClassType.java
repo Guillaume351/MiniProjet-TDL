@@ -29,7 +29,15 @@ public class ClassType implements Type {
 
   @Override
   public boolean compatibleWith(Type _other) {
-    // TODO Auto-generated method stub
+    // TODO : gérer les interfaces ?
+    if (_other instanceof ClassType) {
+      if (((ClassType) _other).getClassDeclaration() == this.getClassDeclaration()) {
+        return true;
+      } else {
+        Logger.error("ClassType : Les types de ClassDeclarations ne matchent pas : " +
+                this.getClassDeclaration() + " et " + ((ClassType) _other).getClassDeclaration());
+      }
+    }
     return false;
   }
 
@@ -70,4 +78,7 @@ public class ClassType implements Type {
     return classDeclaration;
   }
 
+  public void setClassDeclaration(ClassDeclaration classDeclaration) {
+    this.classDeclaration = classDeclaration;
+  }
 }
