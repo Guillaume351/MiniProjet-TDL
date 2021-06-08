@@ -39,7 +39,7 @@ public class ClassInstanciation implements Expression {
     }
     this.classDeclaration = (ClassDeclaration) _scope.get(classType.getClassName());
     this.classType.setClassDeclaration(this.classDeclaration);
-    return params.stream().allMatch(param -> param.resolve(_scope));
+    return params.stream().allMatch(param -> param.resolve(_scope)) && this.classDeclaration.matchingConstructorWithParameters(params);
   }
 
   @Override

@@ -157,4 +157,24 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
     public void registerConstructor(ConstructorDeclarationElement constructorDeclarationElement) {
         constructors.add(constructorDeclarationElement);
     }
+
+    public boolean matchingConstructorWithParameters(List<Expression> parameters) {
+        for (ConstructorDeclarationElement constructor : this.getConstructors()) {
+            boolean ok = true; // :) :) :)
+            if (constructor.getNumberOfArguments() == parameters.size()) {
+                for (int i = 0; i < constructor.getNumberOfArguments(); i++) {
+                    if (!constructor.getParametres().get(i).getType().compatibleWith(parameters.get(i).getType())) {
+                        ok = false;
+                    }
+                }
+                if (ok) { // Je ne suis pas peu fier
+                    return ok;
+                }
+            }
+        }
+
+        Logger.error("ClassDeclaration : No constructor matching !");
+
+        return false;
+    }
 }
