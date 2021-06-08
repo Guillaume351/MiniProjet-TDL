@@ -1,7 +1,5 @@
 package fr.n7.stl.block.ast.expression.accessible;
 
-import java.util.List;
-
 import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.expression.assignable.VariableAssignment;
 import fr.n7.stl.block.ast.instruction.Instruction;
@@ -14,6 +12,8 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
+
+import java.util.List;
 
 public class MethodAccess implements Expression, Instruction {
 
@@ -100,8 +100,6 @@ public class MethodAccess implements Expression, Instruction {
 
   @Override
   public Type getType() {
-    // TODO : verifier que les types des parametres reels collent avec la signature
-    // de la methode
     throw new RuntimeException("Unimplemented");
   }
 
@@ -112,6 +110,8 @@ public class MethodAccess implements Expression, Instruction {
 
   @Override
   public boolean checkType() {
+    // TODO : verifier que les types des parametres reels collent avec la signature
+    // de la methode
     throw new RuntimeException("Unimplemented");
   }
 
