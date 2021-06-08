@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import fr.n7.stl.block.ast.instruction.Instruction;
+import fr.n7.stl.block.ast.instruction.declaration.ParameterDeclaration;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.ConstructorDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
@@ -54,7 +55,14 @@ public class ConstructorCall implements Instruction {
 
   @Override
   public boolean checkType() {
-    throw new RuntimeException();
+    List<ParameterDeclaration> ctorParams = this.constructorToCall.getParametres();
+    for (int i = 0; i < parametres.size(); i++) {
+      if (!ctorParams.get(i).getType().compatibleWith(parametres.get(i).getType())) {
+        Logger.error("Parameter " + i + " incompatible in this() call.");
+        return false;
+      }
+    }
+    return true;
   }
 
   @Override

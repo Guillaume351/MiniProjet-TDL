@@ -103,7 +103,7 @@ public class ParameterDeclaration implements Declaration, Instruction {
 
 	@Override
 	public boolean checkType() {
-		throw new RuntimeException("Unimplemented");
+		return true;
 	}
 
 	@Override
