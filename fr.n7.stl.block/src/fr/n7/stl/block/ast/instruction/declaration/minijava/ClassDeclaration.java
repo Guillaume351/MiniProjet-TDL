@@ -63,7 +63,7 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
 
     @Override
     public boolean checkType() {
-        return true;
+        return this.bodyElements.stream().allMatch(element -> element.checkType());
     }
 
     @Override
