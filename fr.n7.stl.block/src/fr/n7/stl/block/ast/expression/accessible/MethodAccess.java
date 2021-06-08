@@ -77,7 +77,7 @@ public class MethodAccess implements Expression, Instruction {
       if (!declaration.containsMethodNamed(etiquette)) {
         Logger.error("MethodAccess: la méthode est introuvable ! : " + etiquette);
       } else {
-        this.methodDeclaration = declaration.methodDeclarationNamed(etiquette);
+        this.methodDeclaration = declaration.methodDeclarationNamed(etiquette, parametres);
       }
 
 
@@ -96,7 +96,7 @@ public class MethodAccess implements Expression, Instruction {
       if (!declaration.containsMethodNamed(etiquette)) {
         Logger.error("MethodAccess: la méthode est introuvable ! : " + etiquette);
       } else {
-        this.methodDeclaration = declaration.methodDeclarationNamed(etiquette);
+        this.methodDeclaration = declaration.methodDeclarationNamed(etiquette, parametres);
       }
 
       // TODO keep the method in a prop
@@ -120,9 +120,7 @@ public class MethodAccess implements Expression, Instruction {
 
   @Override
   public boolean checkType() {
-    // TODO : verifier que les types des parametres reels collent avec la signature
-    // de la methode
-    throw new RuntimeException("Unimplemented");
+    return true; // La verification de type est faite dans le resolve en fait. (methodDeclarationNamed verifie param par param)
   }
 
   @Override

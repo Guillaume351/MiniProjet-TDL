@@ -1,7 +1,9 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
+import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
+import fr.n7.stl.block.ast.instruction.declaration.Signature;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.OwnedHierarchicalScope;
@@ -10,6 +12,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,12 +130,27 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
     }
 
     //TODO : match les paramètres ? + dé-redondanter le code
-    public MethodDeclarationElement methodDeclarationNamed(String etiquette) {
+    public MethodDeclarationElement methodDeclarationNamed(String etiquette, List<Expression> parametres) {
         for (MethodDeclarationElement methodDeclarationElement : this.getAllMethods()) {
             if ((methodDeclarationElement).getName().equals(etiquette)) {
-                return methodDeclarationElement;
+                Signature signature = methodDeclarationElement.getSignature();
+
+                if (signature.getParameters().size() == parametres.size()) {
+                    boolean ok = true; // :)
+                    for (int i = 0; i < parametres.size(); i++) {
+                        if (!signature.getParameters().get(i).getType().compatibleWith(parametres.get(i).getType())) {
+                            ok = false;
+                            continue;
+                        }
+                    }
+                    if (ok) {
+                        return methodDeclarationElement;
+                    }
+                }
             }
         }
+
+        Logger.error("ClassDeclaration : Pas de methode qui colle avec etiquette/parametres");
         return null;
     }
 
