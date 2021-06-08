@@ -92,8 +92,7 @@ public class MethodDeclarationElement extends ClassElement {
 
     @Override
     public boolean checkType() {
-        // TODO : verifier que le type de retour du body est celui declare
-        throw new RuntimeException("Unimplemented");
+        return this.body.checkType();
     }
 
     @Override

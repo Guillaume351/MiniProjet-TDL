@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.instruction;
 
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.MethodDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.OwnedHierarchicalScope;
@@ -70,6 +71,11 @@ public class Return implements Instruction {
 	 */
 	@Override
 	public boolean resolve(HierarchicalScope<Declaration> _scope) {
+		if (!(owner instanceof MethodDeclarationElement)) {
+			Logger.error("Cannot place return here.");
+			return false;
+		}
+		returnType = ((MethodDeclarationElement) owner).getType();
 		return this.value.resolve(_scope);
 	}
 
@@ -82,7 +88,12 @@ public class Return implements Instruction {
 	public boolean checkType() {
 		Type te = this.value.getType();
 
-		return te.compatibleWith(this.returnType);
+		if (!te.compatibleWith(this.returnType)) {
+			Logger.error("Cannot return type " + te);
+			return false;
+		}
+
+		return true;
 
 	}
 

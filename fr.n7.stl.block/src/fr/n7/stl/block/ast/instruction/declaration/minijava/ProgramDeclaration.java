@@ -1,5 +1,8 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.AbstractDeclarationElement;
@@ -10,9 +13,6 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProgramDeclaration extends AbstractDeclarationElement implements Instruction, Declaration {
 
@@ -62,8 +62,7 @@ public class ProgramDeclaration extends AbstractDeclarationElement implements In
 
   @Override
   public Fragment getCode(TAMFactory _factory) {
-    // TODO Auto-generated method stub
-    return null;
+    throw new RuntimeException("Unimplemented");
   }
 
 }
