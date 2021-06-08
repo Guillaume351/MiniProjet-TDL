@@ -4,6 +4,7 @@ import fr.n7.stl.block.ast.expression.Expression;
 import fr.n7.stl.block.ast.expression.assignable.VariableAssignment;
 import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.instruction.declaration.minijava.ClassDeclaration;
+import fr.n7.stl.block.ast.instruction.declaration.minijava.MethodDeclarationElement;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.ClassType;
@@ -24,6 +25,8 @@ public class MethodAccess implements Expression, Instruction {
   List<Expression> parametres;
 
   boolean ignoreReturnValue;
+
+  MethodDeclarationElement methodDeclaration;
 
   public MethodAccess(Expression expression, String etiquette, List<Expression> parametres) {
     this(expression, etiquette, parametres, false);
@@ -71,8 +74,12 @@ public class MethodAccess implements Expression, Instruction {
       typeDeClasse.resolve(_scope);
       ClassDeclaration declaration = typeDeClasse.getClassDeclaration();
 
-      if (!declaration.containsMethodNamed(etiquette))
+      if (!declaration.containsMethodNamed(etiquette)) {
         Logger.error("MethodAccess: la méthode est introuvable ! : " + etiquette);
+      } else {
+        this.methodDeclaration = declaration.methodDeclarationNamed(etiquette);
+      }
+
 
       return true;
     }
@@ -86,8 +93,11 @@ public class MethodAccess implements Expression, Instruction {
 
       ClassDeclaration declaration = ((ClassType) var.getType()).getClassDeclaration();
 
-      if (!declaration.containsMethodNamed(etiquette))
+      if (!declaration.containsMethodNamed(etiquette)) {
         Logger.error("MethodAccess: la méthode est introuvable ! : " + etiquette);
+      } else {
+        this.methodDeclaration = declaration.methodDeclarationNamed(etiquette);
+      }
 
       // TODO keep the method in a prop
       return true;
@@ -100,7 +110,7 @@ public class MethodAccess implements Expression, Instruction {
 
   @Override
   public Type getType() {
-    throw new RuntimeException("Unimplemented");
+    return this.methodDeclaration.getType();
   }
 
   @Override
