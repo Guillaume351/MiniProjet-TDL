@@ -86,7 +86,7 @@ public class PropertyAccess implements Expression {
 
     @Override
     public Type getType() {
-        throw new RuntimeException("Unimplemented");
+        return this.attribute.getType();
     }
 
     @Override
