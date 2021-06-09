@@ -7,6 +7,7 @@ import fr.n7.stl.block.ast.type.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import java.util.Iterator;
 
 import java.util.List;
 
@@ -38,6 +39,19 @@ public class Signature implements Instruction, Declaration {
         this.name = _name;
         this.type = _type;
         this.parameters = _parameters;
+    }
+
+    @Override
+    public String toString(){
+        String _result = "";
+		Iterator<ParameterDeclaration> _iter = this.parameters.iterator();
+		if (_iter.hasNext()) {
+			_result += _iter.next();
+			while (_iter.hasNext()) {
+				_result += ", " + _iter.next();
+			}
+		}
+        return this.type + " " + this.name + "(" + _result + ")"; 
     }
 
     @Override

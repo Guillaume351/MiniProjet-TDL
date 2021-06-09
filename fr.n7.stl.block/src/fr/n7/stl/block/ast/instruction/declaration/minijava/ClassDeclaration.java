@@ -50,6 +50,11 @@ public class ClassDeclaration extends AbstractDeclarationElement implements Inst
     }
 
     @Override
+    public String toString(){
+        return "class " + this.name + " implements " + this.identifiantsInterfaces + " { " + this.bodyElements + " }" + ";\n";
+    }
+
+    @Override
     public boolean collect(HierarchicalScope<Declaration> _scope) {
         _scope.register(this);
         scope = new OwnedSymbolTable(_scope, this);

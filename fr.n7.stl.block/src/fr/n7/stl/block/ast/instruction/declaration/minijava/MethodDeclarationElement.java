@@ -46,6 +46,12 @@ public class MethodDeclarationElement extends ClassElement {
     }
 
     @Override
+    public String toString(){
+        boolean modifiedAccess = this.accessRight != AccessRight.NOMODIFIER;
+        return (modifiedAccess ? this.accessRight : "") + " " + (this.isAbstract ? "abstract " : "") +(this.isStatic ? "static " : "") +(this.isFinal ? "final " : "") + this.signature + this.body + "\n"; 
+    }
+
+    @Override
     public Type getType() {
         return signature.getType();
     }

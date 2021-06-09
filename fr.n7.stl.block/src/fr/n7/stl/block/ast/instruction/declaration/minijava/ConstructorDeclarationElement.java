@@ -14,6 +14,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.util.Logger;
+import java.util.Iterator;
 
 public class ConstructorDeclarationElement extends ClassElement {
 
@@ -39,6 +40,20 @@ public class ConstructorDeclarationElement extends ClassElement {
         }
 
         this.body = body;
+    }
+
+    @Override
+    public String toString(){
+        boolean modifiedAccess = this.accessRight != AccessRight.NOMODIFIER;
+        String _result = "";
+		Iterator<ParameterDeclaration> _iter = this.parametres.iterator();
+		if (_iter.hasNext()) {
+			_result += _iter.next();
+			while (_iter.hasNext()) {
+				_result += ", " + _iter.next();
+			}
+		}
+        return (modifiedAccess ? this.accessRight : "") + " " + this.name + "(" + _result + ")" + this.body + "\n"; 
     }
 
     @Override

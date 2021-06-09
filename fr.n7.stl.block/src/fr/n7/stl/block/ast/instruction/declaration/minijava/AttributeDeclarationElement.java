@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast.instruction.declaration.minijava;
 
 import fr.n7.stl.block.ast.expression.Expression;
+import fr.n7.stl.block.ast.scope.AccessRight;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.type.Type;
@@ -48,6 +49,11 @@ public class AttributeDeclarationElement extends ClassElement {
         super(identifiant);
         this.type = type;
         this.isFinal = isFinal;
+    }
+
+    public String toString(){
+        boolean modifiedAccess = this.accessRight != AccessRight.NOMODIFIER;
+        return (modifiedAccess ? this.accessRight : "") + " " + (this.isFinal ? "final " : "") + this.name + " = " + this.value + "\n";    
     }
 
     @Override

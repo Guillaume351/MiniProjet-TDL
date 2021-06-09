@@ -37,7 +37,7 @@ public class InterfaceDeclaration extends AbstractDeclarationElement implements 
      */
     @Override
     public String toString() {
-        return "interface" + this.name + " { " + this.elements + " } " + ";\n";
+        return "interface " + this.name + " { " + this.elements + " } " + ";\n";
     }
 
     @Override
